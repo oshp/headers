@@ -10,6 +10,8 @@ Eg.: $ python headers.py top-1k.csv 200<br>
 headers.sql<br>
 MySQL database scheme exported with the command below:<br>
 $ mysqldump -u root -p --no-data headers header header_name header_value site > headers.sql<br>
+To import you can use this command:<br>
+$ mysql -u username -p headers < headers.sql<br>
 </p>
 <p>
 top-1k.csv<br>
