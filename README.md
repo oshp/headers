@@ -20,4 +20,6 @@ Just an Alexa top sites file example with 1000 records.<br>
 <p>
 www/<br>
 PHP pages with Highcharts graphics.<br>
+Eg.:<br>
+<img src="strict-transport-security.png"><br>
 </p>
