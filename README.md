@@ -17,3 +17,7 @@ $ mysql -u username -p headers < headers.sql<br>
 top-1k.csv<br>
 Just an Alexa top sites file example with 1000 records.<br>
 </p>
+<p>
+www/<br>
+PHP pages with Highcharts graphics.<br>
+</p>
