@@ -27,16 +27,16 @@ Table: header</pre>
 <p>
 <h3>headers.sql</h3>
 MySQL database scheme exported with the command below:<br>
-$ mysqldump -u root -p --no-data headers header header_name header_value site > headers.sql<br>
+<pre>$ mysqldump -u root -p --no-data headers header header_name header_value site > headers.sql</pre>
 To import you can use this command:<br>
-$ mysql -u username -p headers < headers.sql<br>
+<pre>$ mysql -u username -p headers < headers.sql</pre>
 </p>
 <p>
 <h3>headers-top-1k.sql</h3>
 MySQL database with 1000 sites exported with the command below:<br>
-$ mysqldump -u root -p headers header header_name header_value site > headers-top-1k.sql<br>
+<pre>$ mysqldump -u root -p headers header header_name header_value site > headers-top-1k.sql</pre>
 To import you can use this command:<br>
-$ mysql -u username -p headers < headers-top-1k.sql<br>
+<pre>$ mysql -u username -p headers < headers-top-1k.sql</pre>
 </p>
 <p>
 <h3>top-1k.csv</h3>
