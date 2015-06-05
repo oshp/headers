@@ -5,14 +5,38 @@ But in practice how the headers are being implemented? What sites follow the bes
 <h3>headers.py</h3>
 Python script to get all response headers from Alexa top sites file and store in a MySQL database.<br>
 Syntax: $ python headers.py (Alexa csv top sites file) (Number of concurrent threads)<br>
-Eg.: $ python headers.py top-1k.csv 200<br>
+Eg.:<br>
+<pre>$ python headers.py top-1k.csv 200
+Thread pool 1 ( 0 - 200 )
+Thread pool 2 ( 200 - 400 )
+Thread pool 3 ( 400 - 600 )
+Thread pool 4 ( 600 - 800 )
+Thread pool 5 ( 800 - 1000 )
+
+Connections summary 
+https: 366 
+http: 579 
+error: 55
+
+Populating MySQL tables
+Table: site
+Table: header_value
+Table: header_name
+Table: header</pre>
 </p>
 <p>
 <h3>headers.sql</h3>
 MySQL database scheme exported with the command below:<br>
-$ mysqldump -u root -p --no-data headers header header_name header_value site > headers.sql<br>
+<pre>$ mysqldump -u root -p --no-data headers header header_name header_value site > headers.sql</pre>
 To import you can use this command:<br>
-$ mysql -u username -p headers < headers.sql<br>
+<pre>$ mysql -u username -p headers < headers.sql</pre>
+</p>
+<p>
+<h3>headers-top-1k.sql</h3>
+MySQL database with 1000 sites exported with the command below:<br>
+<pre>$ mysqldump -u root -p headers header header_name header_value site > headers-top-1k.sql</pre>
+To import you can use this command:<br>
+<pre>$ mysql -u username -p headers < headers-top-1k.sql</pre>
 </p>
 <p>
 <h3>top-1k.csv</h3>
