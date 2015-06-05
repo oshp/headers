@@ -41,6 +41,8 @@ def connection(url):
         return str(error), -2, ''
     except httplib.BadStatusLine, error:
         return str(error), -3, ''
+    except httplib.HTTPException, error:
+        return str(error), -4, ''
     else:
         return response.geturl(), response.getcode(), response.info().items()
 
@@ -102,7 +104,7 @@ def get_dictsites(filename):
     return dictsites
 
 def populate_mysql(site_table, header_name_table, header_value_table, header_table):
-    print 'Populating MySQL tables'
+    print '\nPopulating MySQL tables'
     conn = mysql.connector.connect(user='root', password='password', host='127.0.0.1', database='headers')
     cursor = conn.cursor()
     print 'Table: site'
@@ -138,11 +140,14 @@ def main():
     dictsites = get_dictsites(filename)
     sites = len(dictsites)
     start = 0
+    thread = 1
     while (start < sites):
+        print 'Thread pool', thread, '(', start, '-', start+num_threads, ')'
+        thread += 1
         threads = [gevent.spawn(work_headers, item) for item in dictsites.items()[start:start+num_threads]]
         gevent.joinall(threads)
         start += num_threads
-    print '\n', 'Connections summary', '\n', 'https:', chttps, '\n', 'http:', chttp, '\n', 'error:', cerror, '\n'
+    print '\nConnections summary', '\n', 'https:', chttps, '\n', 'http:', chttp, '\n', 'error:', cerror
     populate_mysql(site_table, header_name_table, header_value_table, header_table)
 
 if __name__ == '__main__':
