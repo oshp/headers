@@ -29,7 +29,10 @@ Table: header</pre>
 MySQL database scheme exported with the command below:<br>
 <pre>$ mysqldump -u root -p --no-data headers header header_name header_value site > headers.sql</pre>
 To import you can use this command:<br>
-<pre>$ mysql -u username -p headers < headers.sql</pre>
+<pre>
+$ echo "create database headers" | mysql -u root -p
+$ mysql -u root -p headers < headers.sql
+</pre>
 </p>
 <p>
 <h3>headers-top-1k.sql</h3>
