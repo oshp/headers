@@ -94,7 +94,7 @@ mysql_close($con);
 ?>
 </select>
 <br>
-<form action="." method="get" id="header">
+<form action="index.php" method="get" id="header">
   Top headers value:
 <select name="limit" form="header">
   <option<?php if ( $_GET["limit"] == 3 ) { echo ' selected'; } ?>>3</option>
