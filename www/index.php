@@ -1,30 +1,33 @@
-<!DOCTYPE HTML>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>Headers</title>
-        <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
-        <script type="text/javascript">
-        $(document).ready(function() {
-            var options = {
-                chart: {
-                    renderTo: 'container',
-                    plotBackgroundColor: null,
-                    plotBorderWidth: null,
-                    plotShadow: false
-                },
-                title: {
-                    text: 'Header <?php echo $_GET["header"] ?>'
-                },
-                tooltip: {
-                    formatter: function() {
-                        return '<b>'+ this.point.name +'</b> = '+ this.point.y;
-                    }
-                },
-                plotOptions: {
-                    pie: {
-                        allowPointSelect: true,
-                        cursor: 'pointer',
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<title>Headers</title>
+		<script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script>
+		<script type="text/javascript">
+
+$.getJSON('data.php?header=<?php echo $_GET["header"] ?>&limit=<?php if ( $_GET["limit"] == '' ) { echo 10; } else { echo $_GET["limit"]; } ?>&includenull=<?php echo $_GET["includenull"] ?>', function (data) {
+    $('#container').highcharts({
+        chart: {
+            type: 'pie',
+            options3d: {
+                enabled: true,
+                alpha: 45,
+                beta: 0
+            }
+        },
+        title: {
+            text: 'Header <?php echo $_GET["header"] ?>'
+        },
+        tooltip: {
+		formatter: function() {
+			return '<b>'+ this.point.name +'</b> = '+ this.point.y;
+		}
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                depth: 35,
 	                point: {
 	                    events: {
 	                        click: function () {
@@ -40,30 +43,23 @@
                                 return '<b>'+ this.point.name.substring(0, 100) +'</b> = '+ this.percentage.toFixed(2) +' %';
                             }
                         }
-                    }
-                },
-                series: [{
-                    type: 'pie',
-                    name: 'Browser share',
-                    data: []
-                }]
             }
-           
-            $.getJSON("data.php?header=<?php echo $_GET["header"] ?>&limit=<?php if ( $_GET["limit"] == '' ) { echo 10; } else { echo $_GET["limit"]; } ?>&includenull=<?php echo $_GET["includenull"] ?>", function(json) {
-                options.series[0].data = json;
-                chart = new Highcharts.Chart(options);
-            });
-           
-           
-           
-        });  
-        </script>
-        <script src="js/highcharts.js"></script>
-        <script src="js/modules/exporting.js"></script>
-    </head>
-    <body>
-        <div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+        },
+        series: [{
+            type: 'pie',
+            name: 'Headers',
+            data: data
+        }]
+    });
+});
 
+		</script>
+	</head>
+	<body>
+		<script src="https://code.highcharts.com/highcharts.js"></script>
+		<script src="https://code.highcharts.com/highcharts-3d.js"></script>
+		<script src="https://code.highcharts.com/modules/exporting.js"></script>
+		<div id="container" style="height: 400px" data-highcharts-chart="0"></div>
 
 Header: <select name="header" form="header" value="content-type">
 <?php
@@ -108,5 +104,5 @@ mysql_close($con);
   <input type="submit" value="Submit">
 </form>
 
-</body>
+	</body>
 </html>
