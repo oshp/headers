@@ -104,9 +104,18 @@ def get_dictsites(filename):
     return dictsites
 
 def populate_mysql(site_table, header_name_table, header_value_table, header_table):
-    print '\nPopulating MySQL tables'
     conn = mysql.connector.connect(user='root', password='password', host='127.0.0.1', database='headers')
     cursor = conn.cursor()
+    print '\nCleaning MySQL tables'
+    print 'Table: header'
+    cursor.execute('DELETE FROM headers.header WHERE header_id>0;')
+    print 'Table: site'
+    cursor.execute('DELETE FROM headers.site WHERE site_id>0;')
+    print 'Table: header_value'
+    cursor.execute('DELETE FROM headers.header_value WHERE header_value_id>0;')
+    print 'Table: header_name'
+    cursor.execute('DELETE FROM headers.header_name WHERE header_name_id>0;')
+    print '\nPopulating MySQL tables'
     print 'Table: site'
     for site_id in site_table.keys():
         site = site_table[site_id][0]
