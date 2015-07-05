@@ -10,9 +10,9 @@ if (!mysql_select_db('headers', $link)) {
 }
 
 if ($_GET["value"] == 'NULL') {
-	$sql    = 'SELECT url AS `' . mysql_real_escape_string($_GET["header"]) . '` FROM site WHERE site.code >= 0 AND site.site_id NOT IN (SELECT site.site_id FROM site JOIN header, header_value, header_name WHERE site.site_id = header.site_id AND header.header_name_id = header_name.header_name_id AND header.header_value_id = header_value.header_value_id AND header_name.name = \'' . mysql_real_escape_string($_GET["header"]) . '\') ORDER BY site.site_id;';
+	$sql    = 'SELECT site, url FROM site WHERE site.code >= 0 AND site.site_id NOT IN (SELECT site.site_id FROM site JOIN header, header_value, header_name WHERE site.site_id = header.site_id AND header.header_name_id = header_name.header_name_id AND header.header_value_id = header_value.header_value_id AND header_name.name = \'' . mysql_real_escape_string($_GET["header"]) . '\') ORDER BY site.site_id;';
 } else {
-	$sql    = 'SELECT url, header_value.value AS \'' . mysql_real_escape_string($_GET["header"]) . '\' FROM site JOIN header, header_value, header_name WHERE site.site_id = header.site_id AND header.header_name_id = header_name.header_name_id AND header.header_value_id = header_value.header_value_id AND header_name.name = \'' . mysql_real_escape_string($_GET["header"]) . '\' AND header_value.value = \'' . mysql_real_escape_string($_GET["value"]) . '\' ORDER BY site.site_id;';
+	$sql    = 'SELECT site, url, header_value.value AS \'' . mysql_real_escape_string($_GET["header"]) . '\' FROM site JOIN header, header_value, header_name WHERE site.site_id = header.site_id AND header.header_name_id = header_name.header_name_id AND header.header_value_id = header_value.header_value_id AND header_name.name = \'' . mysql_real_escape_string($_GET["header"]) . '\' AND header_value.value = \'' . mysql_real_escape_string($_GET["value"]) . '\' ORDER BY site.site_id;';
 }
 
 $result = mysql_query($sql, $link);
