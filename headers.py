@@ -8,7 +8,7 @@ import httplib
 import gevent
 from gevent import monkey; monkey.patch_all()
 import mysql.connector
-from mysql.connector import errorcode
+#from mysql.connector import errorcode
 
 __author__ = 'Ricardo Iramar dos Santos'
 chttps = 0
