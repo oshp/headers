@@ -18,6 +18,12 @@ https: 366
 http: 579 
 error: 55
 
+Cleaning MySQL tables
+Table: header
+Table: site
+Table: header_value
+Table: header_name
+
 Populating MySQL tables
 Table: site
 Table: header_value
