@@ -1,4 +1,6 @@
 <?php
+echo $_GET["site"] . "<br><br>";
+
 $link = mysql_connect('localhost', 'root', 'password');
 if (!$link) {
     die('Não foi possível conectar: ' . mysql_error());
@@ -9,12 +11,7 @@ if (!mysql_select_db('headers', $link)) {
     exit;
 }
 
-if ($_GET["value"] == 'NULL') {
-	$sql    = 'SELECT site, url FROM site WHERE site.code >= 0 AND site.site_id NOT IN (SELECT site.site_id FROM site JOIN header, header_value, header_name WHERE site.site_id = header.site_id AND header.header_name_id = header_name.header_name_id AND header.header_value_id = header_value.header_value_id AND header_name.name = \'' . mysql_real_escape_string($_GET["header"]) . '\') ORDER BY site.site_id;';
-} else {
-	$sql    = 'SELECT site, url, header_value.value AS \'' . mysql_real_escape_string($_GET["header"]) . '\' FROM site JOIN header, header_value, header_name WHERE site.site_id = header.site_id AND header.header_name_id = header_name.header_name_id AND header.header_value_id = header_value.header_value_id AND header_name.name = \'' . mysql_real_escape_string($_GET["header"]) . '\' AND header_value.value = \'' . mysql_real_escape_string($_GET["value"]) . '\' ORDER BY site.site_id;';
-}
-
+$sql = 'SELECT header_name.name, header_value.value FROM site JOIN header, header_value, header_name WHERE site = \'' . $_GET["site"] . '\' AND site.site_id = header.site_id AND header.header_name_id = header_name.header_name_id AND header.header_value_id = header_value.header_value_id;';
 $result = mysql_query($sql, $link);
 
 if (!$result) {
@@ -45,7 +42,7 @@ while($row = mysql_fetch_row($result))
                   echo "NULL";
                 } else {
 					if ($key == 0) {
-						echo "<a href=\"site.php?site=$cell\">$cell</a>";
+						echo "<a href=\"header.php?header=$cell\">$cell</a>";
 					} else {
 						echo "$cell";
 					}
