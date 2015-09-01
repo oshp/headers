@@ -11,7 +11,7 @@ if (!mysql_select_db('headers', $link)) {
     exit;
 }
 
-$sql = 'SELECT header_name.name, header_value.value FROM site JOIN header, header_value, header_name WHERE site = \'' . $_GET["site"] . '\' AND site.site_id = header.site_id AND header.header_name_id = header_name.header_name_id AND header.header_value_id = header_value.header_value_id;';
+$sql = 'SELECT url, header_name.name, header_value.value FROM site JOIN header, header_value, header_name WHERE site = \'' . $_GET["site"] . '\' AND site.site_id = header.site_id AND header.header_name_id = header_name.header_name_id AND header.header_value_id = header_value.header_value_id;';
 $result = mysql_query($sql, $link);
 
 if (!$result) {
@@ -41,7 +41,7 @@ while($row = mysql_fetch_row($result))
                 if ($cell === NULL) {
                   echo "NULL";
                 } else {
-					if ($key == 0) {
+					if ($key == 1) {
 						echo "<a href=\"header.php?header=$cell\">$cell</a>";
 					} else {
 						echo "$cell";
