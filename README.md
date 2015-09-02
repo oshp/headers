@@ -39,6 +39,8 @@ To import you can use this command:<br>
 $ echo "create database headers" | mysql -u root -p
 $ mysql -u root -p headers < headers.sql
 </pre>
+This is the database structure:<br>
+<img src="DB_Structure.png">
 </p>
 <p>
 <h3>headers-top-1k.sql</h3>
