@@ -57,7 +57,5 @@ Just an Alexa top sites file example with 1000 records.<br>
 <h3>www/</h3>
 PHP pages with Highcharts graphics.<br>
 Eg.:<br>
-<img src="strict-transport-security.png"><br>
-Weekly I tried to get all headers from 1k top Alexa sites and take the screenshot of the graphics for some security headers.<br>
-The results are here: <a href="http://ricardo-iramar.com.br/headers/" target="_blank">http://ricardo-iramar.com.br/headers/</a>
+<img src="strict-transport-security.png">
 </p>
