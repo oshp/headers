@@ -1,3 +1,5 @@
+<a href="https://codeclimate.com/github/amenezes/headers"><img src="https://codeclimate.com/github/amenezes/headers/badges/gpa.svg" /></a>
+
 <h1>HTTP response headers</h1>
 HTTP headers are well known and also despised. Seeking the balance between usability and security developers implement functionality through the headers that can make your more versatile or secure application.<br>
 But in practice how the headers are being implemented? What sites follow the best implementation practices? Big companies, small, all or none?<br>
@@ -13,9 +15,9 @@ Thread pool 3 ( 400 - 600 )
 Thread pool 4 ( 600 - 800 )
 Thread pool 5 ( 800 - 1000 )
 
-Connections summary 
-https: 366 
-http: 579 
+Connections summary
+https: 366
+http: 579
 error: 55
 
 Cleaning MySQL tables
