@@ -153,6 +153,7 @@ def main():
     parser.add_argument(
         '-t',
         '--threads',
+        type=int,
         default=DEFAULT_THREADS_NUMBER,
         help='Number of threads to make parallel request.'
     )
