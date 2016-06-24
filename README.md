@@ -9,20 +9,20 @@ But in practice how the headers are being implemented? What sites follow the bes
 A python script to get all response headers from a file and store in a MySQL database.  
 
 Usage:  
-<code>
+```
 $ python headers.py -h  
+
 usage: headers.py [-h] [-f FILENAME] [-t THREADS]  
-  
+
 Headers will get all response headers from Alexa top sites.
-  
 optional arguments:
   -h, --help                        show this help message and exit.  
   -f FILENAME, --filename FILENAME  filename with list of sites.  
   -t THREADS, --threads THREADS     number of threads to make parallel requests.  
-</code>
+```
 
 Eg.:  
-<code>
+```
 $ python headers.py -f topsites_global.csv -t 200
 Thread pool 1 ( 0 - 200 )
 Thread pool 2 ( 200 - 400 )
@@ -46,24 +46,24 @@ Table: site
 Table: header_value
 Table: header_name
 Table: header
-</code>
+```
 
 ### headers.sql
 MySQL database scheme exported with the command below:  
-<code>$ mysqldump -u root -p --no-data headers header header_name header_value site > headers.sql</code>
+```$ mysqldump -u root -p --no-data headers header header_name header_value site > headers.sql```
 To import you can use this command:  
-<code>
+```
 $ echo "create database headers" | mysql -u root -p
 $ mysql -u root -p headers < headers.sql
-</code>
+```
 This is the database structure:  
-<img src="conf/DB_Structure.png">
+![Database Structure](docs/DB_Structure.png)
 
 ### headers-top-1k.sql
 MySQL database with 1000 sites exported with the command below:  
-<code>$ mysqldump -u root -p headers header header_name header_value site > headers-top-1k.sql</code>
+```$ mysqldump -u root -p headers header header_name header_value site > headers-top-1k.sql```
 To import you can use this command:  
-<code>$ mysql -u username -p headers < headers-top-1k.sql</code>
+```$ mysql -u username -p headers < headers-top-1k.sql```
 
 ### topsites_global.csv
 Just an Alexa top sites file example with 1000 records.  
@@ -71,4 +71,4 @@ Just an Alexa top sites file example with 1000 records.
 ### html
 PHP pages with Highcharts graphics.  
 Eg.:  
-<img src="conf/strict-transport-security.png">
+![Strict-Transport-Security Header](docs/strict-transport-security.png)
