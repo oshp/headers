@@ -84,7 +84,8 @@ Just an Alexa top sites file example with 1000 records.
 #### sql  
 ##### headers.sql  
 MySQL database scheme exported with the command below:  
-```$ mysqldump -u root -p --no-data headers header header_name header_value site > headers.sql```
+```$ mysqldump -u root -p --no-data headers header header_name header_value site > headers.sql```  
+
 To import you can use this command:  
 ```
 $ echo "create database headers" | mysql -u root -p
@@ -95,11 +96,13 @@ This is the database structure:
 
 ##### headers-topsites_global.sql
 MySQL database with 1000 sites exported with the command below:  
-```$ mysqldump -u root -p headers header header_name header_value site > headers-top-1k.sql```
+```$ mysqldump -u root -p headers header header_name header_value site > headers-top-1k.sql```  
+
 To import you can use this command:  
 ```$ mysql -u username -p headers < headers-top-1k.sql```
 
 ### html
 PHP pages with Highcharts graphics.  
+
 Sample page:  
 ![Strict-Transport-Security Header](docs/strict-transport-security.png)
