@@ -5,10 +5,10 @@ HTTP headers are well known and also despised. Seeking the balance between usabi
 
 But in practice how the headers are being implemented? What sites follow the best implementation practices? Big companies, small, all or none?  
 
-### headers.py
+### Description
 A python script to get all response headers from a file and store in a MySQL database.  
 
-Usage:  
+##### Usage:  
 ```
 $ python headers.py -h  
 
@@ -21,7 +21,7 @@ optional arguments:
   -t THREADS, --threads THREADS     number of threads to make parallel requests.  
 ```
 
-Eg.:  
+##### Standard output sample:  
 ```
 $ python headers.py -f topsites_global.csv -t 200
 Thread pool 1 ( 0 - 200 )
@@ -47,8 +47,35 @@ Table: header_value
 Table: header_name
 Table: header
 ```
+##### Dependencies
+List of dependencies:
+* python libs
+  * gevent
+  * mysql-connector
+  * argparse
+  * csv
+* php
+  * php5
+  * php5-mysql
+* mysql-server
+* some web-server
+  * apache2
+  * nginx
+  * lighttpd
+  * ...
 
-### headers.sql
+## Application Structure
+
+### headers.py
+A python script to get all response headers from a file and store result in a MySQL database.  
+
+### conf  
+
+##### topsites_global.csv
+Just an Alexa top sites file example with 1000 records.  
+
+#### sql  
+##### headers.sql  
 MySQL database scheme exported with the command below:  
 ```$ mysqldump -u root -p --no-data headers header header_name header_value site > headers.sql```
 To import you can use this command:  
@@ -59,16 +86,13 @@ $ mysql -u root -p headers < headers.sql
 This is the database structure:  
 ![Database Structure](docs/DB_Structure.png)
 
-### headers-top-1k.sql
+##### headers-topsites_global.sql
 MySQL database with 1000 sites exported with the command below:  
 ```$ mysqldump -u root -p headers header header_name header_value site > headers-top-1k.sql```
 To import you can use this command:  
 ```$ mysql -u username -p headers < headers-top-1k.sql```
 
-### topsites_global.csv
-Just an Alexa top sites file example with 1000 records.  
-
 ### html
 PHP pages with Highcharts graphics.  
-Eg.:  
+Sample page:  
 ![Strict-Transport-Security Header](docs/strict-transport-security.png)
