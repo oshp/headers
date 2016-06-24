@@ -64,6 +64,13 @@ List of dependencies:
   * lighttpd
   * ...
 
+##### Installation
+* option 1 (_with pip_)  
+```[sudo] pip install requirements-txt```  
+
+* option 2  
+```[sudo] python setup.py install```  
+
 ## Application Structure
 
 ### headers.py
