@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python
 
 import sys
@@ -51,9 +50,6 @@ def get_data(site):
     global chttps, chttp, cerror
     url = 'https://' + site
     newurl, code, headers = connection(url) # Trying HTTPS
-    print newurl
-    print code
-    print ''
     if code < 0:
         url = 'http://' + site
         newurl, code, headers = connection(url) # Trying HTTP
@@ -67,7 +63,6 @@ def get_data(site):
                 chttp += 1 # HTTP OK
     else:
         if urlparse(newurl).scheme == 'http':
-            print urlparse(newurl).scheme
             chttp += 1 # HTTP redirect OK
         else:
             chttps += 1 # HTTPS OK
@@ -165,7 +160,7 @@ def main():
 
     filename = args.filename
     num_threads = args.threads
-    dictsites = get_dictsites()
+    dictsites = get_dictsites(filename)
     sites = len(dictsites)
     start = 0
     thread = 1
