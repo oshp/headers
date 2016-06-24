@@ -1,0 +1,4 @@
+gevent
+mysql-connector
+argparse
+csv

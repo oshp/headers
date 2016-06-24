@@ -5,7 +5,7 @@ from setuptools import setup
 ROOT = os.path.realpath(os.path.join(os.path.dirname(__file__)))
 
 about = {}
-with open(os.path.join(ROOT, "bin", "__about__.py")) as f:
+with open(os.path.join(ROOT, "lib", "__about__.py")) as f:
     exec (f.read(), about)
 
 setup(
@@ -21,5 +21,6 @@ setup(
     'gevent',
     'mysql-connector',
     'argparse',
+    'csv'
   ]
 )

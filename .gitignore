@@ -1,3 +1,3 @@
 *~
 *.py[cod]
-bin/*.py[cod]
+lib/*.py[cod]
