@@ -47,22 +47,16 @@ Table: header_value
 Table: header_name
 Table: header
 ```
-##### Dependencies
-List of dependencies:
-* python libs
-  * gevent
-  * mysql-connector
-  * argparse
-  * csv
-* php
-  * php5
-  * php5-mysql
-* mysql-server
-* some web-server
-  * apache2
-  * nginx
-  * lighttpd
-  * ...
+##### Dependencies  
+
+List of dependencies:  
+
+Python Libs | PHP | Web-Server
+------------ | ------------- | -------------
+gevent | php5 | apache2
+mysql-connector | php5-mysql | nginx
+argparse | -  | lighttpd
+csv | - | -
 
 ##### Installation
 * option 1 (_with pip_)  
