@@ -60,7 +60,7 @@ csv | - | -
 
 ##### Installation
 * option 1 (_with pip_)  
-```[sudo] pip install requirements-txt```  
+```[sudo] pip install -r requirements-txt```  
 
 * option 2  
 ```[sudo] python setup.py install```  
