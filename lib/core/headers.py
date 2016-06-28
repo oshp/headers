@@ -8,6 +8,7 @@ import httplib
 import gevent
 import argparse
 import csv
+import json
 from gevent import monkey; monkey.patch_all()
 import mysql.connector
 
@@ -24,12 +25,17 @@ header_name_id = 0
 header_value_id = 0
 header_id = 0
 
-DEFAULT_THREADS_NUMBER = 50
-DEFAULT_TOPSITES_FILE = 'conf/topsites_global.csv'
+def __init__():
+    global settings
+    settings = load_config()
+
+def load_config():
+    with open('conf/params.json') as settings_file:
+        return json.load(settings_file)
 
 def connection(url):
     req = urllib2.Request(url)
-    req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.65 Safari/537.36')
+    req.add_header('User-Agent', settings['http']['user_agent'])
     req.add_header('Origin', 'http://a.com')
     try:
         response = urllib2.urlopen(req, timeout=3)
@@ -96,15 +102,19 @@ def work_headers(item):
             header_table[header_id] = [site_id, actual_header_name_id, actual_header_value_id]
 
 def get_dictsites(filename):
-    dictsites = {}
+    dictsites = []
     with open(filename, 'rU') as f:
-        reader = csv.DictReader(f)
+        reader = csv.reader(f, delimiter=',')
         for row in reader:
-            dictsites[row['rank']] = row['site']
+            dictsites.append(row)
     return dictsites
 
 def populate_mysql(site_table, header_name_table, header_value_table, header_table):
-    conn = mysql.connector.connect(user='root', password='password', host='127.0.0.1', database='headers')
+    conn = mysql.connector.connect(
+        user=settings['db']['username'],
+        password=settings['db']['password'],
+        host=settings['db']['host'],
+        database=settings['db']['database'])
     cursor = conn.cursor()
     print '\nCleaning MySQL tables'
     print 'Table: header'
@@ -141,20 +151,21 @@ def populate_mysql(site_table, header_name_table, header_value_table, header_tab
     conn.close()
 
 def main():
+    __init__()
     parser = argparse.ArgumentParser(
         description='Headers will get all response headers from Alexa top sites.'
     )
     parser.add_argument(
         '-f',
         '--filename',
-        default=DEFAULT_TOPSITES_FILE,
+        default=settings['general']['topsites_filename'],
         help='Filename with list of sites.'
     )
     parser.add_argument(
         '-t',
         '--threads',
         type=int,
-        default=DEFAULT_THREADS_NUMBER,
+        default=settings['general']['thread_number'],
         help='Number of threads to make parallel request.'
     )
     args = parser.parse_args()
@@ -168,29 +179,8 @@ def main():
     while (start < sites):
         print 'Thread pool', thread, '(', start, '-', start+num_threads, ')'
         thread += 1
-        threads = [gevent.spawn(work_headers, item) for item in dictsites.items()[start:start+num_threads]]
+        threads = [gevent.spawn(work_headers, item) for item in dictsites[start:start+num_threads]]
         gevent.joinall(threads)
         start += num_threads
     print '\nConnections summary', '\n', 'https:', chttps, '\n', 'http:', chttp, '\n', 'error:', cerror
     populate_mysql(site_table, header_name_table, header_value_table, header_table)
-
-#####################################
-#def main():
-#    if len(sys.argv) != 3:
-#        print 'Invalid arguments!'
-#        sys.exit(1)
-#    filename = sys.argv[1]
-#    num_threads = int(sys.argv[2])
-#    dictsites = get_dictsites(filename)
-#####################################
-#    sites = len(dictsites)
-#    start = 0
-#    thread = 1
-#    while (start < sites):
-#        print 'Thread pool', thread, '(', start, '-', start+num_threads, ')'
-#        thread += 1
-#        threads = [gevent.spawn(work_headers, item) for item in dictsites.items()[start:start+num_threads]]
-#        gevent.joinall(threads)
-#        start += num_threads
-#    print '\nConnections summary', '\n', 'https:', chttps, '\n', 'http:', chttp, '\n', 'error:', cerror
-#    populate_mysql(site_table, header_name_table, header_value_table, header_table)

@@ -20,7 +20,6 @@ setup(
   install_requires=[
     'gevent',
     'mysql-connector',
-    'argparse',
-    'csv'
+    'argparse'
   ]
 )

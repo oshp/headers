@@ -1,3 +1,4 @@
 *~
 *.py[cod]
 lib/*.py[cod]
+.swap

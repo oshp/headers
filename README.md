@@ -83,7 +83,7 @@ MySQL database scheme exported with the command below:
 To import you can use this command:  
 ```
 $ echo "create database headers" | mysql -u root -p
-$ mysql -u root -p headers < headers.sql
+$ mysql -u root -p headers < conf/sql/headers.sql
 ```
 This is the database structure:  
 ![Database Structure](docs/DB_Structure.png)
