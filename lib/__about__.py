@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from __future__ import absolute_import, division, print_function
 
 __all__ = [
@@ -6,8 +9,8 @@ __all__ = [
 ]
 
 __title__ = "headers"
-__summary__ = ("Python script to get all http secure headers from Alexa top sites")
-__uri__ = ""
+__summary__ = ("Python script to get all http secure headers from Alexa top sites.")
+__uri__ = "http://github.com/riramar/headers / http://github.com/amenezes"
 
 __version__ = "0.1.1"
 

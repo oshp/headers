@@ -1,4 +1,6 @@
 <a href="https://codeclimate.com/github/amenezes/headers"><img src="https://codeclimate.com/github/amenezes/headers/badges/gpa.svg" /></a>
+[![Build Status](https://travis-ci.org/amenezes/headers.svg?branch=master)](https://travis-ci.org/amenezes/headers)
+[![Dependency Status](https://gemnasium.com/badges/github.com/amenezes/headers.svg)](https://gemnasium.com/github.com/amenezes/headers)
 
 ## HTTP response headers
 HTTP headers are well known and also despised. Seeking the balance between usability and security developers implement functionality through the headers that can make your more versatile or secure application.  
