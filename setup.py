@@ -18,8 +18,8 @@ setup(
   license=about["__license__"],
   packages=[],
   install_requires=[
-    'gevent',
-    'mysql-connector',
-    'argparse'
+    'gevent==1.1.2',
+    'mysql-connector==2.1.3',
+    'argparse==1.4.0'
   ]
 )
