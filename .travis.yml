@@ -5,6 +5,8 @@ python:
   - "3.3"
   - "3.4"
   - "3.5"
+before_install:
+  - pip install --upgrade virtualenv
 install:
   - pip install -r requirements.txt
   - python setup.py -q install
