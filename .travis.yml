@@ -15,3 +15,5 @@ addons:
   apt:
     packages:
     - python-dev
+    - python-setuptools
+    - gcc
