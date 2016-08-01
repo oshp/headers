@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 
-from lib.core.headers import main
+from lib.core import headers
 
 def run():
-    main()
+    app.main()
 
 if __name__ == "__main__":
+    app = headers.Headers()
     run()

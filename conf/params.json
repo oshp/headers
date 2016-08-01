@@ -1,11 +1,12 @@
 {
   "general": {
-    "thread_number": "200",
+    "thread_number": 200,
     "topsites_filename": "conf/topsites_global.csv"
   },
   "http": {
     "user_agent": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.65 Safari/537.36",
-    "timeout": "3"
+    "origin": "http://a.com",
+    "timeout": 3
   },
   "db": {
     "username": "root",
