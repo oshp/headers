@@ -37,14 +37,14 @@ class Headers:
                 header_id += 1
                 if header_name not in header_name_table:
                     header_name_id += 1
-                    header_name_table.append(header_name)
+                    header_name_table.append([header_name_id, header_name])
                     header_name_table_inverted[header_name] = header_name_id
                     actual_header_name_id = header_name_id
                 else:
                     actual_header_name_id = header_name_table_inverted[header_name]
                 if header_value not in header_value_table:
                     header_value_id += 1
-                    header_value_table.append(header_value)
+                    header_value_table.append([header_value_id, header_value])
                     header_value_table_inverted[header_value] = header_value_id
                     actual_header_value_id = header_value_id
                 else:
@@ -77,7 +77,7 @@ class Headers:
         start = 0
         thread = 1
         while (start < sites):
-            print 'Thread pool {} ({} - {})'.format(thread, start, start + num_threads)
+            print('Thread pool {} ({} - {})'.format(thread, start, start + num_threads))
             thread += 1
             threads = [gevent.spawn(self.work_headers, item) for item in dictsites[start:start+num_threads]]
             gevent.joinall(threads)
