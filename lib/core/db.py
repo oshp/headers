@@ -44,8 +44,12 @@ class DB:
         conn = self.get_db_connection()
         cursor = conn.cursor()
         print 'Table: {}'.format(table_name)
-        for x in table:
-            cursor.execute(command, tuple(x))
+        if type(table) is list:
+            for x in table:
+                cursor.execute(command, tuple(x))
+        elif type(table) is dict:
+            for x in table.items():
+                cursor.execute(command, x)
         conn.commit()
         cursor.close()
 
@@ -64,17 +68,17 @@ class DB:
                 site_table
             ],
             [
-                'INSERT INTO `headers`.`header_value` (`header_value_id`, `value`) VALUES (%s, %s)',
+                'INSERT INTO `headers`.`header_value` (`value`, `header_value_id`) VALUES (%s, %s)',
                 'header_value',
                 header_value_table
             ],
             [
-                'INSERT INTO `headers`.`header_name` (`header_name_id`, `name`) VALUES (%s, %s)',
+                'INSERT INTO `headers`.`header_name` (`name`, `header_name_id`) VALUES (%s, %s)',
                 'header_name',
                 header_name_table
             ],
             [
-                'INSERT INTO `headers`.`header` (`header_id`, `site_id`, `header_name_id`, `header_value_id`) VALUES (%s, %s, %s, %s)',
+                'INSERT INTO `headers`.`header` (`site_id`, `header_name_id`, `header_value_id`) VALUES (%s, %s, %s)',
                 'header',
                 header_table
             ]

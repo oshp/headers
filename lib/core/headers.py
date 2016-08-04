@@ -8,10 +8,8 @@ import util
 import scan
 
 site_table = []
-header_name_table = []
-header_name_table_inverted = {}
-header_value_table = []
-header_value_table_inverted = {}
+header_name_table = {}
+header_value_table = {}
 header_table = []
 header_name_id = 0
 header_value_id = 0
@@ -33,23 +31,21 @@ class Headers:
         url, code, headers = scanner.get_data(site)
         site_table.append([site_id, site, url, code])
         if code > 0:
+            header_id += 1
             for header_name, header_value in headers:
-                header_id += 1
                 if header_name not in header_name_table:
                     header_name_id += 1
-                    header_name_table.append([header_name_id, header_name])
-                    header_name_table_inverted[header_name] = header_name_id
-                    actual_header_name_id = header_name_id
+                    header_name_table[header_name] = header_name_id
+                    hname = header_name_id
                 else:
-                    actual_header_name_id = header_name_table_inverted[header_name]
+                    hname = header_name_table[header_name]
                 if header_value not in header_value_table:
                     header_value_id += 1
-                    header_value_table.append([header_value_id, header_value])
-                    header_value_table_inverted[header_value] = header_value_id
-                    actual_header_value_id = header_value_id
+                    header_value_table[header_value] = header_value_id
+                    hvalue = header_value_id
                 else:
-                    actual_header_value_id = header_value_table_inverted[header_value]
-                header_table.append([header_id, site_id, actual_header_name_id, actual_header_value_id])
+                    hvalue = header_value_table[header_value]
+                header_table.append([site_id, hname, hvalue])
 
     def main(self):
         parser = argparse.ArgumentParser(
