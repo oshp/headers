@@ -29,7 +29,7 @@ class Scan:
         try:
             response = urllib2.urlopen(
                 req,
-                timeout=int(self.settings['http']['timeout']),
+                timeout=self.settings['http']['timeout'],
                 context=ctx)
         except urllib2.HTTPError as error:
             return error.geturl(), error.getcode(), error.info().items()

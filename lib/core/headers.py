@@ -11,9 +11,7 @@ site_table = []
 header_name_table = {}
 header_value_table = {}
 header_table = []
-header_name_id = 0
-header_value_id = 0
-header_id = 0
+headers_counter = {'name': 0, 'value': 0}
 
 class Headers:
 
@@ -25,27 +23,31 @@ class Headers:
         database = db.DB(settings)
 
     def work_headers(self, item):
-        global site_table, header_name_table, header_name_table_inverted, header_value_table, header_value_table_inverted, header_table, header_name_id, header_value_id, header_id
+        global site_table, header_name_table, header_value_table, header_table
         site_id = item[0]
         site = item[1]
         url, code, headers = scanner.get_data(site)
         site_table.append([site_id, site, url, code])
         if code > 0:
-            header_id += 1
             for header_name, header_value in headers:
-                if header_name not in header_name_table:
-                    header_name_id += 1
-                    header_name_table[header_name] = header_name_id
-                    hname = header_name_id
-                else:
-                    hname = header_name_table[header_name]
-                if header_value not in header_value_table:
-                    header_value_id += 1
-                    header_value_table[header_value] = header_value_id
-                    hvalue = header_value_id
-                else:
-                    hvalue = header_value_table[header_value]
+                hname = self.test_duplicate_value(
+                    header_name,
+                    header_name_table,
+                    'name')
+                hvalue = self.test_duplicate_value(
+                    header_value,
+                    header_value_table,
+                    'value')
                 header_table.append([site_id, hname, hvalue])
+
+    def test_duplicate_value(self, value, struct, index_name):
+        global headers_counter
+        if value not in struct:
+            headers_counter[index] += 1
+            struct[value] = headers_counter[index]
+            return headers_counter[index]
+        else:
+            return struct[value]
 
     def main(self):
         parser = argparse.ArgumentParser(
