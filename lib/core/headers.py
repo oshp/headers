@@ -43,9 +43,9 @@ class Headers:
     def test_duplicate_value(self, value, struct, index_name):
         global headers_counter
         if value not in struct:
-            headers_counter[index] += 1
-            struct[value] = headers_counter[index]
-            return headers_counter[index]
+            headers_counter[index_name] += 1
+            struct[value] = headers_counter[index_name]
+            return headers_counter[index_name]
         else:
             return struct[value]
 
