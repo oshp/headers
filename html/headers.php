@@ -1,60 +1,75 @@
-<?php
-$link = mysql_connect('localhost', 'root', 'password');
-if (!$link) {
-    die('Não foi possível conectar: ' . mysql_error());
-}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
 
-if (!mysql_select_db('headers', $link)) {
-    echo 'Não foi possível selecionar o banco de dados';
-    exit;
+<?php
+$mysqli = new mysqli("localhost", "root", "password", "headers");
+
+if (mysqli_connect_errno()) {
+    printf("Connect failed: %s\n", mysqli_connect_error());
+    exit();
 }
 
 if ($_GET["value"] == 'NULL') {
-	$sql    = 'SELECT site, url FROM site WHERE site.code >= 0 AND site.site_id NOT IN (SELECT site.site_id FROM site JOIN header, header_value, header_name WHERE site.site_id = header.site_id AND header.header_name_id = header_name.header_name_id AND header.header_value_id = header_value.header_value_id AND header_name.name = \'' . mysql_real_escape_string($_GET["header"]) . '\') ORDER BY site.site_id;';
+	$command = "SELECT site, url FROM site as s WHERE s.code >= 0 AND ".
+    "s.site_id NOT IN (SELECT s.site_id FROM site as s JOIN header as h, ".
+    "header_value as hv, header_name as hn WHERE s.site_id = h.site_id ".
+    "AND h.header_name_id = hn.header_name_id AND h.header_value_id = ".
+    "hv.header_value_id AND hn.name = '') ORDER BY s.site_id;";
+
+  $value = 'Not set';
 } else {
-	$sql    = 'SELECT site, url, header_value.value AS \'' . mysql_real_escape_string($_GET["header"]) . '\' FROM site JOIN header, header_value, header_name WHERE site.site_id = header.site_id AND header.header_name_id = header_name.header_name_id AND header.header_value_id = header_value.header_value_id AND header_name.name = \'' . mysql_real_escape_string($_GET["header"]) . '\' AND header_value.value = \'' . mysql_real_escape_string($_GET["value"]) . '\' ORDER BY site.site_id;';
+  $command = "SELECT site, url FROM site as s JOIN header as h, header_value ".
+    "as hv, header_name as hn WHERE (s.site_id = h.site_id AND ".
+    "h.header_name_id = hn.header_name_id AND h.header_value_id = ".
+    "hv.header_value_id AND hn.name = ? AND hv.value = ?) ".
+    "ORDER BY s.site_id;";
+
+  $value = $_GET["value"];
+  $header = $_GET["header"];
 }
 
-$result = mysql_query($sql, $link);
+echo "<div class=\"container\">";
+echo "<h3>". $_GET["header"] . ": ". $value ."</h3><br><br>";
 
-if (!$result) {
-    echo "Erro do banco de dados, não foi possível consultar o banco de dados\n";
-    echo 'Erro MySQL: ' . mysql_error();
-    exit;
+if ($stmt = $mysqli->prepare($command)) {
+  if ($_GET["header"] != "NULL") {
+    $stmt->bind_param("ss", $header,$value);
+  }
+  $stmt->execute();
+  $result = $stmt->get_result();
+  $fields_num = $result->num_rows;
+
+  echo "<table class=\"table table-hover\">";
+  echo "<thead>";
+  echo "<tr>";
+  echo "<td><b>site</b></td>";
+  echo "<td><b>url</b></td>";
+  echo "</tr>";
+  echo "</thead>";
+  while($row = $result->fetch_assoc())
+  {
+      echo "<tbody>";
+      echo "<tr>";
+          echo "<td>";
+          echo "<a href=\"site.php?site=". $row['site'] ."\">". $row['site'] ."</a>";
+          echo "</td>";
+
+          echo "<td>";
+          echo $row['url'];
+          echo "</td>";
+      echo "</tr>";
+  }
+  echo "</tbody>\n";
+  echo "</table>";
+  echo "</div>";
+  $stmt->free_result();
+  $stmt->close();
 }
 
-$fields_num = mysql_num_fields($result);
-
-echo "<table border='1'><tr>";
-// printing table headers
-for($i=0; $i<$fields_num; $i++)
-{
-    $field = mysql_fetch_field($result);
-    echo "<td>{$field->name}</td>";
-}
-echo "</tr>\n";
-// printing table rows
-while($row = mysql_fetch_row($result))
-{
-    echo "<tr>";
-    // $row is array... foreach( .. ) puts every element
-    // of $row to $cell variable
-    foreach($row as $key => $cell) {
-        echo "<td>";
-                if ($cell === NULL) {
-                  echo "NULL";
-                } else {
-					if ($key == 0) {
-						echo "<a href=\"site.php?site=$cell\">$cell</a>";
-					} else {
-						echo "$cell";
-					}
-                }
-        echo "</td>";
-    }
-    echo "</tr>\n";
-}
-
-mysql_free_result($result);
-mysql_close($link);
+$mysqli->close();
 ?>
