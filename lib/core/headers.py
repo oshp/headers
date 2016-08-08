@@ -18,7 +18,7 @@ class Headers:
     def __init__(self):
         global settings, database, config, scanner
         config = util.Util()
-        settings = config.load_config()
+        settings = config.load_config('conf/params.json')
         scanner = scan.Scan(settings)
         database = db.DB(settings)
 
@@ -40,14 +40,14 @@ class Headers:
                     'value')
                 header_table.append([site_id, hname, hvalue])
 
-    def test_duplicate_value(self, value, struct, index_name):
+    def test_duplicate_value(self, value, table, index_name):
         global headers_counter
-        if value not in struct:
+        if value not in table:
             headers_counter[index_name] += 1
-            struct[value] = headers_counter[index_name]
+            table[value] = headers_counter[index_name]
             return headers_counter[index_name]
         else:
-            return struct[value]
+            return table[value]
 
     def main(self):
         parser = argparse.ArgumentParser(

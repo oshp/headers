@@ -20,7 +20,7 @@ if (mysqli_connect_errno()) {
 $command = "SELECT site, url, hv.value FROM site AS s JOIN header AS h".
   ", header_value AS hv, header_name AS hn WHERE hn.name = ? AND ".
   "s.site_id = h.site_id AND h.header_name_id = hn.header_name_id AND ".
-  "h.header_value_id = hv.header_value_id;";
+  "h.header_value_id = hv.header_value_id ORDER BY s.site_id;";
 
 echo "<table class=\"table table-hover\">";
 echo "<thead>";

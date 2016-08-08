@@ -17,7 +17,10 @@ if (mysqli_connect_errno()) {
     exit();
 }
 
-$command = "SELECT url, name, value FROM site as s JOIN header as h, header_value as hv, header_name as hn WHERE site = ? AND s.site_id = h.site_id AND h.header_name_id = hn.header_name_id AND h.header_value_id = hv.header_value_id";
+$command = "SELECT url, name, value FROM site as s JOIN header as h, ".
+"header_value as hv, header_name as hn WHERE site = ? AND s.site_id = ".
+"h.site_id AND h.header_name_id = hn.header_name_id AND h.header_value_id ".
+"= hv.header_value_id";
 if ($stmt = $mysqli->prepare($command)) {
   $stmt->bind_param("s", $_GET["site"]);
   $stmt->execute();
@@ -41,7 +44,7 @@ if ($stmt = $mysqli->prepare($command)) {
           echo "</td>";
 
           echo "<td>";
-          echo "<a href=\"header.php?header=". $row['name'] . "\">" . $row['name'] ."</a>";
+          echo "<a href=\"header.php?header=". $row['name'] ."\">". $row['name'] ."</a>";
           echo "</td>";
 
           echo "<td>";
