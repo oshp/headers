@@ -33,8 +33,22 @@ if ($_GET["value"] == 'NULL') {
   $header = $_GET["header"];
 }
 
+echo "<br><br><br>";
+echo "<nav class=\"navbar navbar-inverse navbar-fixed-top\">";
+echo "<div class=\"navbar-header\">";
+echo "<a class=\"navbar-brand\" href=\"#\">SecureHeaders Project</a>";
+echo "<ul class=\"nav navbar-nav\">";
+echo "<li class=\"active\"><a href=\"#\">Home</a></li>";
+echo "</ul>";
+echo "</div>";
+echo "</nav>";
+
 echo "<div class=\"container\">";
-echo "<h3>". $_GET["header"] . ": ". $value ."</h3><br><br>";
+echo "<div class=\"panel panel-primary\">";
+  echo "<div class=\"panel-heading\">";
+    echo "<h3><b>". $_GET["header"] . ": ". $value ."</b></h3>";
+  echo "</div>";
+echo "</div>";
 
 if ($stmt = $mysqli->prepare($command)) {
   if ($_GET["header"] != "NULL") {
@@ -70,6 +84,14 @@ if ($stmt = $mysqli->prepare($command)) {
   $stmt->free_result();
   $stmt->close();
 }
+
+echo "<nav class=\"navbar navbar-default navbar-fixed-bottom\">";
+echo "<div class=\"container\">";
+echo "<p class=\"navbar-text\">An initiative of:
+<a href=\"mailto:alexandre.fmenezes@owasp.org.br\">Alexandre Menezes</a> &
+<a href=\"mailto:ricardo.iramar@owasp.org.br\">Ricardo Iramar</a></p>";
+echo "</div>";
+echo "</nav>";
 
 $mysqli->close();
 ?>
