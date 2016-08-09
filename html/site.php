@@ -49,9 +49,9 @@ if ($stmt = $mysqli->prepare($command)) {
   echo "<td><b>value</b></td>";
   echo "</tr>";
   echo "</thead>";
+  echo "<tbody>";
   while($row = $result->fetch_assoc())
   {
-      echo "<tbody>";
       echo "<tr>";
           echo "<td>";
           echo $row['url'];
