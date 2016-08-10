@@ -68,8 +68,8 @@ class Scan:
         return newurl, code, headers
 
     def get_summary(self):
-        print ''
-        print 'Connections summary'
-        print 'https: {}'.format(chttps)
-        print 'http: {}'.format(chttp)
-        print 'error: {}'.format(cerror)
+        print('')
+        print('Connections summary')
+        print('https: {}').format(chttps)
+        print('http: {}').format(chttp)
+        print('error: {}').format(cerror)

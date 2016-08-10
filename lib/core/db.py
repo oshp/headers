@@ -25,10 +25,10 @@ class DB:
     def clear_database(self):
         conn = self.get_db_connection()
         cursor = conn.cursor()
-        print ''
-        print 'Cleaning database'
-        print 'Tables: [header, site, header_value, header_name]'
-        print ''
+        print('')
+        print('Cleaning database')
+        print('Tables: [header, site, header_value, header_name]')
+        print('')
         db_tables = [
             'DELETE FROM headers.header WHERE header_id>0;',
             'DELETE FROM headers.site WHERE site_id>0;',
@@ -43,7 +43,7 @@ class DB:
     def save(self, command, table_name, table):
         conn = self.get_db_connection()
         cursor = conn.cursor()
-        print 'Table: {}'.format(table_name)
+        print('Table: {}').format(table_name)
         if type(table) is list:
             for x in table:
                 cursor.execute(command, tuple(x))
@@ -60,7 +60,7 @@ class DB:
             header_table
         ):
         self.clear_database()
-        print 'Populating MySQL tables'
+        print('Populating MySQL tables')
         tables = [
             [
                 'INSERT INTO `headers`.`site` (`site_id`, `site`, `url`, `code`) VALUES (%s, %s, %s, %s)',
