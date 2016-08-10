@@ -4,8 +4,6 @@
 		<title>Headers</title>
 		<script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script>
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<script type="text/javascript">
 
 $.getJSON('data.php?header=<?php echo $_GET["header"] ?>&limit=<?php if ( $_GET["limit"] == '' ) { echo 10; } else { echo $_GET["limit"]; } ?>&includenull=<?php echo $_GET["includenull"] ?>', function (data) {
@@ -68,9 +66,9 @@ $.getJSON('data.php?header=<?php echo $_GET["header"] ?>&limit=<?php if ( $_GET[
 
 		<?php
 		echo "<nav class=\"navbar navbar-inverse navbar-fixed-top\">";
-		echo "<div class=\"navbar-header\">";
-		echo "<a class=\"navbar-brand\" href=\"#\">SecureHeaders Project</a>";
-		echo "</div>";
+			echo "<div class=\"navbar-header\">";
+				echo "<a class=\"navbar-brand\" href=\"#\">SecureHeaders Project</a>";
+			echo "</div>";
 		echo "</nav>";
 		echo "<br><br><br>";
 
@@ -89,7 +87,7 @@ if (!$con) {
 
 mysql_select_db("headers", $con);
 
-$result = mysql_query("SELECT name FROM headers.header_name ORDER BY name;");
+$result = mysql_query("SELECT name FROM header_name ORDER BY name;");
 if (!$result) {
     echo 'Could not run query: ' . mysql_error();
     exit;
@@ -108,6 +106,7 @@ mysql_close($con);
 ?>
 </select>
 <br>
+
 <form action="index.php" method="get" id="header">
   Top headers value:
 <select name="limit" form="header">
@@ -119,7 +118,7 @@ mysql_close($con);
   <option<?php if ( $_GET["limit"] == 100 ) { echo ' selected'; } ?>>100</option>
 </select><br>
   Include NULL headers<input type="checkbox" id="includenull" name="includenull" value="1"<?php if ( $_GET["includenull"] == 1 ) { echo ' checked'; } ?>><br>
-  <input type="submit" value="Submit">
+  <input class="btn btn-primary"  type="submit" class="btn btn-primary" value="Submit">
 </form>
 
   <?php
@@ -129,9 +128,9 @@ mysql_close($con);
 		echo "<p class=\"navbar-text\">An initiative of:
 		<a href=\"mailto:alexandre.fmenezes@owasp.org.br\">Alexandre Menezes</a> &
 		<a href=\"mailto:ricardo.iramar@owasp.org.br\">Ricardo Iramar</a></p>";
-		echo "</div>";
-		echo "</nav>";
 	?>
 
 	</body>
 </html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

@@ -2,8 +2,6 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <?php
@@ -35,20 +33,20 @@ if ($_GET["value"] == 'NULL') {
 
 echo "<br><br><br>";
 echo "<nav class=\"navbar navbar-inverse navbar-fixed-top\">";
-echo "<div class=\"navbar-header\">";
-echo "<a class=\"navbar-brand\" href=\"#\">SecureHeaders Project</a>";
-echo "<ul class=\"nav navbar-nav\">";
-echo "<li class=\"active\"><a href=\"#\">Home</a></li>";
-echo "</ul>";
-echo "</div>";
+  echo "<div class=\"navbar-header\">";
+    echo "<a class=\"navbar-brand\" href=\"#\">SecureHeaders Project</a>";
+    echo "<ul class=\"nav navbar-nav\">";
+      echo "<li class=\"active\"><a href=\"#\">Home</a></li>";
+    echo "</ul>";
+  echo "</div>";
 echo "</nav>";
 
-echo "<div class=\"container\">";
-echo "<div class=\"panel panel-primary\">";
-  echo "<div class=\"panel-heading\">";
-    echo "<h3><b>". $_GET["header"] . ": ". $value ."</b></h3>";
+echo "<div class=\"container col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-1 main\">";
+  echo "<div class=\"panel panel-primary\">";
+    echo "<div class=\"panel-heading\">";
+      echo "<h3><b>". $_GET["header"] . ": ". $value ."</b></h3>";
+    echo "</div>";
   echo "</div>";
-echo "</div>";
 
 if ($stmt = $mysqli->prepare($command)) {
   if ($_GET["header"] != "NULL") {
@@ -58,27 +56,27 @@ if ($stmt = $mysqli->prepare($command)) {
   $result = $stmt->get_result();
   $fields_num = $result->num_rows;
 
-  echo "<table class=\"table table-hover\">";
-  echo "<thead>";
-  echo "<tr>";
-  echo "<td><b>site</b></td>";
-  echo "<td><b>url</b></td>";
-  echo "</tr>";
-  echo "</thead>";
+  //echo "<table class=\"table table-hover\">";
+  echo "<table class=\"table table-responsive\">";
+    echo "<thead class=\"thead-inverse\">";
+      echo "<tr>";
+        echo "<th>site</th>";
+        echo "<th>url</th>";
+      echo "</tr>";
+    echo "</thead>";
+    echo "<tbody>";
   while($row = $result->fetch_assoc())
   {
-      echo "<tbody>";
       echo "<tr>";
-          echo "<td>";
+        echo "<th>";
           echo "<a href=\"site.php?site=". $row['site'] ."\">". $row['site'] ."</a>";
-          echo "</td>";
-
-          echo "<td>";
+        echo "</th>";
+        echo "<td>";
           echo $row['url'];
           echo "</td>";
       echo "</tr>";
   }
-  echo "</tbody>\n";
+  echo "</tbody>";
   echo "</table>";
   echo "</div>";
   $stmt->free_result();
@@ -95,3 +93,5 @@ echo "</nav>";
 
 $mysqli->close();
 ?>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
