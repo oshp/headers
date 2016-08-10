@@ -60,14 +60,10 @@ $.getJSON('data.php?header=<?php echo $_GET["header"] ?>&limit=<?php if ( $_GET[
 		</script>
 	</head>
 	<body>
-		<script src="https://code.highcharts.com/highcharts.js"></script>
-		<script src="https://code.highcharts.com/highcharts-3d.js"></script>
-		<script src="https://code.highcharts.com/modules/exporting.js"></script>
-
 		<?php
 		echo "<nav class=\"navbar navbar-inverse navbar-fixed-top\">";
 			echo "<div class=\"navbar-header\">";
-				echo "<a class=\"navbar-brand\" href=\"#\">SecureHeaders Project</a>";
+				echo "<a class=\"navbar-brand\" href=\"https://goo.gl/nOyg8z\">SecureHeaders Project</a>";
 			echo "</div>";
 		echo "</nav>";
 		echo "<br><br><br>";
@@ -134,3 +130,6 @@ mysql_close($con);
 </html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-3d.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
