@@ -26,22 +26,19 @@ optional arguments:
 ##### Standard output sample:  
 ```
 $ python headers.py -f topsites_global.csv -t 200
-Thread pool 1 ( 0 - 200 )
-Thread pool 2 ( 200 - 400 )
-Thread pool 3 ( 400 - 600 )
-Thread pool 4 ( 600 - 800 )
-Thread pool 5 ( 800 - 1000 )
+Thread pool 1 (0 - 200)
+Thread pool 2 (200 - 400)
+Thread pool 3 (400 - 600)
+Thread pool 4 (600 - 800)
+Thread pool 5 (800 - 1000)
 
 Connections summary
 https: 366
 http: 579
 error: 55
 
-Cleaning MySQL tables
-Table: header
-Table: site
-Table: header_value
-Table: header_name
+Cleaning database
+Tables: [header, site, header_value, header_name]
 
 Populating MySQL tables
 Table: site
