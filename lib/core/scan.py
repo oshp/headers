@@ -32,16 +32,16 @@ class Scan:
                 req,
                 timeout=self.settings['http']['timeout'],
                 context=ctx)
-        except urllib2.HTTPError as error:
-            return error.geturl(), error.getcode(), error.info().items()
-        except urllib2.URLError as error:
-            return str(error.reason), -1, ''
         except socket.error as error:
-            return str(error), -2, ''
-        except httplib.BadStatusLine, error:
-            return str(error), -3, ''
+            return str(error), -1, ''
+#        except urllib2.HTTPError as error:
+#            return error.geturl(), error.getcode(), error.info().items()
+        except urllib2.URLError as error:
+            return str(error.reason), -2, ''
+#        except httplib.BadStatusLine, error:
+#            return str(error), -3, ''
         except httplib.HTTPException, error:
-            return str(error), -4, ''
+            return str(error), -3, ''
         else:
             return response.geturl(), response.getcode(), response.info().items()
 
