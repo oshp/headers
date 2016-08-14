@@ -101,7 +101,7 @@
 								echo "</select>";
 						echo "</div>";
 
-						echo " <button type=\"submit\" class=\"btn btn-primary\">Submit</button>";
+						echo " <button type=\"submit\" class=\"btn btn-primary form-control\">Submit</button>";
 						echo "</form>";
 						echo "</div>";
 
@@ -112,14 +112,9 @@
 		echo "</div>";
 	echo "</div>";
 
-	echo "<nav class=\"navbar navbar-default navbar-static-bottom\">";
-		echo "<div class=\"container\">";
-			echo "<p class=\"navbar-text\">An initiative of:
-				<a href=\"mailto:alexandre.fmenezes@owasp.org.br\">Alexandre Menezes</a> &
-				<a href=\"mailto:ricardo.iramar@owasp.org.br\">Ricardo Iramar</a></p>";
-		echo "</div>";
-	echo "</nav>";
-	?>
+	include_once 'footerui.php';
+
+?>
 </body>
 </html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
