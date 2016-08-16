@@ -4,10 +4,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>SecureHeaders Project</title>
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link href="https://fonts.googleapis.com/css?family=Droid+Sans" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 </head>
 
-<body style="font-family: 'Droid Sans', sans-serif;">
+<body style="font-family: 'Roboto', sans-serif;">
 	<?php
 	  echo "<br><br><br>";
 		echo "<nav class=\"navbar navbar-inverse navbar-fixed-top\">";
@@ -40,7 +40,7 @@
 					echo "</div>";
 
 					echo "<nav class=\"navbar navbar-default\">";
-					echo "<div class=\"container-fluid col-xs-12 col-sm-7 col-sm-offset-3\">";
+					echo "<div class=\"container-fluid col-xs-12 col-sm-9 col-md-8 col-sm-offset-3\">";
 
 					echo "<div class=\"navbar-header\">";
       			echo "<button type=\"button\" class=\"collapsed navbar-toggle\" data-toggle=\"collapse\" data-target=\"#index-navbar-collapse-1\" aria-expanded=\"false\">";
@@ -55,7 +55,6 @@
 					echo "<div class=\"collapse navbar-collapse\" id=\"index-navbar-collapse-1\">";
 					echo "<form action=\"index.php\" method=\"get\" id=\"header\" class=\"form-inline navbar-form\" role=\"form\">";
 						echo "<div class=\"form-group input-group\">";
-						#		echo "<select class=\"dropdown form-control\" name=\"header\" form=\"header\" value=\"content-type\">";
 						echo "<input type=\"text\" value=\"Insert an HTTP Header\" id=\"header\" name=\"header\" form=\"header\" class=\"form-control\" value=\"content-type\" aria-describedby=\"headername\">";
 							echo "<span type=\"button\" class=\"btn btn-default dropdown-toggle input-group-addon\"  data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">";
 								echo "<span class=\"caret\"></span>";
@@ -130,40 +129,27 @@
     $('#container').highcharts({
         chart: {
             type: 'pie',
-            options3d: {
-                enabled: true,
-                alpha: 45,
-                beta: 0
-            }
-        },
+						plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false },
         title: {
-            text: 'Header <?php echo $_GET["header"] ?>'
-        },
+            text: 'Header <?php echo $_GET["header"] ?>' },
         tooltip: {
-		formatter: function() {
-			return '<b>'+ this.point.name +'</b> = '+ this.point.y;
-		}
+						formatter: function() {
+							return '<b>'+ this.point.name +'</b> = '+ this.point.y; }
         },
         plotOptions: {
             pie: {
                 allowPointSelect: true,
                 cursor: 'pointer',
-                depth: 35,
+								dataLabels: {
+                        enabled: false },
+								showInLegend: true,
 	                point: {
 	                    events: {
 	                        click: function () {
-	                            location.href = 'headers.php?header=<?php echo $_GET["header"] ?>&value=' + encodeURIComponent(this.name.substring(1, this.name.length-1));
-	                        }
-	                    }
-	                },
-                        dataLabels: {
-                            enabled: true,
-                            color: '#000000',
-                            connectorColor: '#000000',
-                            formatter: function() {
-                                return '<b>'+ this.point.name.substring(0, 100) +'</b> = '+ this.percentage.toFixed(2) +' %';
-                            }
-                        }
+	                            location.href = 'headers.php?header=<?php echo $_GET["header"] ?>&value=' + encodeURIComponent(this.name.substring(1, this.name.length-1)); }
+	                    } }
             }
         },
 				credits: {
@@ -171,6 +157,7 @@
         },
         series: [{
             type: 'pie',
+						colorByPoint: true,
             name: 'Headers',
             data: data
         }]
