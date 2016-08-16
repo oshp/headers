@@ -55,7 +55,6 @@ Python Libs | PHP | Web-Server
 gevent | php5 | apache2
 mysql-connector | php5-mysqlnd | nginx
 argparse | -  | lighttpd
-csv | - | -
 
 ##### Installation
 * option 1 (_with pip_)  

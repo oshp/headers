@@ -4,9 +4,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>SecureHeaders Project</title>
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Droid+Sans" rel="stylesheet">
 </head>
 
-<body>
+<body style="font-family: 'Droid Sans', sans-serif;">
 	<?php
 	  echo "<br><br><br>";
 		echo "<nav class=\"navbar navbar-inverse navbar-fixed-top\">";
@@ -53,9 +54,13 @@
 
 					echo "<div class=\"collapse navbar-collapse\" id=\"index-navbar-collapse-1\">";
 					echo "<form action=\"index.php\" method=\"get\" id=\"header\" class=\"form-inline navbar-form\" role=\"form\">";
-						echo "<div class=\"form-group\">";
-								echo "<select class=\"dropdown form-control\" name=\"header\" form=\"header\" value=\"content-type\">";
-									echo "<option>Select an HTTP Header</option>";
+						echo "<div class=\"form-group input-group\">";
+						#		echo "<select class=\"dropdown form-control\" name=\"header\" form=\"header\" value=\"content-type\">";
+						echo "<input type=\"text\" value=\"Insert an HTTP Header\" id=\"header\" name=\"header\" form=\"header\" class=\"form-control\" value=\"content-type\" aria-describedby=\"headername\">";
+							echo "<span type=\"button\" class=\"btn btn-default dropdown-toggle input-group-addon\"  data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">";
+								echo "<span class=\"caret\"></span>";
+							echo "</span>";
+							echo "<ul class=\"dropdown-menu\" id=\"headername\">";
 
 							$con = mysql_connect("localhost","root","password");
 							if (!$con) {
@@ -69,29 +74,27 @@
 							}
 							if (mysql_num_rows($result) > 0) {
 								while ($row = mysql_fetch_array($result)) {
-									if ($_GET["header"] == $row[0]) {
-										echo "<option value=\"". $row[0] . "\" selected>"  . $row[0] . "</option>";
-									} else {
-										echo "<option value=\"". $row[0] . "\">"  . $row[0] . "</option>";
-									}
+									echo "<li data-value=\"". $row[0] . "\"><a href=\"#\">"  . $row[0] . "</a></li>";
 								}
 							}
 							mysql_free_result($result);
 							mysql_close($con);
 
-								echo "</select>";
+								echo "</ul>";
 						echo "</div>";
 
-						echo "<div class=\"form-group\">";
-								echo "<select class=\"dropdown form-control\" id=\"limit\" name=\"limit\" form=\"header\">";
-									echo "<option>Top headers value</option>";
-									echo "<option>3</option>";
-									echo "<option>5</option>";
-									echo "<option>10</option>";
-									echo "<option>20</option>";
-									echo "<option>50</option>";
-									echo "<option>100</option>";
-								echo "</select>";
+						echo "<div class=\"form-group input-group\">";
+							echo "<input type=\"text\" size=\"4\" value=\"3\" id=\"limit\" name=\"limit\" form=\"header\" class=\"form-control\" aria-describedby=\"limitvalue\">";
+							echo "<span type=\"button\" class=\"btn btn-default dropdown-toggle input-group-addon\"  data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">";
+								echo "<span class=\"caret\"></span>";
+							echo "</span>";
+							echo "<ul class=\"dropdown-menu\" id=\"limitvalue\">";
+								echo "<li data-value=\"5\"><a href=\"#\">5</a></li>";
+								echo "<li data-value=\"10\"><a href=\"#\">10</a></li>";
+								echo "<li data-value=\"20\"><a href=\"#\">20</a></li>";
+								echo "<li data-value=\"50\"><a href=\"#\">50</a></li>";
+								echo "<li data-value=\"100\"><a href=\"#\">100</a></li>";
+							echo "</ul>";
 						echo "</div>";
 
 						echo "<div class=\"form-group\">";
@@ -120,8 +123,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/highcharts-3d.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script async src="https://code.highcharts.com/highcharts-3d.js"></script>
+<script async src="https://code.highcharts.com/modules/exporting.js"></script>
 <script type="text/javascript">
 	$.getJSON('data.php?header=<?php echo $_GET["header"] ?>&limit=<?php if ( $_GET["limit"] == '' ) { echo 10; } else { echo $_GET["limit"]; } ?>&includenull=<?php echo $_GET["includenull"] ?>', function (data) {
     $('#container').highcharts({
@@ -174,11 +177,26 @@
     });
 	});
 
+	$("#headername").on("click", "a", function(e){
+		e.preventDefault();
+		var $this = $(this).parent();
+		$("[name=header]").val($this.data("value"));
+	})
+
+	$("#limitvalue").on("click", "a", function(e){
+		e.preventDefault();
+		var $this = $(this).parent();
+		$("#limit").val($this.data("value"));
+	})
+
 	$.urlParam = function(name){
 		var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
 		return results[1] || 0;
 	}
 
+	if ($.urlParam('header') != 'Insert an HTTP Header') {
+		$('[name=header]').val($.urlParam('header'));
+	}
 	if ($.urlParam('includenull') == 1) {
 		$('#includenull').val(1);
 	}

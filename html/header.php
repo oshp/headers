@@ -3,9 +3,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Droid+Sans" rel="stylesheet">
 </head>
 
-<body>
+<body style="font-family: 'Droid Sans', sans-serif;">
 <?php
 
   include_once 'headerui.php';
@@ -20,7 +21,7 @@
           echo " <span class=\"glyphicon glyphicon-collapse-down\" data-toggle=\"collapse\" data-target=\"#displayurl\" aria-hidden=\"true\"></span>";
           echo "<div id=\"displayurl\" class=\"collapse\">";
             echo "<h5><span class=\"glyphicon glyphicon-chevron-right\" aria-hidden=\"true\"></span> ";
-            echo $_GET["value"]."</h5>";
+            echo $_GET["value"] ."</h5>";
           echo "</div>";
         echo "</h3>";
       echo "</div>";
