@@ -9,7 +9,7 @@ class DB:
 
     def get_db_connection(self):
         global conn
-        if conn == None:
+        if conn is None:
             conn = mysql.connector.connect(
                 user=self.settings['db']['username'],
                 password=self.settings['db']['password'],

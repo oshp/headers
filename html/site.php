@@ -75,7 +75,7 @@
 
             echo "<td>";
               echo "<a href=\"header.php?header=". $row['name'] ."&value=".
-              $row['value'] ."\"><h4>". $row['value'] ."</h4></a>";
+              urlencode($row['value']) ."\"><h4>". $row['value'] ."</h4></a>";
             echo "</td>";
         echo "</tr>";
     }

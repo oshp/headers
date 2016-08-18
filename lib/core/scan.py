@@ -56,12 +56,12 @@ class Scan:
                 cerror += 1
                 return newurl, code, ''
             else:
-                if urlparse(newurl).scheme == 'https':
+                if urlparse(newurl).scheme is 'https':
                     chttps += 1 # HTTPS redirect OK
                 else:
                     chttp += 1 # HTTP OK
         else:
-            if urlparse(newurl).scheme == 'http':
+            if urlparse(newurl).scheme is 'http':
                 chttp += 1 # HTTP redirect OK
             else:
                 chttps += 1 # HTTPS OK

@@ -32,11 +32,13 @@
 
 		echo "<div class=\"container-fluid\">";
 			echo "<div class=\"row\">";
+				#echo "<div class=\"container col-sm-12 main\">";
 				echo "<div class=\"container col-sm-9 col-sm-offset-1 col-md-10 col-md-offset-1 main\">";
 
 				  # highcharts
 				  echo "<div class=\"row img-responsive placeholders\">";
-						echo "<div class=\"col-xs-12 col-sm-8 col-sm-offset-2 placeholder\" id=\"container\" data-highcharts-chart=\"0\"></div>";
+
+						echo "<div class=\"col-xs-12 col-sm-12 col-md-10 col-sm-offset-2 col-sm-offset-1 col-md-offset-1 placeholder\" id=\"container\" data-highcharts-chart=\"0\"></div>";
 					echo "</div>";
 
 					echo "<nav class=\"navbar navbar-default\">";
@@ -55,7 +57,7 @@
 					echo "<div class=\"collapse navbar-collapse\" id=\"index-navbar-collapse-1\">";
 					echo "<form action=\"index.php\" method=\"get\" id=\"header\" class=\"form-inline navbar-form\" role=\"form\">";
 						echo "<div class=\"form-group input-group\">";
-						echo "<input type=\"text\" value=\"Insert an HTTP Header\" id=\"header\" name=\"header\" form=\"header\" class=\"form-control\" value=\"content-type\" aria-describedby=\"headername\">";
+						echo "<input type=\"text\" value=\"\" placeholder=\"Insert an HTTP Header\" id=\"header\" name=\"header\" form=\"header\" class=\"form-control\" value=\"content-type\" aria-describedby=\"headername\">";
 							echo "<span type=\"button\" class=\"btn btn-default dropdown-toggle input-group-addon\"  data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">";
 								echo "<span class=\"caret\"></span>";
 							echo "</span>";
@@ -127,41 +129,36 @@
 <script type="text/javascript">
 	$.getJSON('data.php?header=<?php echo $_GET["header"] ?>&limit=<?php if ( $_GET["limit"] == '' ) { echo 10; } else { echo $_GET["limit"]; } ?>&includenull=<?php echo $_GET["includenull"] ?>', function (data) {
     $('#container').highcharts({
-        chart: {
-            type: 'pie',
-						plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false },
-        title: {
-            text: 'Header <?php echo $_GET["header"] ?>' },
+			chart: {
+				type: 'pie',
+				plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false },
+			title: {
+        text: 'Header <?php echo $_GET["header"] ?>' },
         tooltip: {
-						formatter: function() {
-							return '<b>'+ this.point.name +'</b> = '+ this.point.y; }
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-								dataLabels: {
-                        enabled: false },
-								showInLegend: true,
-	                point: {
-	                    events: {
-	                        click: function () {
-	                            location.href = 'headers.php?header=<?php echo $_GET["header"] ?>&value=' + encodeURIComponent(this.name.substring(1, this.name.length-1)); }
-	                    } }
-            }
-        },
+			  formatter: function() {
+				return this.point.name + ': <b>' + this.point.y + '</b>'; } },
+      plotOptions: {
+        pie: {
+					allowPointSelect: true,
+          cursor: 'pointer',
+					dataLabels: {
+						enabled: false },
+				  showInLegend: true,
+					point: {
+						events: {
+							click: function () {
+								location.href = 'headers.php?header=<?php echo $_GET["header"] ?>&value=' + encodeURIComponent(this.name.substring(1, this.name.length-1)); }
+							} } } },
 				credits: {
-            enabled: false
-        },
+					enabled: false },
         series: [{
-            type: 'pie',
-						colorByPoint: true,
-            name: 'Headers',
-            data: data
-        }]
-    });
+					name: 'Header',
+          type: 'pie',
+					colorByPoint: true,
+          data: data }]
+			});
 	});
 
 	$("#headername").on("click", "a", function(e){
