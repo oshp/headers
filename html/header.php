@@ -27,12 +27,9 @@
       echo "</div>";
     echo "</div>";
 
-  $mysqli = new mysqli("localhost", "root", "password", "headers");
-
-  if (mysqli_connect_errno()) {
-      printf("Connect failed: %s\n", mysqli_connect_error());
-      exit();
-  }
+  require_once("db.php");
+  $conn = new DB;
+  $mysqli = $conn->get_connection();
 
   $command = "SELECT sql_cache h.site_id, s.site, url, hv.value FROM site AS s JOIN header ".
     "AS h, header_value AS hv, header_name AS hn WHERE hn.name = ? AND ".
@@ -44,8 +41,8 @@
   echo "<table class=\"table table-striped\">";
     echo "<thead>";
       echo "<tr>";
-        echo "<th>rank</th>";
-        echo "<th>site</th>";
+        echo "<th>Rank</th>";
+        echo "<th>Site</th>";
       echo "</tr>";
     echo "</thead>";
       echo "<tbody>";
@@ -55,8 +52,7 @@
     $stmt->execute();
     $result = $stmt->get_result();
 
-    while($row = $result->fetch_assoc())
-    {
+    while($row = $result->fetch_assoc()) {
       echo "<tr>";
         echo "<td>";
           echo "<h4>". $row['site_id'] ."</h4>";
@@ -80,7 +76,7 @@
 
 include_once 'footerui.php';
 
-$mysqli->close();
+#$mysqli->close();
 ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

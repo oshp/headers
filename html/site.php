@@ -8,11 +8,9 @@
 
 <body style="font-family: 'Roboto', sans-serif;">
 <?php
-  $mysqli = new mysqli("localhost", "root", "password", "headers");
-  if (mysqli_connect_errno()) {
-      printf("Connect failed: %s\n", mysqli_connect_error());
-      exit();
-  }
+  require_once("db.php");
+  $conn = new DB;
+  $mysqli = $conn->get_connection();
 
   include_once 'headerui.php';
 
@@ -61,8 +59,8 @@
     echo "<table class=\"table table-striped\">";
       echo "<thead>";
         echo "<tr>";
-          echo "<th>name</th>";
-          echo "<th>value</th>";
+          echo "<th>Name</th>";
+          echo "<th>Value</th>";
         echo "</tr>";
       echo "</thead>";
     echo "<tbody>";
@@ -92,7 +90,7 @@
 
 include_once 'footerui.php';
 
-$mysqli->close();
+#$mysqli->close();
 ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js">
 </script>

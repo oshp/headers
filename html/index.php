@@ -32,7 +32,6 @@
 
 		echo "<div class=\"container-fluid\">";
 			echo "<div class=\"row\">";
-				#echo "<div class=\"container col-sm-12 main\">";
 				echo "<div class=\"container col-sm-9 col-sm-offset-1 col-md-10 col-md-offset-1 main\">";
 
 				  # highcharts
@@ -63,25 +62,22 @@
 							echo "</span>";
 							echo "<ul class=\"dropdown-menu\" id=\"headername\">";
 
-							$con = mysql_connect("localhost","root","password");
-							if (!$con) {
-							  die('Could not connect: ' . mysql_error());
-							}
-							mysql_select_db("headers", $con);
-							$result = mysql_query("SELECT sql_cache name FROM header_name ORDER BY name;");
-							if (!$result) {
-							    echo 'Could not run query: ' . mysql_error();
-							    exit;
-							}
-							if (mysql_num_rows($result) > 0) {
-								while ($row = mysql_fetch_array($result)) {
-									echo "<li data-value=\"". $row[0] . "\"><a href=\"#\">"  . $row[0] . "</a></li>";
-								}
-							}
-							mysql_free_result($result);
-							mysql_close($con);
+							require_once("db.php");
+							$conn = new DB;
+							$mysqli = $conn->get_connection();
 
-								echo "</ul>";
+							$command = "SELECT sql_cache name FROM header_name ORDER BY name;";
+							if ($stmt = $mysqli->prepare($command)) {
+							  $stmt->execute();
+							  $result = $stmt->get_result();
+							  while($row = $result->fetch_assoc()) {
+							    echo "<li data-value=\"". $row['name'] . "\"><a href=\"#\">"  . $row['name'] . "</a></li>";
+							  }
+							  $stmt->free_result();
+							  $stmt->close();
+							}
+
+						echo "</ul>";
 						echo "</div>";
 
 						echo "<div class=\"form-group input-group\">";
@@ -124,7 +120,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
-<script async src="https://code.highcharts.com/highcharts-3d.js"></script>
 <script async src="https://code.highcharts.com/modules/exporting.js"></script>
 <script type="text/javascript">
 	$.getJSON('data.php?header=<?php echo $_GET["header"] ?>&limit=<?php if ( $_GET["limit"] == '' ) { echo 10; } else { echo $_GET["limit"]; } ?>&includenull=<?php echo $_GET["includenull"] ?>', function (data) {

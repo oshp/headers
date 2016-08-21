@@ -8,12 +8,10 @@
 
 <body style="font-family: 'Roboto', sans-serif;">
 <?php
-$mysqli = new mysqli("localhost", "root", "password", "headers");
 
-if (mysqli_connect_errno()) {
-    printf("Connect failed: %s\n", mysqli_connect_error());
-    exit();
-}
+require_once("db.php");
+$conn = new DB;
+$mysqli = $conn->get_connection();
 
 if ($_GET["value"] == 'NULL') {
   $command = "SELECT sql_cache distinct h.site_id, s.site FROM site as s join ".
@@ -65,8 +63,8 @@ if ($stmt = $mysqli->prepare($command)) {
   echo "<table class=\"table table-striped\">";
     echo "<thead class=\"thead-inverse\">";
       echo "<tr>";
-        echo "<th class=\"\" >rank</th>";
-        echo "<th>site</th>";
+        echo "<th class=\"\" >Rank</th>";
+        echo "<th>Site</th>";
       echo "</tr>";
     echo "</thead>";
     echo "<tbody>";
@@ -94,7 +92,7 @@ if ($stmt = $mysqli->prepare($command)) {
 
 include_once 'footerui.php';
 
-$mysqli->close();
+#$mysqli->close();
 ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
