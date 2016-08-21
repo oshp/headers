@@ -30,10 +30,10 @@ class DB:
         print('Tables: [header, site, header_value, header_name]')
         print('')
         db_tables = [
-            'DELETE FROM headers.header WHERE header_id>0;',
-            'DELETE FROM headers.site WHERE site_id>0;',
-            'DELETE FROM headers.header_value WHERE header_value_id>0;',
-            'DELETE FROM headers.header_name WHERE header_name_id>0;'
+            'DELETE FROM header WHERE header_id>0;',
+            'DELETE FROM site WHERE site_id>0;',
+            'DELETE FROM header_value WHERE header_value_id>0;',
+            'DELETE FROM header_name WHERE header_name_id>0;'
         ]
         for command in db_tables:
             cursor.execute(command)
@@ -60,25 +60,25 @@ class DB:
             header_table
         ):
         self.clear_database()
-        print('Populating MySQL tables')
+        print('Populating database...')
         tables = [
             [
-                'INSERT INTO `headers`.`site` (`site_id`, `site`, `url`, `code`) VALUES (%s, %s, %s, %s)',
+                'INSERT INTO `site` (`site_id`, `site`, `url`, `code`) VALUES (%s, %s, %s, %s)',
                 'site',
                 site_table
             ],
             [
-                'INSERT INTO `headers`.`header_value` (`value`, `header_value_id`) VALUES (%s, %s)',
+                'INSERT INTO `header_value` (`value`, `header_value_id`) VALUES (%s, %s)',
                 'header_value',
                 header_value_table
             ],
             [
-                'INSERT INTO `headers`.`header_name` (`name`, `header_name_id`) VALUES (%s, %s)',
+                'INSERT INTO `header_name` (`name`, `header_name_id`) VALUES (%s, %s)',
                 'header_name',
                 header_name_table
             ],
             [
-                'INSERT INTO `headers`.`header` (`site_id`, `header_name_id`, `header_value_id`) VALUES (%s, %s, %s)',
+                'INSERT INTO `header` (`site_id`, `header_name_id`, `header_value_id`) VALUES (%s, %s, %s)',
                 'header',
                 header_table
             ]
