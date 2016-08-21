@@ -19,7 +19,7 @@ setup(
   packages=[],
   install_requires=[
     'gevent==1.1.2',
-    'mysql-connector==2.1.3',
-    'argparse==1.4.0'
+    'mysql-connector==2.1.4',
+    'argparse==1.4.0',
   ]
 )
