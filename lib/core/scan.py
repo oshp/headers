@@ -21,50 +21,36 @@ class Scan:
         ctx.verify_mode = ssl.CERT_NONE
         return ctx
 
-    def connection(self, url):
+    def connection(self, url, scheme='https://'):
         ctx = self.config_request()
 
+        url = scheme + site
         req = urllib2.Request(url)
         req.add_header('User-Agent', self.settings['http']['user_agent'])
         req.add_header('Origin', self.settings['http']['origin'])
         try:
-            response = urllib2.urlopen(
-                req,
-                timeout=self.settings['http']['timeout'],
-                context=ctx)
+            response = urllib2.urlopen(req, timeout=3, context=ctx)
         except socket.error as error:
             return str(error), -1, ''
-#        except urllib2.HTTPError as error:
-#            return error.geturl(), error.getcode(), error.info().items()
         except urllib2.URLError as error:
             return str(error.reason), -2, ''
-#        except httplib.BadStatusLine, error:
-#            return str(error), -3, ''
-        except httplib.HTTPException, error:
+        except httplib.HTTPException as error:
             return str(error), -3, ''
         else:
             return response.geturl(), response.getcode(), response.info().items()
 
     def get_data(self, site):
         global chttps, chttp, cerror
-        url = 'https://' + site
-        newurl, code, headers = self.connection(url) # Trying HTTPS
+        newurl, code, headers = connectionN(site)
         if code < 0:
-            url = 'http://' + site
-            newurl, code, headers = self.connection(url) # Trying HTTP
-            if code < 0:
-                cerror += 1
-                return newurl, code, ''
-            else:
-                if urlparse(newurl).scheme is 'https':
-                    chttps += 1 # HTTPS redirect OK
-                else:
-                    chttp += 1 # HTTP OK
+            newurl, code, headers = connectionN(site, 'http://')
+        scheme_token = newurl.count('https://')
+        if code == 200 and scheme_token == 1:
+            chttps += 1
+        elif code == 200 and scheme_token == 0:
+            chttp += 1
         else:
-            if urlparse(newurl).scheme is 'http':
-                chttp += 1 # HTTP redirect OK
-            else:
-                chttps += 1 # HTTPS OK
+            cerror += 1
         return newurl, code, headers
 
     def get_summary(self):
