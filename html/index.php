@@ -133,13 +133,15 @@
         text: 'Header <?php echo $_GET["header"] ?>' },
         tooltip: {
 			  formatter: function() {
-				return this.point.name + ': <b>' + this.point.y + '</b>'; } },
+				return this.point.name + '<br><b>' + this.point.y + ' (' + this.percentage.toFixed(2) + '%)</b>'; } },
       plotOptions: {
         pie: {
 					allowPointSelect: true,
           cursor: 'pointer',
 					dataLabels: {
-						enabled: false },
+//						enabled: true,
+//						format: '{point.name}<br> {point.percentage:.1f} %' },
+					enabled: false },
 				  showInLegend: true,
 					point: {
 						events: {

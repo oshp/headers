@@ -7,6 +7,8 @@ import db
 import util
 import scan
 
+from configurations import CONFIGURATIONS
+
 site_table = []
 header_name_table = {}
 header_value_table = {}
@@ -18,7 +20,7 @@ class Headers:
     def __init__(self):
         global settings, database, config, scanner
         config = util.Util()
-        settings = config.load_config('conf/params.json')
+        settings = config.load_config(CONFIGURATIONS)
         scanner = scan.Scan(settings)
         database = db.DB(settings)
 
