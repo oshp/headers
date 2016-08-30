@@ -45,18 +45,21 @@ class Scan:
             return response.geturl(), response.getcode(), response.info().items()
 
     def get_data(self, site):
-        global chttps, chttp, cerror
         newurl, code, headers = self.connection(site)
         if code < 0:
             newurl, code, headers = self.connection(site, HTTP_SCHEME)
         scheme_token = newurl.count(HTTPS_SCHEME)
+        self.generate_stats(code, scheme_token)
+        return newurl, code, headers
+
+    def generate_stats(self, code, scheme_token):
+        global chttps, chttp, cerror
         if code == 200 and scheme_token == 1:
             chttps += 1
         elif code == 200 and scheme_token == 0:
             chttp += 1
         else:
             cerror += 1
-        return newurl, code, headers
 
     def get_summary(self):
         print('')
