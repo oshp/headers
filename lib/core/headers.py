@@ -82,5 +82,5 @@ class Headers:
             threads = [gevent.spawn(self.work_headers, item) for item in dictsites[start:start+num_threads]]
             gevent.joinall(threads)
             start += num_threads
-        scanner.get_summary()
+        scanner.get_summary(site_table)
         database.populate_mysql(site_table, header_name_table, header_value_table, header_table)

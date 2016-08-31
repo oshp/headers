@@ -3,37 +3,23 @@ import urllib2
 from urlparse import urlparse
 import socket
 import httplib
-#import ssl
 
 from configurations import CONFIGURATIONS
 from configurations import HTTP_SCHEME
 from configurations import HTTPS_SCHEME
-
-chttps = 0
-chttp = 0
-cerror = 0
+from configurations import NO_SCHEME
 
 class Scan:
 
     def __init__(self, settings):
-        global chttps, chttp, cerror
         self.settings = settings
 
-#    def config_request(self):
-#        ctx = ssl.create_default_context()
-#        ctx.check_hostname = False
-#        ctx.verify_mode = ssl.CERT_NONE
-#        return ctx
-
     def connection(self, url, scheme=HTTPS_SCHEME):
-#        ctx = self.config_request()
-
         site = scheme + '://' + url
         req = urllib2.Request(site)
         req.add_header('User-Agent', self.settings['http']['user_agent'])
         req.add_header('Origin', self.settings['http']['origin'])
         try:
-#            response = urllib2.urlopen(req, timeout=3, context=ctx)
             response = urllib2.urlopen(req, timeout=3)
         except socket.error as error:
             return str(error), -1, ''
@@ -48,20 +34,34 @@ class Scan:
         newurl, code, headers = self.connection(site)
         if code < 0:
             newurl, code, headers = self.connection(site, HTTP_SCHEME)
-        scheme_token = newurl.count(HTTPS_SCHEME)
-        self.generate_stats(code, scheme_token)
         return newurl, code, headers
 
-    def generate_stats(self, code, scheme_token):
-        global chttps, chttp, cerror
-        if code == 200 and scheme_token == 1:
-            chttps += 1
-        elif code == 200 and scheme_token == 0:
-            chttp += 1
+    def test_scheme(self, code, url, scheme):
+        if code == 200 and urlparse(url).scheme == scheme:
+            yield 1
         else:
-            cerror += 1
+            yield 0
 
-    def get_summary(self):
+    def test_error(self, code, url, scheme):
+        if code < 0 and urlparse(url).scheme == scheme:
+            yield 1
+        else:
+            yield 0
+
+    def gen_stats(self, code, url, scheme):
+        if scheme == NO_SCHEME:
+            return self.test_error(code, url, scheme)
+        else:
+            return self.test_scheme(code, url, scheme)
+
+    def get_summary(self, site_table):
+        chttp = 0
+        chttps = 0
+        cerror = 0
+        for site in site_table:
+            chttps += self.gen_stats(site[3], site[2], HTTPS_SCHEME).next()
+            chttp += self.gen_stats(site[3], site[2], HTTP_SCHEME).next()
+            cerror += self.gen_stats(site[3], site[2], NO_SCHEME).next()
         print('')
         print('Connections summary')
         print('https: {}').format(chttps)
