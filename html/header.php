@@ -29,7 +29,7 @@
 
   require_once("db.php");
   $conn = new DB;
-  $mysqli = $conn->get_connection();
+  $mysqli = $conn->getConnection();
 
   $command = "SELECT sql_cache h.site_id, s.site, url, hv.value FROM site AS s JOIN header ".
     "AS h, header_value AS hv, header_name AS hn WHERE hn.name = ? AND ".
@@ -75,8 +75,6 @@
 }
 
 include_once 'footerui.php';
-
-#$mysqli->close();
 ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

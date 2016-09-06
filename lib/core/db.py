@@ -1,14 +1,14 @@
 import mysql.connector
 
-conn = None
+#conn = None
 
 class DB:
 
     def __init__(self, settings):
         self.settings = settings
+        self.conn = None
 
     def get_db_connection(self):
-        global conn
         if conn is None:
             conn = mysql.connector.connect(
                 user=self.settings['db']['username'],
@@ -16,15 +16,15 @@ class DB:
                 host=self.settings['db']['host'],
                 database=self.settings['db']['database']
             )
-        return conn
+        return self.conn
 
     def close_db_connection(self):
-        conn = self.get_db_connection()
-        conn.close()
+        self.conn = self.get_db_connection()
+        self.conn.close()
 
     def clear_database(self):
-        conn = self.get_db_connection()
-        cursor = conn.cursor()
+        self.conn = self.get_db_connection()
+        cursor = self.conn.cursor()
         print('')
         print('Cleaning database')
         print('Tables: [header, site, header_value, header_name]')
@@ -37,12 +37,12 @@ class DB:
         ]
         for command in db_tables:
             cursor.execute(command)
-        conn.commit()
+        self.conn.commit()
         cursor.close()
 
     def save(self, command, table_name, table):
-        conn = self.get_db_connection()
-        cursor = conn.cursor()
+        self.conn = self.get_db_connection()
+        cursor = self.conn.cursor()
         print('Table: {}').format(table_name)
         if type(table) is list:
             for x in table:
@@ -50,7 +50,7 @@ class DB:
         elif type(table) is dict:
             for x in table.items():
                 cursor.execute(command, x)
-        conn.commit()
+        self.conn.commit()
         cursor.close()
 
     def populate_mysql(self,

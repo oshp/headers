@@ -18,29 +18,37 @@ headers_counter = {'name': 0, 'value': 0}
 class Headers:
 
     def __init__(self):
-        global settings, database, config, scanner
+        global settings, config, scanner
         config = util.Util()
         settings = config.load_config(CONFIGURATIONS)
         scanner = scan.Scan(settings)
-        database = db.DB(settings)
+        self.load_header_name_table()
+
+    def load_header_name_table(self):
+        global header_name_table
+        for header_name in settings['headers']:
+            self.test_duplicate_value(
+                header_name,
+                header_name_table,
+                'name')
 
     def work_headers(self, item):
-        global site_table, header_name_table, header_value_table, header_table
+        global site_table, header_value_table, header_table
         site_id = item[0]
         site = item[1]
         url, code, headers = scanner.get_data(site)
         site_table.append([site_id, site, url, code])
         if code > 0:
             for header_name, header_value in headers:
-                hname = self.test_duplicate_value(
-                    header_name,
-                    header_name_table,
-                    'name')
-                hvalue = self.test_duplicate_value(
-                    header_value,
-                    header_value_table,
-                    'value')
-                header_table.append([site_id, hname, hvalue])
+                if header_name in header_name_table:
+                    hvalue = self.test_duplicate_value(
+                        header_value,
+                        header_value_table,
+                        'value')
+                    header_table.append(
+                        [site_id,
+                        header_name_table[header_name],
+                        hvalue])
 
     def test_duplicate_value(self, value, table, index_name):
         global headers_counter
@@ -50,6 +58,11 @@ class Headers:
             return headers_counter[index_name]
         else:
             return table[value]
+
+    def save_data(self):
+        database = db.DB(settings)
+        database.populate_mysql(site_table, header_name_table, header_value_table, header_table)
+
 
     def main(self):
         parser = argparse.ArgumentParser(
@@ -83,4 +96,4 @@ class Headers:
             gevent.joinall(threads)
             start += num_threads
         scanner.get_summary(site_table)
-        database.populate_mysql(site_table, header_name_table, header_value_table, header_table)
+        self.save_data()

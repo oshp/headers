@@ -2,7 +2,7 @@
 
   require_once("db.php");
   $conn = new DB;
-  $mysqli = $conn->get_connection();
+  $mysqli = $conn->getConnection();
 
   $rows = array();
   $command = "SELECT hv.value as value, COUNT(*) as quantity FROM site as s ".

@@ -10,7 +10,7 @@
 <?php
   require_once("db.php");
   $conn = new DB;
-  $mysqli = $conn->get_connection();
+  $mysqli = $conn->getConnection();
 
   include_once 'headerui.php';
 

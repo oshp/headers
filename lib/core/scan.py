@@ -8,6 +8,8 @@ from configurations import CONFIGURATIONS
 from configurations import HTTP_SCHEME
 from configurations import HTTPS_SCHEME
 from configurations import NO_SCHEME
+from configurations import HTTP_STATUS_CODE
+from configurations import SITE
 
 class Scan:
 
@@ -37,31 +39,22 @@ class Scan:
         return newurl, code, headers
 
     def test_scheme(self, code, url, scheme):
-        if code == 200 and urlparse(url).scheme == scheme:
-            yield 1
-        else:
-            yield 0
-
-    def test_error(self, code, url, scheme):
-        if code < 0 and urlparse(url).scheme == scheme:
+        if (code == 200 or code < 0) and urlparse(url).scheme == scheme:
             yield 1
         else:
             yield 0
 
     def gen_stats(self, code, url, scheme):
-        if scheme == NO_SCHEME:
-            return self.test_error(code, url, scheme)
-        else:
-            return self.test_scheme(code, url, scheme)
+        return self.test_scheme(code, url, scheme)
 
     def get_summary(self, site_table):
         chttp = 0
         chttps = 0
         cerror = 0
         for site in site_table:
-            chttps += self.gen_stats(site[3], site[2], HTTPS_SCHEME).next()
-            chttp += self.gen_stats(site[3], site[2], HTTP_SCHEME).next()
-            cerror += self.gen_stats(site[3], site[2], NO_SCHEME).next()
+            chttps += self.gen_stats(site[HTTP_STATUS_CODE], site[SITE], HTTPS_SCHEME).next()
+            chttp += self.gen_stats(site[HTTP_STATUS_CODE], site[SITE], HTTP_SCHEME).next()
+            cerror += self.gen_stats(site[HTTP_STATUS_CODE], site[SITE], NO_SCHEME).next()
         print('')
         print('Connections summary')
         print('https: {}').format(chttps)

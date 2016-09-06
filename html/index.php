@@ -64,7 +64,7 @@
 
 							require_once("db.php");
 							$conn = new DB;
-							$mysqli = $conn->get_connection();
+							$mysqli = $conn->getConnection();
 
 							$command = "SELECT sql_cache name FROM header_name ORDER BY name;";
 							if ($stmt = $mysqli->prepare($command)) {
@@ -139,8 +139,6 @@
 					allowPointSelect: true,
           cursor: 'pointer',
 					dataLabels: {
-//						enabled: true,
-//						format: '{point.name}<br> {point.percentage:.1f} %' },
 					enabled: false },
 				  showInLegend: true,
 					point: {

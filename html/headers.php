@@ -11,7 +11,7 @@
 
 require_once("db.php");
 $conn = new DB;
-$mysqli = $conn->get_connection();
+$mysqli = $conn->getConnection();
 
 if ($_GET["value"] == 'NULL') {
   $command = "SELECT sql_cache distinct h.site_id, s.site FROM site as s join ".

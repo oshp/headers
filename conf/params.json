@@ -13,5 +13,23 @@
     "password": "password",
     "host": "localhost",
     "database": "headers"
-  }
+  },
+  "headers": [
+    "access-control-allow-methods",
+    "access-control-allow-origin",
+    "access-control-expose-headers",
+    "content-security-policy",
+    "content-security-policy-report-only",
+    "public-key-pins",
+    "public-key-pins-report-only",
+    "server",
+    "strict-transport-security",
+    "x-content-security-policy-report-only",
+    "x-content-type-options",
+    "x-frame-options",
+    "x-permitted-cross-domain-policies",
+    "x-powered-by",
+    "x-webkit-csp-report-only",
+    "x-xss-protection"
+  ]
 }
