@@ -7,7 +7,7 @@ echo "<nav class=\"navbar navbar-default navbar-static-bottom\">";
       <a href=\"mailto:alexandre.fmenezes@owasp.org.br;ricardo.iramar@owasp.org.br\">
         Team Contact
       </a> |
-      <a href=\"https://www.github.com/secureheaders\">
+      <a href=\"https://www.github.com/oshp\">
         Repository
       </a>
     </p>";
