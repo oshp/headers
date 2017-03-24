@@ -66,5 +66,5 @@ pip install -r requirements-txt
 
 ### More
 
-See the [wiki page](https://github.com/amenezes/amenezes/wiki) to see more
+See the [wiki page](https://github.com/oshp/headers/wiki) to see more
 about how to use, contribute and much more.
