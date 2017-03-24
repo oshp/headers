@@ -1,100 +1,70 @@
-<a href="https://codeclimate.com/github/amenezes/headers"><img src="https://codeclimate.com/github/amenezes/headers/badges/gpa.svg" /></a>
+## SecureHeaders  
 [![Build Status](https://travis-ci.org/amenezes/headers.svg?branch=master)](https://travis-ci.org/amenezes/headers)
+<a href="https://codeclimate.com/github/amenezes/headers"><img src="https://codeclimate.com/github/amenezes/headers/badges/gpa.svg" /></a>
 [![Dependency Status](https://gemnasium.com/badges/github.com/amenezes/headers.svg)](https://gemnasium.com/github.com/amenezes/headers)
 
-## HTTP response headers
-HTTP headers are well known and also despised. Seeking the balance between usability and security developers implement functionality through the headers that can make your more versatile or secure application.  
+OWASP SecureHeaders Project.  
 
-But in practice how the headers are being implemented? What sites follow the best implementation practices? Big companies, small, all or none?  
+SecureHeaders project consist in two main modules:
+1. an engine to scan a list of sites fastly and with minimal resources;
+2. a web interface with a dashboard to view, search and customize besides
+provide insight and feedback about the use of HTTP secure headers.
 
-### Description
-A python script to get all response headers from a file and store in a MySQL database.  
+HTTP secure headers are resources known to some and despised by others.
+However it's a fact that the versatility and security provided by feature can
+help make web applications more secure.
 
-##### Usage:  
-```
-$ python headers.py -h  
+### Table of Contents
 
-usage: headers.py [-h] [-f FILENAME] [-t THREADS]  
+1. [Architecture](#Architecture)  
+2. [Web Interface](#Web-Interface)  
+2.1 [Dependencies](#Dependencies)  
+2.2 [Installation](#Installation)  
+3. [Scanner](#Scanner)  
+3.1 [Dependencies](#Dependencies)  
+3.2 [Installation](#Installation)
+4. [More](#More)  
 
-Headers will get all response headers from Alexa top sites.
-optional arguments:
-  -h, --help                        show this help message and exit.  
-  -f FILENAME, --filename FILENAME  filename with list of sites.  
-  -t THREADS, --threads THREADS     number of threads to make parallel requests.  
-```
+### Architecture
 
-##### Standard output sample:  
-```
-$ python headers.py -f topsites_global.csv -t 200
-Thread pool 1 (0 - 200)
-Thread pool 2 (200 - 400)
-Thread pool 3 (400 - 600)
-Thread pool 4 (600 - 800)
-Thread pool 5 (800 - 1000)
+![SecureHeaders Architecture](https://dl.dropboxusercontent.com/u/6427240/oshp/secureheaders.png)  
 
-Connections summary
-https: 366
-http: 579
-error: 55
+### Web Interface
 
-Cleaning database
-Tables: [header, site, header_value, header_name]
+![SecureHeaders Main Page](https://dl.dropboxusercontent.com/u/6427240/oshp/oshp_main.png)  
+The SecureHeaers webui provide an easyly way to see and search all data
+gathering with scanner module. For now it's possible to see a dashboard
+with main HTTP secure headers documented OWASP web page and also provide
+a way to search secure headers set in each page analyzed as your adoption
+by other users.
 
-Populating MySQL tables
-Table: site
-Table: header_value
-Table: header_name
-Table: header
-```
 ##### Dependencies  
-
-List of dependencies:  
-
-Python Libs | PHP | Web-Server
------------- | ------------- | -------------
-gevent | php5 | apache2
-mysql-connector | php5-mysqlnd | nginx
-argparse | -  | lighttpd
+- docker engine
+- docker-compose
 
 ##### Installation
-* option 1 (_with pip_)  
-```[sudo] pip install -r requirements-txt```  
-
-* option 2  
-```[sudo] python setup.py install```  
-
-## Application Structure
-
-### headers.py
-A python script to get all response headers from a file and store result in a MySQL database.  
-
-### conf  
-
-##### topsites_global.csv
-Just an Alexa top sites file example with 1000 records.  
-
-#### sql  
-##### headers.sql  
-MySQL database scheme exported with the command below:  
-```$ mysqldump -u root -p --no-data headers header header_name header_value site > headers.sql```  
-
-To import you can use this command:  
+```bash
+$ docker-compose up -d
 ```
-$ echo "create database headers" | mysql -u root -p
-$ mysql -u root -p headers < conf/sql/headers.sql
-```
-This is the database structure:  
-![Database Structure](docs/DB_Structure.png)
 
-##### headers-topsites_global.sql
-MySQL database with 1000 sites exported with the command below:  
-```$ mysqldump -u root -p headers header header_name header_value site > headers-top-1k.sql```  
+### Scanner
 
-To import you can use this command:  
-```$ mysql -u username -p headers < headers-top-1k.sql```
+[![asciicast](https://asciinema.org/a/ehee1olc3qys1wbdz1zqmiu84.png)](https://asciinema.org/a/ehee1olc3qys1wbdz1zqmiu84)  
+The scanner module it's responsible to catch all secure headers data from csv list.
 
-### html
-PHP pages with Highcharts graphics.  
+> notice: the module work, however it is under rebuild process to make it more effective,
+robust and much better.
 
-Sample page:  
-![Strict-Transport-Security Header](docs/strict-transport-security.png)
+##### Dependencies  
+
+Check [requirements-txt](https://github.com/amenezes/headers/blob/master/requirements.txt).
+
+##### Installation
+```bash
+pip install -r requirements-txt
+```  
+
+### More
+
+See the [wiki page](https://github.com/amenezes/amenezes/wiki) to see more
+about how to use, contribute and much more.

@@ -1,35 +1,31 @@
 {
   "general": {
-    "thread_number": 200,
+    "thread_number": 1000,
     "topsites_filename": "conf/topsites_global.csv"
   },
   "http": {
-    "user_agent": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.65 Safari/537.36",
+    "user_agent": "OWASP SecureHeaders Project v3.1.x (https://goo.gl/2SbYhw)",
     "origin": "http://a.com",
     "timeout": 3
   },
   "db": {
     "username": "root",
     "password": "password",
-    "host": "localhost",
+    "host": "mysqld",
     "database": "headers"
   },
+  "redis": {
+    "host": "redis",
+    "port": 6379,
+    "db": 0,
+    "ttl": 86400
+  },
   "headers": [
-    "access-control-allow-methods",
-    "access-control-allow-origin",
-    "access-control-expose-headers",
-    "content-security-policy",
-    "content-security-policy-report-only",
-    "public-key-pins",
-    "public-key-pins-report-only",
-    "server",
     "strict-transport-security",
-    "x-content-security-policy-report-only",
-    "x-content-type-options",
+    "public-key-pins",
+    "x-xss-protection",
     "x-frame-options",
-    "x-permitted-cross-domain-policies",
-    "x-powered-by",
-    "x-webkit-csp-report-only",
-    "x-xss-protection"
+    "x-content-type-options",
+    "content-security-policy"
   ]
 }

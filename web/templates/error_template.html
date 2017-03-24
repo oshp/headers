@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}The OWASP Secure Headers Project{% endblock %}</title>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='nprogress/nprogress.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='build/css/custom.min.css') }}" >
+  </head>
+
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        {% block body %}
+        <!-- page content -->
+
+        <!-- /page content -->
+        {% endblock %}
+      </div>
+    </div>
+
+    <script type=text/javascript src="{{ url_for('static', filename='jquery/dist/jquery.min.js') }}"></script>
+    <script type=text/javascript src="{{ url_for('static', filename='dist/js/bootstrap.min.js') }}"></script>
+    <script type=text/javascript src="{{ url_for('static', filename='fastclick/lib/fastclick.min.js') }}"></script>
+    <script type=text/javascript src="{{ url_for('static', filename='nprogress/nprogress.min.js') }}"></script>
+
+    <!--<script type=text/javascript src="{{ url_for('static', filename='build/js/custom.min.js') }}"></script>-->
+    <script type=text/javascript>
+      $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
+  </body>
+</html>

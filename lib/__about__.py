@@ -5,17 +5,17 @@ from __future__ import absolute_import, division, print_function
 
 __all__ = [
     "__title__", "__summary__", "__uri__", "__version__", "__author__",
-    "__email__", "__license__", "__copyright__",
+    "__email__", "__license__", "__copyleft__",
 ]
 
-__title__ = "headers"
-__summary__ = ("Python script to get http secure headers from Alexa top sites.")
-__uri__ = "http://github.com/oshp/headers"
+__title__ = "SecureHeaders"
+__summary__ = ("An application to catch, search and analyze HTTP secure headers.")
+__uri__ = "http://github.com/riramar/headers / http://github.com/amenezes"
 
-__version__ = "0.1.5"
+__version__ = "3.1.0"
 
-__author__ = "The headers developers team"
-__email__ = "ricardo_iramar@gmail.com / alexandre.fmenezes@gmail.com"
+__author__ = "The SecureHeaders team"
+__email__ = "alexandre.fmenezes@owasp.org | ricardo.iramar@owasp.org"
 
 __license__ = "GNU License, Version 2.0"
-__copyright__ = "Copyright 2016 {0}".format(__author__)
+__copyleft__ = "Copyleft 2017 {0}".format(__author__)

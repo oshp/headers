@@ -1,0 +1,164 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="right_col" role="main">
+  <div class="">
+
+    <div class="page-title">
+      <div class="title_left">
+        <h3><small> Project Detail</small></h3>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="x_panel">
+
+          <div class="x_content">
+            <!-- start project-detail sidebar -->
+            <div class="col-md-4 col-sm-4 col-xs-12">
+
+              <section class="panel">
+
+                <div class="x_title">
+                  <h2>About Project</h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="panel-body">
+                  <h3 class="black">
+                    <i class="fa fa-file-text-o"></i> Description
+                  </h3>
+
+                  <p>
+                    OWASP Secure Headers Project involves setting headers from
+                    the server is easy and often doesn't require any code
+                    changes. Once set, they can restrict modern browsers from
+                    running into easily preventable vulnerabilities.
+                    OWASP Secure Headers Project intends to raise awareness
+                    and use of these headers.
+                  </p>
+                  <br>
+
+                  <div class="project_detail">
+                    <p>
+                      <img width="85" height="35" src="{{ url_for('static', filename='images/owasp_defenders.png') }}"></img>
+                      <img width="85" height="35" src="{{ url_for('static', filename='images/owasp_builders.png') }}"></img>
+                    </p>
+                  </div>
+
+                </div>
+
+              </section>
+
+            </div>
+            <!-- end project-detail sidebar -->
+
+            <div class="col-md-4 col-sm-4 col-xs-12">
+
+              <section class="panel">
+                <div class="x_title">
+                  <h2>Methodology</h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="panel-body">
+                  <h3 class="black"><i class="fa fa-file-text-o"></i> Description</h3>
+                  <p>Our core values are aligned with OWASP Foundation that focus on:</p>
+                  <ul>
+                    <li>open everthing and be radically transparent;</li>
+                    <li>make experiments to help and support solutions to engagement sotware security challenges;</li>
+                    <li>be open to anyone around the world;</li>
+                    <li>be honest and truthful, vendor neutral and supported by global community.</li>
+                  </ul>
+                  <p>Like this all work made to concretize SecureHeaders Project are related below:</p>
+                  <br>
+                  <h5>Project links</h5>
+                  <ul class="list-unstyled project_files">
+                    <li>
+                      <a href="https://github.com/oshp/headers/projects">
+                        <i class="fa fa-road"></i>
+                        Roadmap
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://github.com/oshp/headers/wiki">
+                        <i class="fa fa-wikipedia-w"></i>
+                        Wiki
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.owasp.org/index.php/OWASP_Secure_Headers_Project#tab=FAQs">
+                        <i class="fa fa-question"></i>
+                        FAQ
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <i class="fa fa-external-link"></i>
+                        About Project
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://github.com/oshp/headers/issues">
+                        <i class="fa fa-exclamation-circle"></i>
+                        Issues
+                      </a>
+                    </li>
+                  </u>
+                </div>
+              </section>
+
+            </div>
+            <!-- end project-detail sidebar -->
+
+            <div class="col-md-4 col-sm-4 col-xs-12">
+              <section class="panel">
+
+                <div class="x_title">
+                  <h2>Team</h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="panel-body">
+                  <h3 class="black"><i class="fa fa-users"></i> Members</h3>
+                  <p>
+                    As like other OWASP members we're enthusiasts on help to
+                    build, aware, simpliying and improve web application
+                    security. The mainline members envolved in
+                    SecureHeaders Project are:
+                  </p>
+                  <br>
+
+                  <div class="project_detail">
+                    <p class="title">
+                      Alexandre Menezes
+                      <a class="fa fa-twitter" href="https://www.twitter.com/ale_menezes"></a>
+                    </p>
+                    <p>Core member</p>
+                    <p class="title">
+                      Jim Manico
+                      <a class="fa fa-twitter" href="https://www.twitter.com/manicode"></a>
+                    </p>
+                    <p>Core Member</p>
+                    <p class="title">
+                      Ricardo Iramar
+                      <a class="fa fa-twitter" href="https://www.twitter.com/ricardo_iramar"></a>
+                    </p>
+                    <p>Core Member</p>
+                  </div>
+
+                </div>
+
+              </section>
+
+            </div>
+            <!-- end of contact-->
+
+          </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

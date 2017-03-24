@@ -1,0 +1,312 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="right_col" role="main">
+  <!--<div class="">-->
+    <div class="page-title">
+
+    </div>
+
+    <div class="row tile_count">
+      <div class="col-md-12">
+
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+          <span class="count_top"> Strict-Transport-Security</span>
+          <div class="count" id="sts_total">-</div>
+        </div>
+
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+          <span class="count_top"> Public-Key-Pins</span>
+          <div class="count" id="pkp_total">-</div>
+        </div>
+
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+          <span class="count_top"> X-XSS-Protection</span>
+          <div class="count" id="xss_total">-</div>
+        </div>
+
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+          <span class="count_top"> X-Frame-Options</span>
+          <div class="count" id="xfo_total">-</div>
+        </div>
+
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+          <span class="count_top"> X-Content-Type-Options</span>
+          <div class="count" id="xcto_total">-</div>
+        </div>
+
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+          <span class="count_top"> Content-Security-Policy</span>
+          <div class="count" id="csp_total">-</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row">
+
+      <!-- Strict-Transport-Security chart -->
+      <div class="col-md-4 col-sm-4 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Strict-Transport-Security</h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-question-circle"></i></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="https://www.owasp.org/index.php/OWASP_Secure_Headers_Project#hsts">Show me more</a>
+                  </li>
+                </ul>
+              </li>
+              <li><a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+
+            <div id="echart_pie" style="height: 350px; position: relative; background-color: transparent;"><div style="position: relative; overflow: hidden; width: 486px; height: 350px; cursor: default;"><canvas data-zr-dom-id="zr_0" height="350" width="486" style="position: absolute; left: 0px; top: 0px; width: 486px; height: 350px;"></canvas></div><div style="position: absolute; display: none; border-style: solid; white-space: nowrap; z-index: 9999999; transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s, top 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s; background-color: rgba(0, 0, 0, 0.5); border-width: 0px; border-color: rgb(51, 51, 51); border-radius: 4px; color: rgb(255, 255, 255); font: 14px/21px Arial,Verdana,sans-serif; padding: 5px; left: 81px; top: 110.633px;">访问来源 <br>Direct Access : 335 (13.08%)</div></div>
+
+          </div>
+        </div>
+      </div>
+      <!-- end of Strict-Transport-Security chart -->
+
+      <!-- public-key-pins chart -->
+      <div class="col-md-4 col-sm-4 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Public-Key-Pins</h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-question-circle"></i></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="https://www.owasp.org/index.php/OWASP_Secure_Headers_Project#hpkp">Show me more</a>
+                  </li>
+                </ul>
+              </li>
+              <li><a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+
+            <div id="mainb" style="height: 350px; position: relative; background-color: transparent;"><div style="position: relative; overflow: hidden; width: 1039px; height: 350px; cursor: default;"><canvas data-zr-dom-id="zr_0" height="350" width="1039" style="position: absolute; left: 0px; top: 0px; width: 1039px; height: 350px;"></canvas></div><div style="position: absolute; display: none; border-style: solid; white-space: nowrap; z-index: 9999999; transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s, top 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s; background-color: rgba(0, 0, 0, 0.5); border-width: 0px; border-color: rgb(51, 51, 51); border-radius: 4px; color: rgb(255, 255, 255); font: 14px/21px Arial,Verdana,sans-serif; padding: 5px; left: 158.533px; top: 217.2px;">1?<br><span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:#26B99A"></span>sales : 2<br><span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:#34495E"></span>purchases : 2.6</div></div>
+
+          </div>
+        </div>
+      </div>
+      <!-- end public-key-pins -->
+
+        <!-- timeline -->
+        <div class="col-md-4 col-sm-4 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Analysis Historys <small>most recent first</small></h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-question-circle"></i></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">Show me more</a>
+                  </li>
+                </ul>
+              </li>
+              <li><a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <div class="dashboard-widget-content">
+
+              <ul class="list-unstyled timeline widget">
+                <li>
+                  <div class="block">
+                    <div class="block_content">
+                      <h2 class="title">
+                          <a>Baseline scan</a>
+                          <span class="label label-success">new</span>
+                      </h2>
+                      <div class="byline">
+                        <span>03-2017</span> by <a>OSHP Team</a>
+                      </div>
+                      <p class="excerpt">Hell yeah folks! This is our first public analysis shared with community as beside new project layout. We expect that quarterly a new version with more data are published. So for now enjoy some scenarios that we bringed up. For more information check this <a href="#">link</a>
+                      </p>
+                    </div>
+                  </div>
+                </li>
+                </ul>
+            </div>
+          </div>
+        </div>
+        </div>
+        <!-- end of timeline-->
+
+    </div>
+
+    <div class="row">
+
+      <!-- x-xss-protection chart -->
+      <div class="col-md-4 col-sm-4 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>X-XSS-Protection</h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-question-circle"></i></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="https://www.owasp.org/index.php/OWASP_Secure_Headers_Project#xxxsp">Show me more</a>
+                  </li>
+                </ul>
+              </li>
+              <li><a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+
+
+            <div id="echart_sonar" style="height: 370px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative; background-color: transparent;" _echarts_instance_="ec_1486732054896">
+              <div style="position: relative; overflow: hidden; width: 486px; height: 370px; cursor: default;">
+                <canvas width="486" height="370" data-zr-dom-id="zr_0" style="position: absolute; left: 0px; top: 0px; width: 486px; height: 370px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></canvas>
+              </div><div></div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- end of x-xss-protection -->
+
+      <!-- X-Frame-Options -->
+      <div class="col-md-4 col-sm-4 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>X-Frame-Options</h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-question-circle"></i></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="https://www.owasp.org/index.php/OWASP_Secure_Headers_Project#xfo">Show me more</a>
+                  </li>
+                </ul>
+              </li>
+              <li><a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+
+            <div id="xfo" style="height: 350px; position: relative; background-color: transparent;"><div style="position: relative; overflow: hidden; width: 486px; height: 350px; cursor: default;"><canvas data-zr-dom-id="zr_0" height="350" width="486" style="position: absolute; left: 0px; top: 0px; width: 486px; height: 350px;"></canvas></div><div style="position: absolute; display: none; border-style: solid; white-space: nowrap; z-index: 9999999; transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s, top 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s; background-color: rgba(0, 0, 0, 0.5); border-width: 0px; border-color: rgb(51, 51, 51); border-radius: 4px; color: rgb(255, 255, 255); font: 14px/21px Arial,Verdana,sans-serif; padding: 5px; left: 194.667px; top: 192.633px;">Area Mode <br>rose5 : 20 (18.18%)</div></div>
+
+          </div>
+        </div>
+      </div>
+      <!-- end of X-Frame-Options -->
+
+      <!-- x-content-type-options chart -->
+      <div class="col-md-4 col-sm-4 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>X-Content-Type-Options</h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-question-circle"></i></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="https://www.owasp.org/index.php/OWASP_Secure_Headers_Project#xcto">Show me more</a>
+                  </li>
+                </ul>
+              </li>
+              <li><a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+
+            <div id="xcto_donut" style="height: 350px; position: relative; background-color: transparent;">
+              <div style="position: relative; overflow: hidden; width: 486px; height: 350px; cursor: default;">
+                <canvas data-zr-dom-id="zr_0" height="350" width="486" style="position: absolute; left: 0px; top: 0px; width: 486px; height: 350px;"></canvas>
+              </div>
+              <div style="position: absolute; display: none; border-style: solid; white-space: nowrap; z-index: 9999999; transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s, top 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s; background-color: rgba(0, 0, 0, 0.5); border-width: 0px; border-color: rgb(51, 51, 51); border-radius: 4px; color: rgb(255, 255, 255); font: 14px/21px Arial,Verdana,sans-serif; padding: 5px; left: 75.3334px; top: 100.4px;">
+                Access to the resource <br>Direct Access : 335 (13.08%)
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- end of x-content-type-options chart -->
+
+    </div>
+
+    <div class="row">
+
+      <!-- bar chart -->
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Content-Security-Policy</h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-question-circle"></i></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="https://www.owasp.org/index.php/OWASP_Secure_Headers_Project#csp">Show me more</a>
+                  </li>
+                </ul>
+              </li>
+              <li><a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <div id="echart_line" style="height: 350px; position: relative; background-color: transparent;"><div style="position: relative; overflow: hidden; width: 1039px; height: 350px; cursor: default;"><canvas data-zr-dom-id="zr_0" height="350" width="1039" style="position: absolute; left: 0px; top: 0px; width: 1039px; height: 350px;"></canvas></div><div style="position: absolute; display: none; border-style: solid; white-space: nowrap; z-index: 9999999; transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s, top 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s; background-color: rgba(0, 0, 0, 0.5); border-width: 0px; border-color: rgb(51, 51, 51); border-radius: 4px; color: rgb(255, 255, 255); font: 14px/21px Arial,Verdana,sans-serif; padding: 5px; left: 158.533px; top: 163.2px;">1?<br><span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:#26B99A"></span>sales : 2<br><span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:#34495E"></span>purchases : 2.6</div></div>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-12">
+              <div class="x_title">
+                <h2>CSP Options</h2>
+                <div class="clearfix"></div>
+              </div>
+              <div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                <table aria-describedby="datatable_info" role="grid" id="example" class="table table-striped table-bordered dataTable no-footer">
+                  <thead>
+                    <tr role="row">
+                      <th aria-label="Order: activate to sort column descending" aria-sort="ascending" aria-controls="datatable" tabindex="0" class="sorting_asc">#</th>
+                      <th aria-label="Name: activate to sort column ascending" aria-controls="datatable" tabindex="0" class="sorting">Header Option</th>
+                      <th aria-label="Quantity: activate to sort column ascending" aria-controls="datatable" tabindex="0" class="sorting">Used by</th>
+                    </tr>
+                  </thead>
+
+                </table>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end of bar chart -->
+
+    </div>
+
+  </div>
+<!--</div>-->
+
+<script type=text/javascript src="{{ url_for('static', filename='echarts/dist/echarts.min.js') }}"></script>
+{% endblock %}

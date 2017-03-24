@@ -21,5 +21,11 @@ setup(
     'gevent==1.1.2',
     'mysql-connector==2.1.4',
     'argparse==1.4.0',
+    'Flask==0.12',
+    'raven==6.0.0',
+    'blinker==1.4',
+    'flask-compress==1.4.0',
+    'Flask-Cache==0.13.1',
+    'redis==2.10.5'
   ]
 )
