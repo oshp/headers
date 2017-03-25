@@ -60,11 +60,11 @@
 # Make GitHub ignore vendor libraries while computing language stats.
 # See https://github.com/github/linguist#overrides.
 
-/web/static/dist/*          linguist-vendored=true
-/web/static/echarts/*       linguist-vendored=true
-/web/static/fastclick/*     linguist-vendored=true
-/web/static/font-awesome/*  linguist-vendored=true
-/web/static/images/*        linguist-vendored=true
-/web/static/jquery/*        linguist-vendored=true
-/web/static/nprogress/*     linguist-vendored=true
-/web/static/pnotify/*       linguist-vendored=true
+web/static/dist/*          linguist-vendored=true
+web/static/echarts/*       linguist-vendored=true
+web/static/fastclick/*     linguist-vendored=true
+web/static/font-awesome/*  linguist-vendored=true
+web/static/images/*        linguist-vendored=true
+web/static/jquery/*        linguist-vendored=true
+web/static/nprogress/*     linguist-vendored=true
+web/static/pnotify/*       linguist-vendored=true
