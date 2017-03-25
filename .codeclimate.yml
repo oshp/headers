@@ -1,0 +1,32 @@
+engines:
+  duplication:
+    enabled: true
+    config:
+      languages:
+        - javascript:
+          - python:
+  fixme:
+    enabled: true
+  radon:
+    enabled: true
+  pep8:
+    enabled: true
+  markdownlint:
+    enabled: true
+ratings:
+  paths:
+    - conf/**
+    - docker/**
+    - "**.py"
+    - "**.md"
+    - "lib/**.py"
+    - "web/**.py"
+exclude_paths:
+- "web/static/dist/*"
+- "web/static/echarts/**"
+- "web/static/fastclick/*"
+- "web/static/font-awesome/*"
+- "web/static/images/*"
+- "web/static/jquery/*"
+- "web/static/nprogress/*"
+- "web/static/pnotify/*"

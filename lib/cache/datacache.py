@@ -3,6 +3,7 @@ import json
 
 class Datacache(object):
 
+
     def __init__(self, settings):
         self.r = redis.StrictRedis(
             host=settings['redis']['host'],

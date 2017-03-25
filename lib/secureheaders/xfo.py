@@ -5,6 +5,7 @@ from lib.utils.queries import COUNT_HEADER_OPTION_SIMPLE
 
 class XFO(object):
 
+
     def __init__(self):
         self.name = 'x-frame-options'
         self.options = {

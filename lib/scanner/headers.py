@@ -9,7 +9,8 @@ from lib.scanner.scan import Scan
 
 from lib.utils.config import DEFAULT_CONFIG_FILE
 
-class Headers:
+class Headers(object):
+
 
     def __init__(self):
         self.site_table = []

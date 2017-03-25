@@ -3,6 +3,7 @@ from lib.utils.queries import COUNT_HEADER_OPTION
 
 class CSP(object):
 
+
     def __init__(self):
         self.name = 'content-security-policy'
         self.options = {

@@ -3,6 +3,7 @@ from lib.utils.queries import COUNT_HEADER_OPTION
 
 class PKP(object):
 
+
     def __init__(self):
         self.name = 'public-key-pins'
         self.options = {

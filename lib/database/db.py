@@ -2,6 +2,7 @@ import mysql.connector
 
 class DB(object):
 
+
     def __init__(self, settings):
         self.conn = None
         self.settings = settings

@@ -51,7 +51,6 @@ var CURRENT_URL = window.location.href.split('#')[0].split('?')[0],
 
 // Sidebar
 function init_sidebar() {
-// TODO: This is some kind of easy fix, maybe we can improve this
 var setContentHeight = function () {
 	// reset height
 	$RIGHT_COL.css('min-height', $(window).height());
@@ -305,23 +304,6 @@ if (typeof NProgress != 'undefined') {
             hide: 400
           }
         });
-
-
-	function gd(year, month, day) {
-		return new Date(year, month - 1, day).getTime();
-	}
-
-			function onAddTag(tag) {
-				alert("Added a tag: " + tag);
-			  }
-
-			  function onRemoveTag(tag) {
-				alert("Removed a tag: " + tag);
-			  }
-
-			  function onChangeTag(input, tag) {
-				alert("Changed a tag: " + tag);
-			  }
 
 		/* DATA TABLES */
 			function init_DataTables(response) {
@@ -779,22 +761,22 @@ if (typeof NProgress != 'undefined') {
 				polar: [{
 				  indicator: [{
 					text: '0',
-					max: 10838,
+					max: 10838
 				  }, {
 					text: '0; mode=block',
-					max: 10838,
+					max: 10838
 				  }, {
 					text: '1',
-					max: response['1'],
+					max: response['1']
 				  }, {
 					text: '1; mode=block',
-					max: 10838,
+					max: 10838
 				  }, {
 					text: 'report',
-					max: 10838,
+					max: 10838
 				  }, {
 					text: 'other',
-					max: 10838,
+					max: 10838
 				  }]
 				}],
 				calculable: true,

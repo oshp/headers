@@ -1,9 +1,9 @@
 import csv
 import json
-
 from lib.utils.config import DEFAULT_CONFIG_FILE
 
 class Util(object):
+
 
     def get_dictsites(self, filename):
         dictsites = []

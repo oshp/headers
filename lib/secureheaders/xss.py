@@ -6,6 +6,7 @@ from lib.utils.queries import COUNT_HEADER_OPTION
 
 class XSS(object):
 
+
     def __init__(self):
         self.name = 'x-xss-protection'
         self.options = {

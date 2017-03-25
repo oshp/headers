@@ -13,6 +13,7 @@ from lib.utils.config import SITE
 
 class Scan(object):
 
+
     def __init__(self, settings):
         self.settings = settings
 

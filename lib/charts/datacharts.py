@@ -10,6 +10,7 @@ from lib.secureheaders.csp import CSP
 
 class Datacharts(object):
 
+
     def __init__(self, settings):
         self.db = DB(settings)
         self.cache = Datacache(settings)
