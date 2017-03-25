@@ -67,4 +67,4 @@
 /web/static/images/*        linguist-vendored=true
 /web/static/jquery/*        linguist-vendored=true
 /web/static/nprogress/*     linguist-vendored=true
-/web/static/pnotify/*       linguist-vendored=true
+web/static/pnotify/*       linguist-vendored=true
