@@ -24,7 +24,6 @@
 *.tab text
 *.tsv text
 *.sql text
-*.html   text eol=lf
 
 #
 # gitattributes for graphics files
