@@ -1,10 +1,8 @@
-import sys
 import urllib2
 from urlparse import urlparse
 import socket
 import httplib
 
-from lib.utils.config import DEFAULT_CONFIG_FILE
 from lib.utils.config import HTTP_SCHEME
 from lib.utils.config import HTTPS_SCHEME
 from lib.utils.config import NO_SCHEME

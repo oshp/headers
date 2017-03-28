@@ -1,5 +1,3 @@
-import json
-
 from lib.utils.queries import QTD_XSS_OTHER
 from lib.utils.queries import COUNT_HEADER_BY_NAME
 from lib.utils.queries import COUNT_HEADER_OPTION
