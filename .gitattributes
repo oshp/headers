@@ -6,28 +6,33 @@
 #
 # gitattributes for common files
 #
-*.md       text
+*.doc	     linguist-documentation
+*.docx     linguist-documentation
+*.DOCX     linguist-documentation
+*.pdf      linguist-documentation
+*.PDF	     linguist-documentation
+*.md       linguist-documentation
+*.textile  linguist-documentation
+
 *.csv      text
 *.sql      text
 
 #
 # gitattributes for graphics files
 #
-*.png  binary
-*.jpg  binary
-*.jpeg binary
-*.gif  binary
-*.tif  binary
-*.tiff binary
-*.ico  binary
-*.svg  binary
+*.png  linguist-documentation
+*.jpg  linguist-documentation
+*.jpeg linguist-documentation
+*.gif  linguist-documentation
+*.ico  linguist-documentation
+*.svg  linguist-documentation
 
 #
 # gitattributes for python files
 #
 *.pxd		text
 *.py 		text
-*.py3 	text
+*.py3   text
 *.pyw 	text
 *.pyx  	text
 
@@ -36,24 +41,25 @@
 #
 *.db		binary
 *.p 		binary
-*.pkl   binary
+*.pkl 	binary
 *.pyc 	binary
 *.pyd		binary
 *.pyo 	binary
 
 #
-# gitattributes to adjust HTML templates as python code
+# gitattributes for adjust HTML templates as python
+#
 *.html linguist-language=Python
 
 # Make GitHub ignore vendor libraries while computing language stats.
 # See https://github.com/github/linguist#overrides.
-
-web/static/dist/*          linguist-vendored
-web/static/echarts/*       linguist-vendored
-web/static/fastclick/*     linguist-vendored
-web/static/font-awesome/*  linguist-vendored
-web/static/images/*        linguist-vendored
-web/static/jquery/*        linguist-vendored
-web/static/nprogress/*     linguist-vendored
-web/static/pnotify/*       linguist-vendored
- web/static/pnotify/dist/pnotify.js linguist-vendored
+web/static/dist/js/*          linguist-vendored
+web/static/echarts/*          linguist-vendored
+web/static/fastclick/lib/*    linguist-vendored
+web/static/font-awesome/*     linguist-vendored
+web/static/images/*           linguist-vendored
+web/static/jquery/dist/*      linguist-vendored
+web/static/nprogress/*        linguist-vendored
+web/static/pnotify/dist/*     linguist-vendored
+web/static/pnotify/dist/pnotify.js linguist-vendored
+web/static/build/*            linguist-vendored=false
