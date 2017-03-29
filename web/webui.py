@@ -126,9 +126,9 @@ def page_not_found(e):
 
 @app.after_request
 def apply_caching(response):
-    response.headers["Content-Security-Policy"] = "base-uri 'self'; media-src 'none'; style-src 'self'; img-src https://sentry.io/api/embed/error-page/ 'self'"
+    response.headers["Content-Security-Policy"] = "base-uri 'self'; media-src 'none'; style-src 'self'; img-src 'self'"
     response.headers["X-Frame-Options"] = "DENY"
     response.headers["X-XSS-Protection"] = "1; mode=block; report=http://oshp.bsecteam.com/xssreport"
     response.headers["X-Content-Type-Options"] = "nosniff"
-    response.headers["Referrer-Policy"] = "same-origin"
+    response.headers["Referrer-Policy"] = "no-referrer"
     return response
