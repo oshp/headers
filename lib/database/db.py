@@ -28,6 +28,7 @@ class DB(object):
         except:
             print("[!] error: unable to fecth data")
         finally:
+            self.conn.commit()
             cursor.close()
             #self.close_db_connection()
         return results
