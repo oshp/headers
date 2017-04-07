@@ -9,7 +9,7 @@ LABEL org.owasp.oshp.url="https://www.owasp.org/index.php/OWASP_Secure_Headers_P
 ENV APP_DIR /opt/headers
 ENV FLASK_APP ${APP_DIR}/web/webui.py
 ENV BRANCH_TAG master
-ENV NEWRELIC_APM
+ENV NEWRELIC_APM ''
 
 ARG BRANCH=$BRANCH_TAG
 ARG URL=https://github.com/oshp/headers.git
