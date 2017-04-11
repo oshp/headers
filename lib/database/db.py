@@ -4,42 +4,36 @@ class DB(object):
 
 
     def __init__(self, settings):
-        self.conn = None
+        #self.conn = False
         self.settings = settings
 
     def get_db_connection(self):
-        if self.conn is None:
-            self.conn = mysql.connector.connect(
-                user=self.settings['db']['username'],
-                password=self.settings['db']['password'],
-                host=self.settings['db']['host'],
-                database=self.settings['db']['database']
-            )
-        return self.conn
+        conn = mysql.connector.connect(
+            user=self.settings['db']['username'],
+            password=self.settings['db']['password'],
+            host=self.settings['db']['host'],
+            database=self.settings['db']['database']
+        )
+        return conn
 
     def query(self, query):
-        self.conn = self.get_db_connection()
-        cursor = self.conn.cursor()
+        conn = self.get_db_connection()
+        cursor = conn.cursor()
         results = ''
         try:
             cursor.execute(query)
-            #cursor.executemany(query)
             results = cursor.fetchall()
         except:
             print("[!] error: unable to fecth data")
         finally:
-            self.conn.commit()
+            conn.commit()
             cursor.close()
-            #self.close_db_connection()
+            conn.close()
         return results
 
-    def close_db_connection(self):
-        self.conn = self.get_db_connection()
-        self.conn.close()
-
     def clear_database(self):
-        self.conn = self.get_db_connection()
-        cursor = self.conn.cursor()
+        conn = self.get_db_connection()
+        cursor = conn.cursor()
         print('')
         print('Cleaning database')
         print('Tables: [header, site, header_value, header_name]')
@@ -52,11 +46,11 @@ class DB(object):
         ]
         for command in db_tables:
             cursor.execute(command)
-        self.conn.commit()
+        conn.commit()
         cursor.close()
 
     def save(self, command, table_name, table):
-        self.conn = self.get_db_connection()
+        conn = self.get_db_connection()
         cursor = self.conn.cursor()
         print('Table: {}').format(table_name)
         if type(table) is list:
@@ -65,8 +59,9 @@ class DB(object):
         elif type(table) is dict:
             for x in table.items():
                 cursor.execute(command, x)
-        self.conn.commit()
+        conn.commit()
         cursor.close()
+        conn.close()
 
     def populate_mysql(self,
             site_table,
@@ -100,4 +95,3 @@ class DB(object):
         ]
         for command, table_name, table in tables:
             self.save(command, table_name, table)
-        self.close_db_connection()

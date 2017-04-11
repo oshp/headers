@@ -27,7 +27,8 @@ sentry = Sentry(
     app,
     dsn='%s' % os.getenv(
         'SENTRY_DSN',
-        'https://0b8820db003145838f2ce9b023df9687:295a00639ad44cfd9074a2f594702f6c@sentry.io/144923'))
+        'https://0b8820db003145838f2ce9b023df9687:295a00639ad44cfd9074a2f594702f6c@sentry.io/144923')
+    )
 #sentry = Sentry(app, dsn='%s' % os.getenv('SENTRY_DSN', ''))
 compress.init_app(app)
 cache.init_app(app)
