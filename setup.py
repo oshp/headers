@@ -26,6 +26,7 @@ setup(
     'blinker==1.4',
     'flask-compress==1.4.0',
     'Flask-Cache==0.13.1',
-    'redis==2.10.5'
+    'redis==2.10.5',
+    'newrelic==2.82.0.62'
   ]
 )
