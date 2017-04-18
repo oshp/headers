@@ -1,0 +1,14 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /opt/headers
+hooks:
+  BeforeInstall:
+    - location: deploy/build_service.sh
+      timeout: 300
+      runas: ubuntu
+  ApplicationStart:
+    - location: deploy/start_service.sh
+      timeout: 400
+      runas: root
