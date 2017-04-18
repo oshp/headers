@@ -5,7 +5,7 @@ files:
     destination: /opt/headers
 hooks:
   BeforeInstall:
-    - location: deploy/build_service.sh
+    - location: deploy/before_install.sh
       timeout: 300
       runas: ubuntu
   Install:
