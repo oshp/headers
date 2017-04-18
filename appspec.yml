@@ -8,6 +8,10 @@ hooks:
     - location: deploy/build_service.sh
       timeout: 300
       runas: ubuntu
+  Install:
+    - location: deploy/install_service.sh
+      timeout: 300
+      runas: ubuntu
   ApplicationStart:
     - location: deploy/start_service.sh
       timeout: 400

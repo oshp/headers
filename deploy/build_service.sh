@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 WORKDIR="/opt/headers"
 
 echo "[*] iniciando processo de build..."
