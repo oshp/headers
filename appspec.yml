@@ -7,7 +7,7 @@ hooks:
   BeforeInstall:
     - location: deploy/before_install.sh
       timeout: 300
-      runas: ubuntu
+      runas: root
   Install:
     - location: deploy/install_service.sh
       timeout: 300
