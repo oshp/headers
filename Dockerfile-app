@@ -18,7 +18,7 @@ WORKDIR $APP_DIR
 RUN apk add --no-cache py2-pip py-setuptools gcc make build-base python2-dev git \
   && git clone --depth 1 $URL -b $BRANCH . \
   && pip2 install --upgrade pip \
-  && pip2 install -r requirements.txt \
+  && pip2 install -r requirements.txt
 
 EXPOSE 5000
 
