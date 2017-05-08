@@ -8,6 +8,11 @@ services:
           MYSQL_DATABASE: headers
           MYSQL_USER: mysql
           MYSQL_PASSWORD: password
+        deploy:
+          replicas: 1
+          resources:
+            limits:
+              memory: 200M
     app:
         image: oshp/secureheaders:3.1.0
         container_name: app
@@ -15,6 +20,18 @@ services:
           - mysqld
         ports:
           - 80:5000
+        deploy:
+          replicas: 1
+          resources:
+            limits:
+              memory: 50M
     redis:
         image: redis:alpine
         container_name: redis
+        deploy:
+          replicas: 1
+          restart_policy:
+            condition: on-failure
+          resources:
+            limits:
+              memory: 5M

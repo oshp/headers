@@ -3,3 +3,4 @@
 lib/*.py[cod]
 .swap
 .swp
+venv

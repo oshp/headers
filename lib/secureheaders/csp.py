@@ -1,7 +1,8 @@
 from lib.utils.queries import COUNT_HEADER_BY_NAME
 from lib.utils.queries import COUNT_HEADER_OPTION
+from lib.secureheaders.header import Header
 
-class CSP(object):
+class CSP(Header):
 
 
     def __init__(self):
@@ -32,3 +33,25 @@ class CSP(object):
             'script-src': COUNT_HEADER_OPTION.format(self.name, 'script-src'),
             'total': COUNT_HEADER_BY_NAME % self.name
         }
+
+    def options(self):
+        valid_options = [ 'report-uri', 'default-src', 'script-nonce',
+                         'upgrade-insecure-requests', 'media-src',
+                         'media-src', 'report-to', 'reflected-xss',
+                         'style-src', 'frame-src', 'block-all-mixed-content',
+                         'child-src', 'form-action', 'base-uri', 'img-src',
+                         'frame-ancestors', 'manifest-src', 'referrer',
+                         'sandbox', 'plugin-types', 'object-src', 'connect-src',
+                         'font-src', 'script-src' ]
+        return valid_options
+
+    def total(self):
+        csp_total = COUNT_HEADER_BY_NAME % self.name
+        return csp_total
+
+    def total_by_options(self):
+        csp_options_total = {}
+        for option in self.options():
+            csp_options_total[option] = COUNT_HEADER_OPTION.format(
+                self.name, option)
+        return csp_options_total
