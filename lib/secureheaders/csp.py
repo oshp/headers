@@ -1,7 +1,7 @@
 from lib.utils.queries import COUNT_HEADER_BY_NAME
 from lib.utils.queries import COUNT_HEADER_OPTION
 
-class CSP(Header):
+class CSP(object):
 
 
     def __init__(self):
