@@ -1,6 +1,5 @@
 from lib.utils.queries import COUNT_HEADER_BY_NAME
 from lib.utils.queries import COUNT_HEADER_OPTION
-from lib.secureheaders.header import Header
 
 class CSP(Header):
 
