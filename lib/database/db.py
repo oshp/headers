@@ -4,7 +4,6 @@ class DB(object):
 
 
     def __init__(self, settings):
-        #self.conn = False
         self.settings = settings
 
     def get_db_connection(self):
