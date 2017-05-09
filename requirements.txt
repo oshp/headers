@@ -14,7 +14,6 @@ MarkupSafe==1.0
 mysql-connector==2.1.4
 newrelic==2.82.0.62
 packaging==16.8
-pkg-resources==0.0.0
 raven==6.0.0
 redis==2.10.5
 six==1.10.0
