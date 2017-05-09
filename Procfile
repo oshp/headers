@@ -1,1 +1,1 @@
-web: gunicorn -w 2 -b 0.0.0.0:80 web.webui:app
+web: gunicorn -w 2 -b 0.0.0.0:5000 web.webui:app --log-file -
