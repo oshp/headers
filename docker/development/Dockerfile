@@ -7,21 +7,19 @@ LABEL org.owasp.oshp.url="https://www.owasp.org/index.php/OWASP_Secure_Headers_P
   org.owasp.oshp.maintainer="alexandre menezes <alexandre.fmenezes@owasp.org>"
 
 ENV APP_DIR /opt/headers
-ENV FLASK_APP ${APP_DIR}/web/webui.py
-ENV BRANCH_TAG master
-
-ARG BRANCH=$BRANCH_TAG
-ARG URL=https://github.com/oshp/headers.git
 
 WORKDIR $APP_DIR
 
-RUN apk add --no-cache py2-pip py-setuptools gcc make build-base python2-dev git \
-  && git clone --depth 1 $URL -b $BRANCH . \
+COPY . .
+
+RUN apk add --no-cache py2-pip py-setuptools gcc make build-base python2-dev \
   && pip2 install --upgrade pip \
   && pip2 install -r requirements.txt
 
 EXPOSE 5000
 
-COPY entrypoint/docker-entrypoint-apm.sh /docker-entrypoint.sh
+ADD docker-entrypoint.sh /docker-entrypoint.sh
+
+VOLUME $APP_DIR
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
