@@ -7,10 +7,9 @@ LABEL org.owasp.oshp.url="https://www.owasp.org/index.php/OWASP_Secure_Headers_P
   org.owasp.oshp.maintainer="alexandre menezes <alexandre.fmenezes@owasp.org>"
 
 ENV APP_DIR /opt/headers
-ENV BRANCH_TAG master
 ENV NEW_RELIC_LICENSE_KEY ''
 
-ARG BRANCH=$BRANCH_TAG
+ARG BRANCH=master
 ARG URL=https://github.com/oshp/headers.git
 
 WORKDIR $APP_DIR
