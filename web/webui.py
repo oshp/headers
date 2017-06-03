@@ -69,10 +69,7 @@ def siteinfo(site=''):
 @app.route('/search_site', methods=['POST'])
 def search_site():
     site = request.form['site']
-    return redirect(url_for('siteinfo',
-                            _external=True,
-                            _scheme='https',
-                            site=site))
+    return redirect(url_for('siteinfo', site=site))
 
 @app.route('/xss_chart', methods=['POST'])
 def xss_chart():
