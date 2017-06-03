@@ -26,7 +26,7 @@ services:
             - traefik.backend=oshp
             - traefik.port=5000
             - traefik.backend.loadbalancer.method=drr
-            - traefik.frontend.rule=Host:oshp.bsecteam.com
+            - traefik.frontend.rule=Host:oshp.bsecteam.com,PathPrefix:/
           replicas: 1
           restart_policy:
             condition: on-failure
@@ -46,7 +46,7 @@ services:
         deploy:
           replicas: 1
           restart_policy:
-            condition: on-failure
+            condition: any
           resources:
             limits:
               memory: 50M
