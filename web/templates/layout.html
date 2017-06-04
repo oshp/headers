@@ -116,6 +116,7 @@
       </div>
     </div>
 
+    {% cache 60*1440 %}
     <script type=text/javascript src="{{ url_for('static', filename='jquery/dist/jquery.min.js') }}"></script>
     <script type=text/javascript src="{{ url_for('static', filename='jquery/dist/jquery.dataTables.min.js') }}"></script>
     <script type=text/javascript src="{{ url_for('static', filename='dist/js/bootstrap.min.js') }}"></script>
@@ -123,10 +124,12 @@
     <script type=text/javascript src="{{ url_for('static', filename='nprogress/nprogress.min.js') }}"></script>
 
     <script type=text/javascript src="{{ url_for('static', filename='build/js/custom.min.js') }}"></script>
+    {% endcache %}
+
     {% block pnotify %}
 
     {% endblock %}
-    
+
 
     {% block charts_scripts %}
 
