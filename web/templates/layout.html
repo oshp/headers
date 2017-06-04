@@ -126,33 +126,18 @@
     {% block pnotify %}
 
     {% endblock %}
-    <script type=text/javascript>
-      var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-    </script>
+    
 
     {% block charts_scripts %}
 
     {% endblock %}
 
-    <script type=text/javascript>
-      $.extend(true, $.fn.dataTable.defaults, {
-          "iDisplayLength": 5,
-          "autoWidth": true,
-          "responsive": true,
-          "info": false,
-          "searching": false,
-          "bLengthChange": false
-      });
-    </script>
+    <script type=text/javascript src="{{ url_for('static', filename='build/js/datatable.js') }}"></script>
 
     {% with flashes = get_flashed_messages() %}
       {% if flashes %}
         {% for message in flashes %}
-          <script type="text/javascript">
-              $(function(){
-                  new PNotify({title: 'Oh No!', text: '{{ message }}', type: 'error', styling: 'bootstrap3'});
-              });
-          </script>
+          <script type="text/javascript" src="{{ url_for('static', filename='build/js/notify.js') }}"></script>
         {% endfor %}
       {% endif %}
     {% endwith %}
