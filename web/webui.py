@@ -126,7 +126,13 @@ def page_not_found(e):
 
 @app.after_request
 def apply_caching(response):
-    response.headers["Content-Security-Policy"] = "base-uri 'self'; media-src 'none'; img-src 'self'; script-src 'self' https://www.google-analytics.com https://ssl.google-analytics.com https://js-agent.newrelic.com https://ajax.cloudflare.com"
+    response.headers["Content-Security-Policy"] = "base-uri 'self'; " \
+        "media-src 'none'; " \
+        "img-src 'self'; " \
+        "script-src 'self' https://www.google-analytics.com https://ssl.google-analytics.com https://js-agent.newrelic.com https://ajax.cloudflare.com https://cdnjs.cloudflare.com; " \
+        "style-src 'self'; https://cdnjs.cloudflare.com; " \
+        "font-src 'self'; https://cdnjs.cloudflare.com; " \
+        "form-action 'self'"
     response.headers["X-Frame-Options"] = "DENY"
     response.headers["X-XSS-Protection"] = "1; mode=block; report=https://oshp.bsecteam.com/xssreport"
     response.headers["X-Content-Type-Options"] = "nosniff"
