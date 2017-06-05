@@ -130,7 +130,6 @@ def apply_caching(response):
         "media-src 'none'; " \
         "img-src 'self'; " \
         "script-src 'self' https://www.google-analytics.com https://ssl.google-analytics.com https://js-agent.newrelic.com https://ajax.cloudflare.com https://cdnjs.cloudflare.com; " \
-        "style-src 'self'; https://cdnjs.cloudflare.com; " \
         "font-src 'self'; https://cdnjs.cloudflare.com; " \
         "form-action 'self'"
     response.headers["X-Frame-Options"] = "DENY"
