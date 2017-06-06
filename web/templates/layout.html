@@ -3,24 +3,22 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>{% block title %}SecureHeaders{% endblock %}</title>
 
-    {% cache 60*1440 %}
-    <link rel="shortcut icon" href="{{url_for('static', filename='images/owasp_icon.jpg')}}"/>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='dist/css/bootstrap.min.css') }}" async>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css') }}" async>
+    <link rel="shortcut icon" href="{{url_for('static', filename='images/owasp_icon.png')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='nprogress/nprogress.css') }}">
-    {% endcache %}
 
     {% block custom_css %}
 
     {% endblock %}
 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='build/css/custom.min.css') }}" >
-    <meta name="theme-color" content="#2A3F54">
-
+    <link rel="manifest" href="static/manifest.json">
   </head>
 
   <body class="nav-md">
@@ -75,7 +73,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="{{ url_for('static', filename='images/owasp_icon.jpg') }}" alt="">OSHP
+                    <img src="{{ url_for('static', filename='images/owasp_icon.png') }}" alt="">OSHP
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -118,7 +116,6 @@
       </div>
     </div>
 
-    {% cache 60*1440 %}
     <script type=text/javascript src="{{ url_for('static', filename='jquery/dist/jquery.min.js') }}"></script>
     <script type=text/javascript src="{{ url_for('static', filename='jquery/dist/jquery.dataTables.min.js') }}"></script>
     <script type=text/javascript src="{{ url_for('static', filename='dist/js/bootstrap.min.js') }}"></script>
@@ -126,26 +123,40 @@
     <script type=text/javascript src="{{ url_for('static', filename='nprogress/nprogress.min.js') }}"></script>
 
     <script type=text/javascript src="{{ url_for('static', filename='build/js/custom.min.js') }}"></script>
-    {% endcache %}
-
     {% block pnotify %}
 
     {% endblock %}
-
+    <script type=text/javascript>
+      var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
 
     {% block charts_scripts %}
 
     {% endblock %}
 
-    <script type=text/javascript src="{{ url_for('static', filename='build/js/datatable.js') }}" async></script>
+    <script type=text/javascript>
+      $.extend(true, $.fn.dataTable.defaults, {
+          "iDisplayLength": 5,
+          "autoWidth": true,
+          "responsive": true,
+          "info": false,
+          "searching": false,
+          "bLengthChange": false
+      });
+    </script>
 
     {% with flashes = get_flashed_messages() %}
       {% if flashes %}
         {% for message in flashes %}
-          <script type="text/javascript" src="{{ url_for('static', filename='build/js/notify.js') }}" async></script>
+          <script type="text/javascript">
+              $(function(){
+                  new PNotify({title: 'Oh No!', text: '{{ message }}', type: 'error', styling: 'bootstrap3'});
+              });
+          </script>
         {% endfor %}
       {% endif %}
     {% endwith %}
 
+  <script src="static/pws.js" async></script>
   </body>
 </html>
