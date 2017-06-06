@@ -21,7 +21,12 @@
       "src": "images/owasp_icon/icon-256x256.png",
       "sizes": "256x256",
       "type": "image/png"
-    }],
+    }, {
+      "src": "images/owasp_icon/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
   "start_url": "/summary",
   "display": "standalone",
   "background_color": "#FFFFFF",
