@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, g
+from flask import Flask, g, send_from_directory
 from flask import render_template, request, url_for, redirect, flash, jsonify
 from flask_caching import Cache
 from flask_compress import Compress
@@ -31,6 +31,10 @@ sentry = Sentry(
 #sentry = Sentry(app, dsn='%s' % os.getenv('SENTRY_DSN', ''))
 compress.init_app(app)
 cache.init_app(app)
+
+@app.route('/service-worker.js')
+def service-worker():
+    return send_from_directory('static/', 'service-worker.js')
 
 @app.route('/')
 def index():
