@@ -33,7 +33,7 @@ compress.init_app(app)
 cache.init_app(app)
 
 @app.route('/service-worker.js')
-def service-worker():
+def service_worker():
     return send_from_directory('static/', 'service-worker.js')
 
 @app.route('/')
