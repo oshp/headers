@@ -64,5 +64,5 @@ try {
 
 sefl.addEventListener('touchstart', function(e) {
   console.log('[ServiceWorker] Passive Listener');
-  document.addEventListener('touchstart', onTouchStart, { passive: true } : false);
+  document.addEventListener('touchstart', onTouchStart, { passive: true });
 });
