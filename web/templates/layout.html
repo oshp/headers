@@ -9,8 +9,8 @@
 
     {% cache 60*1440 %}
     <link rel="shortcut icon" href="{{url_for('static', filename='images/owasp_icon.png')}}"/>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='dist/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='dist/css/bootstrap.min.css') }}" async>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css') }}" async>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='nprogress/nprogress.css') }}">
     {% endcache %}
 
