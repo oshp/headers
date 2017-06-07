@@ -62,4 +62,4 @@ try {
   window.addEventListener("test", null, opts);
 } catch (e) {}
 
-elem.addEventListener('touchstart', fn, supportsPassive ? { passive: true } : false);
+self.addEventListener('touchstart', fn, supportsPassive ? { passive: true } : false);
