@@ -62,4 +62,7 @@ try {
   window.addEventListener("test", null, opts);
 } catch (e) {}
 
-self.addEventListener('touchstart', fn, supportsPassive ? { passive: true } : false);
+sefl.addEventListener('touchstart', function(e) {
+  console.log('[ServiceWorker] Passive Listener');
+  document.addEventListener('touchstart', onTouchStart, { passive: true } : false);
+});
