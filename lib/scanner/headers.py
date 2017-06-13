@@ -7,6 +7,8 @@ from lib.database.db import DB
 from lib.utils.util import Util
 from lib.scanner.scan import Scan
 
+import os
+
 from lib.utils.config import DEFAULT_CONFIG_FILE
 
 class Headers(object):
@@ -59,6 +61,10 @@ class Headers(object):
         database = DB(self.settings)
         database.populate_mysql(self.site_table, self.header_name_table, self.header_value_table, self.header_table)
 
+    def download_latest_file(self):
+        print "[*] downloading latest topsites file"
+        os.remove("conf/topsites_global.csv")
+        self.scan.download_file("https://dl.dropboxusercontent.com/u/6427240/oshp/topsites_global.csv")
 
     def main(self):
         parser = argparse.ArgumentParser(
@@ -77,9 +83,21 @@ class Headers(object):
             default=self.settings['general']['thread_number'],
             help='Number of threads to make parallel request.'
         )
+        #test
+        parser.add_argument(
+            '-d',
+            '--download',
+            help='Download latest topsites file.'
+        )
         args = parser.parse_args()
 
-        filename = args.filename
+        #test
+        download_file = args.download
+        if (download_file == None):
+            filename = args.filename
+        else:
+            self.download_latest_file()
+        #filename = args.filename
         num_threads = args.threads
         dictsites = self.config.get_dictsites(filename)
         sites = len(dictsites)
