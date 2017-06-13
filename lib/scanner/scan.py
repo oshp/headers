@@ -41,15 +41,16 @@ class Scan(object):
         return newurl, code, headers
 
     #test
-    def download_file(url):
+    def download_file(self, url):
         try:
-            file = urlopen(url)
-            with open(os.path.basename(url), "wb") as local_file:
-                local_file.write("conf/" + file.read())
-        except urllib2.HTTPError
-            print "[*] HTTP Error: ", e.code, url
-        except urllib2.URLError
-            print "[*] URL Error: ", e.reason, url
+            response = urlopen(url)
+            html = response.read()
+            with open('conf/topsites_global.csv', "wb") as local_file:
+                local_file.write(html)
+        except urllib2.HTTPError as error:
+            return str(error.code)
+        except urllib2.URLError as error:
+            return str(error.reason)
 
     def test_scheme(self, code, url, scheme):
         if (code == 200 or code < 0) and urlparse(url).scheme == scheme:

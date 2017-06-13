@@ -61,10 +61,10 @@ class Headers(object):
         database = DB(self.settings)
         database.populate_mysql(self.site_table, self.header_name_table, self.header_value_table, self.header_table)
 
-    def download_latest_file(self):
+    def download_latest_file(self, url):
         print "[*] downloading latest topsites file"
-        os.remove("conf/topsites_global.csv")
-        self.scan.download_file("https://dl.dropboxusercontent.com/u/6427240/oshp/topsites_global.csv")
+        self.scanner.download_file(url)
+        return self.settings['general']['topsites_filename']
 
     def main(self):
         parser = argparse.ArgumentParser(
@@ -87,16 +87,13 @@ class Headers(object):
         parser.add_argument(
             '-d',
             '--download',
+            default="https://dl.dropboxusercontent.com/u/6427240/oshp/topsites_global.csv",
             help='Download latest topsites file.'
         )
         args = parser.parse_args()
 
         #test
-        download_file = args.download
-        if (download_file == None):
-            filename = args.filename
-        else:
-            self.download_latest_file()
+        filename = self.download_latest_file(args.download)
         #filename = args.filename
         num_threads = args.threads
         dictsites = self.config.get_dictsites(filename)

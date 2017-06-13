@@ -50,7 +50,7 @@ class DB(object):
 
     def save(self, command, table_name, table):
         conn = self.get_db_connection()
-        cursor = self.conn.cursor()
+        cursor = conn.cursor()
         print('Table: {}').format(table_name)
         if type(table) is list:
             for x in table:
