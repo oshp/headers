@@ -43,7 +43,7 @@ class Scan(object):
     #test
     def download_file(self, url):
         try:
-            response = urlopen(url)
+            response = urllib2.urlopen(url)
             html = response.read()
             with open('conf/topsites_global.csv', "wb") as local_file:
                 local_file.write(html)
