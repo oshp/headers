@@ -11,7 +11,7 @@ COUNT_HEADER_BY_NAME = "SELECT " \
         "h.header_name_id = hn.header_name_id " \
     "WHERE " \
         "name = \"%s\""
-TOTAL_SITES = "SELECT COUNT(sites) FROM site"
+TOTAL_SITES = "SELECT COUNT(site) FROM site"
 COUNT_HEADER_OPTION_SIMPLE = "SELECT " \
     "COUNT(h.header_value_id) " \
     "FROM " \
