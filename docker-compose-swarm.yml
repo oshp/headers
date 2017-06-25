@@ -17,7 +17,7 @@ services:
             limits:
               memory: 200M
     oshp:
-        image: oshp/secureheaders:3.1.1
+        image: oshp/secureheaders:develop
         networks:
           - traefik-net
         deploy:
