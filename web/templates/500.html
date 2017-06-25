@@ -14,13 +14,6 @@
 </div>
 <script src="https://cdn.ravenjs.com/2.3.0/raven.min.js"></script>
 {% if event_id %}
-  <script>
-    function crash_report(){
-      Raven.showReportDialog({
-        eventId: '{{ event_id }}',
-        dsn: '{{ public_dsn }}'
-      });
-    }
-  </script>
+<script type=text/javascript src="{{ url_for('static', filename='build/js/local_raven.js') }}"></script>
 {% endif %}
 {% endblock %}
