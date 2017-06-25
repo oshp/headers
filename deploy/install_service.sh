@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
-cd /opt/headers
-git pull
+cd /opt
+git clone https://github.com/oshp/headers
+chown -R ubuntu.ubuntu headers
