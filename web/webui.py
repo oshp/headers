@@ -130,7 +130,6 @@ def page_not_found(e):
 
 @app.after_request
 def apply_caching(response):
-    response.headers["Content-Security-Policy"] = "base-uri 'self'; media-src 'none'"
     response.headers["X-Frame-Options"] = "DENY"
     response.headers["X-XSS-Protection"] = "1; mode=block; report=https://oshp.bsecteam.com/xssreport"
     response.headers["X-Content-Type-Options"] = "nosniff"
