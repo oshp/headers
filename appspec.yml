@@ -15,11 +15,7 @@ hooks:
   Install:
     - location: deploy/install_service.sh
       timeout: 120
-      runas: ubuntu
-  AfterInstall:
-    - location: deploy/after_install.sh
-      timeout: 180
-      runas: ubuntu
+      runas: root
   ApplicationStart:
     - location: deploy/start_service.sh
       timeout: 120
