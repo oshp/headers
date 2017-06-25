@@ -1,4 +1,3 @@
 #!/usr/bin/env bash
-echo "[*] removendo versão antiga..."
-cd /opt
-rm -rf headers
+cd /opt/
+chown -R ubuntu.ubuntu headers
