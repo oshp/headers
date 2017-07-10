@@ -131,7 +131,7 @@ def page_not_found(e):
 @app.after_request
 def apply_caching(response):
     response.headers["X-Frame-Options"] = "DENY"
-    response.headers["Content-Security-Policy"] = "default-src 'self'; script-src 'self' https://js-agent.newrelic.com https://ssl.google-analytics.com https://ajax.cloudflare.com https://sentry.io https://cdn.ravenjs.com; img-src 'self' https://sentry.io https://oshp.bsecteam.com; style-src 'self' https://oshp.bsecteam.com https://sentry.io; font-src 'self'; form-action 'self' https://oshp.bsecteam.com; child-src 'none'; manifest-src 'self'; plugin-types 'none'"
+    response.headers["Content-Security-Policy"] = "default-src 'self'; script-src 'self' https://js-agent.newrelic.com https://ssl.google-analytics.com https://ajax.cloudflare.com https://sentry.io https://cdn.ravenjs.com; img-src 'self' https://sentry.io https://oshp.bsecteam.com; font-src 'self'; form-action 'self' https://oshp.bsecteam.com; child-src 'none'; manifest-src 'self'; plugin-types 'none'"
     response.headers["X-XSS-Protection"] = "1; mode=block; report=https://oshp.bsecteam.com/xssreport"
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["Referrer-Policy"] = "no-referrer"
