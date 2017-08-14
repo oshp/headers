@@ -140,9 +140,9 @@ def apply_caching(response):
             "https://sentry.io " \
             "https://cdn.ravenjs.com; " \
         "style-src " \
-            "https://oshp.bsecteam.com" \
-            "https://sentry.io"
-            "'self';"
+            "https://oshp.bsecteam.com " \
+            "https://sentry.io "
+            "'self'; "
         "img-src " \
             "https://oshp.bsecteam.com " \
             "https://sentry.io "\
@@ -150,7 +150,7 @@ def apply_caching(response):
         "font-src " \
             "https://oshp.bsecteam.com " \
             "'self'; "\
-        "manifest-src https://oshp.bsecteam.com" \
+        "manifest-src https://oshp.bsecteam.com; " \
         "object-src 'none'"
     response.headers["X-XSS-Protection"] = "1; mode=block; report=https://oshp.bsecteam.com/xssreport"
     response.headers["X-Content-Type-Options"] = "nosniff"
