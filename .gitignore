@@ -1,6 +1,6 @@
 *~
 *.py[cod]
 lib/*.py[cod]
-.swap
-.swp
+*.swp
 venv
+deploy/scanner/*

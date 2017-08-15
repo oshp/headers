@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
-cd /opt/
-git clone https://github.com/oshp/headers.git
-chown -R ubuntu.ubuntu headers
+docker pull oshp/secureheaders:latest
+docker pull oshp/database:develop
+docker pull redis:alpine
+docker pull traefik:1.3-alpine

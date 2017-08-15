@@ -1,3 +1,2 @@
 #!/usr/bin/env bash
-cd /opt/
-rm -rf headers
+docker rmi -f $(docker images | awk '{print $3}')
