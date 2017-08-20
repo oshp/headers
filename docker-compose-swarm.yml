@@ -33,6 +33,9 @@ services:
           resources:
             limits:
               memory: 100M
+          update_config:
+            parallelism: 1
+            delay: 20s
     traefik:
         image: traefik:1.3.5-alpine
         networks:

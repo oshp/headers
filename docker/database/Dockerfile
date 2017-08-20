@@ -10,7 +10,9 @@ ENV HEADERS_FILE https://dl.dropboxusercontent.com/u/6427240/headers.sql
 
 RUN apt-get update && apt-get -y install curl \
   && curl -o headers.sql $HEADERS_FILE \
-  && mv headers.sql /docker-entrypoint-initdb.d/ \
-  && apt-get remove -y curl
+  && mv headers.sql /docker-entrypoint-initdb.d/
+
+HEALTHCHECK --timeout=5s --start-period=30s --retries=3 \
+  CMD curl localhost:3306
 
 USER mysql

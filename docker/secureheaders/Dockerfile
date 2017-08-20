@@ -14,7 +14,7 @@ ARG URL=https://github.com/oshp/headers.git
 
 WORKDIR $APP_DIR
 
-RUN apk add --no-cache py2-pip py-setuptools gcc make build-base python2-dev git \
+RUN apk add --no-cache py2-pip py-setuptools gcc make build-base python2-dev git curl \
   && git clone --depth 1 $URL -b $BRANCH . \
   && pip2 install --upgrade pip \
   && pip2 install -r requirements.txt
@@ -22,5 +22,8 @@ RUN apk add --no-cache py2-pip py-setuptools gcc make build-base python2-dev git
 EXPOSE 5000
 
 COPY docker/secureheaders/docker-entrypoint-apm.sh /docker-entrypoint.sh
+
+HEALTHCHECK --interval=10s --timeout=5s --start-period=30s --retries=4 \
+  CMD curl http://localhost:5000/
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
