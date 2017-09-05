@@ -881,6 +881,28 @@ if (typeof NProgress != 'undefined') {
 
 			}
 
+      // Total Sites
+    if ($('#sites_scannned').length ){
+
+        $.ajax({
+          url: '/total',
+          data: $('form').serialize(),
+          type: 'GET',
+          success: function(response){
+
+        var header = document.getElementById('sites_scannned');
+        while (header.firstChild) {
+          header.removeChild(header.firstChild);
+        }
+        header.appendChild(document.createTextNode(response['total']));
+         },
+        error: function(error){
+          console.log(error);
+            }
+          });
+
+    }
+
 			//echart Donut
 			if ($('#xcto_donut').length ){
 
