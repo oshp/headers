@@ -894,7 +894,7 @@ if (typeof NProgress != 'undefined') {
         while (header.firstChild) {
           header.removeChild(header.firstChild);
         }
-        header.appendChild(document.createTextNode(response['total']));
+        header.appendChild(document.createTextNode(response['total']).toLocaleString('pt-BR',{ minimumFractionDigits: 0 }));
          },
         error: function(error){
           console.log(error);
