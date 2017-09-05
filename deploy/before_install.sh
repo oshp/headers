@@ -1,4 +1,2 @@
 #!/usr/bin/env bash
-echo "[*] removendo versão antiga..."
-cd /opt
-rm -rf headers
+docker rmi -f $(docker images | awk '{print $3}')

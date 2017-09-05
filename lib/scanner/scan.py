@@ -3,6 +3,9 @@ from urlparse import urlparse
 import socket
 import httplib
 
+#test
+import os.path
+
 from lib.utils.config import HTTP_SCHEME
 from lib.utils.config import HTTPS_SCHEME
 from lib.utils.config import NO_SCHEME
@@ -36,6 +39,18 @@ class Scan(object):
         if code < 0:
             newurl, code, headers = self.connection(site, HTTP_SCHEME)
         return newurl, code, headers
+
+    #test
+    def download_file(self, url):
+        try:
+            response = urllib2.urlopen(url)
+            html = response.read()
+            with open('conf/topsites_global.csv', "wb") as local_file:
+                local_file.write(html)
+        except urllib2.HTTPError as error:
+            return str(error.code)
+        except urllib2.URLError as error:
+            return str(error.reason)
 
     def test_scheme(self, code, url, scheme):
         if (code == 200 or code < 0) and urlparse(url).scheme == scheme:

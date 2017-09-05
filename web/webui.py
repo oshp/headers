@@ -73,7 +73,7 @@ def siteinfo(site=''):
 @app.route('/search_site', methods=['POST'])
 def search_site():
     site = request.form['site']
-    return redirect(url_for('siteinfo', _scheme='https', site=site))
+    return redirect(url_for('siteinfo', site=site))
 
 @app.route('/xss_chart', methods=['POST'])
 def xss_chart():
@@ -105,6 +105,11 @@ def csp_chart():
     csp_datacharts = charts.get_csp_datachart()
     return jsonify(csp_datacharts)
 
+@app.route('/total_sites', methods=['GET'])
+def total_sites():
+    num_sites = charts.get_total_sites()
+    return jsonify(num_sites)
+
 # error pages
 @cache.cached(timeout=86400)
 @app.errorhandler(403)
@@ -130,9 +135,9 @@ def page_not_found(e):
 
 @app.after_request
 def apply_caching(response):
-    response.headers["Content-Security-Policy"] = "base-uri 'self'; media-src 'none'; img-src 'self'"
     response.headers["X-Frame-Options"] = "DENY"
-    response.headers["X-XSS-Protection"] = "1; mode=block; report=http://oshp.bsecteam.com/xssreport"
+    response.headers["Content-Security-Policy"] = "default-src https://oshp.bsecteam.com 'self'; script-src https://oshp.bsecteam.com https://bam.nr-data.net https://js-agent.newrelic.com https://ssl.google-analytics.com https://ajax.cloudflare.com https://sentry.io https://cdn.ravenjs.com 'self'; style-src https://oshp.bsecteam.com https://sentry.io 'self' 'unsafe-inline'; img-src https://oshp.bsecteam.com https://sentry.io 'self'; font-src https://oshp.bsecteam.com 'self'; manifest-src https://oshp.bsecteam.com; object-src 'none'"
+    response.headers["X-XSS-Protection"] = "1; mode=block; report=https://oshp.bsecteam.com/xssreport"
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["Referrer-Policy"] = "no-referrer"
     return response

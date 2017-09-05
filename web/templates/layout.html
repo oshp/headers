@@ -3,21 +3,24 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script type=text/javascript src="{{ url_for('static', filename='build/js/nrbrowser.js') }}"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>{% block title %}SecureHeaders{% endblock %}</title>
 
+    {% cache 60*1440 %}
     <link rel="shortcut icon" href="{{url_for('static', filename='images/owasp_icon.png')}}"/>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='dist/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='dist/css/bootstrap.min.css') }}" async>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css') }}" async>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='nprogress/nprogress.css') }}">
+    {% endcache %}
 
     {% block custom_css %}
 
     {% endblock %}
 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='build/css/custom.min.css') }}" >
+    <meta name="theme-color" content="#EDEDED">
     <link rel="manifest" href="static/manifest.json">
   </head>
 
@@ -108,7 +111,7 @@
         {% block footer %}
         <footer>
           <div class="pull-right">
-            The OWASP Secure Headers Project | v3.1.0 (cn:Scotch)
+            The OWASP Secure Headers Project | v3.1.1 (cn:Scotch)
           </div>
           <div class="clearfix"></div>
         </footer>
@@ -126,33 +129,17 @@
     {% block pnotify %}
 
     {% endblock %}
-    <script type=text/javascript>
-      var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-    </script>
 
     {% block charts_scripts %}
 
     {% endblock %}
 
-    <script type=text/javascript>
-      $.extend(true, $.fn.dataTable.defaults, {
-          "iDisplayLength": 5,
-          "autoWidth": true,
-          "responsive": true,
-          "info": false,
-          "searching": false,
-          "bLengthChange": false
-      });
-    </script>
+    <script type=text/javascript src="{{ url_for('static', filename='build/js/datatable.js') }}" async></script>
 
     {% with flashes = get_flashed_messages() %}
       {% if flashes %}
         {% for message in flashes %}
-          <script type="text/javascript">
-              $(function(){
-                  new PNotify({title: 'Oh No!', text: '{{ message }}', type: 'error', styling: 'bootstrap3'});
-              });
-          </script>
+          <script type="text/javascript" src="{{ url_for('static', filename='build/js/notify.js') }}" async></script>
         {% endfor %}
       {% endif %}
     {% endwith %}

@@ -17,7 +17,7 @@ services:
             limits:
               memory: 200M
     oshp:
-        image: oshp/secureheaders:3.1.0
+        image: oshp/secureheaders:latest
         networks:
           - traefik-net
         deploy:
@@ -33,8 +33,11 @@ services:
           resources:
             limits:
               memory: 100M
+          update_config:
+            parallelism: 1
+            delay: 20s
     traefik:
-        image: traefik:1.3-alpine
+        image: traefik:1.3.5-alpine
         networks:
           - traefik-net
         command: --docker.swarmmode --docker.watch --docker.exposedbydefault=false --docker.domain=bsecteam.com --web --web.statistics --web.metrics
@@ -54,7 +57,7 @@ services:
             constraints:
               - node.role == manager
     redis:
-        image: redis:alpine
+        image: redis:4.0.1-alpine
         networks:
           - traefik-net
         deploy:

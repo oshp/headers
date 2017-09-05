@@ -2,36 +2,28 @@ version: '3'
 services:
     mysqld:
         image: oshp/database:develop
-        container_name: mysqld
         environment:
           MYSQL_ROOT_PASSWORD: password
           MYSQL_DATABASE: headers
           MYSQL_USER: mysql
           MYSQL_PASSWORD: password
-        deploy:
-          replicas: 1
-          resources:
-            limits:
-              memory: 200M
-    app:
-        image: oshp/secureheaders:3.1.0
-        container_name: app
+    oshp:
+        image: oshp/secureheaders:latest
         depends_on:
           - mysqld
+        labels:
+          - traefik.enable=true
+          - traefik.backend=oshp
+          - traefik.port=5000
+          - traefik.backend.loadbalancer.method=drr
+          - traefik.frontend.rule=PathPrefix:/
+    traefik:
+        image: traefik:1.4
+        command: --docker --docker.watch --docker.exposedbydefault=false --docker.domain=localhost --web --web.statistics --web.metrics
         ports:
-          - 80:5000
-        deploy:
-          replicas: 1
-          resources:
-            limits:
-              memory: 50M
+          - 80:80
+          - 8080:8080
+        volumes:
+          - /var/run/docker.sock:/var/run/docker.sock
     redis:
-        image: redis:alpine
-        container_name: redis
-        deploy:
-          replicas: 1
-          restart_policy:
-            condition: on-failure
-          resources:
-            limits:
-              memory: 5M
+        image: redis:4.0.1-alpine
