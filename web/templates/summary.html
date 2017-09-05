@@ -1,4 +1,14 @@
 {% extends "layout.html" %}
+
+{% block total_sites %}
+<li class="dropdown" role="presentation">
+<a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+  <i class="fa fa-globe"></i>
+  <span class="" id="sites_scannned"> -</span>
+</a>
+</li>
+{% endblock %}
+
 {% block body %}
 <div class="right_col" role="main">
   <!--<div class="">-->
