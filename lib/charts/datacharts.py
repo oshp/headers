@@ -7,6 +7,7 @@ from lib.secureheaders.xcto import XCTO
 from lib.secureheaders.sts import STS
 from lib.secureheaders.pkp import PKP
 from lib.secureheaders.csp import CSP
+from lib.secureheaders.sites import Sites
 
 class Datacharts(object):
 
@@ -55,3 +56,6 @@ class Datacharts(object):
     def get_csp_datachart(self):
         csp = CSP()
         return self.get_datachart(csp.name, csp.options)
+
+    def get_total_sites(self):
+        return self.get_total_sites(sites.sites, sites.total)

@@ -105,6 +105,11 @@ def csp_chart():
     csp_datacharts = charts.get_csp_datachart()
     return jsonify(csp_datacharts)
 
+@app.route('/total_sites', methods=['GET'])
+def total_sites():
+    num_sites = charts.get_total_sites()
+    return jsonify(num_sites)
+
 # error pages
 @cache.cached(timeout=86400)
 @app.errorhandler(403)
