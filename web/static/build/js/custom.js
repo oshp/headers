@@ -654,7 +654,7 @@ if (typeof NProgress != 'undefined') {
           $.ajax({
             url: '/pkp_chart',
             data: $('form').serialize(),
-            type: 'POST',
+            type: 'GET',
             success: function(response){
 
           var header = document.getElementById('pkp_total');
@@ -721,7 +721,7 @@ if (typeof NProgress != 'undefined') {
         $.ajax({
           url: '/xss_chart',
           data: $('form').serialize(),
-          type: 'POST',
+          type: 'GET',
           success: function(response){
 
         var header = document.getElementById('xss_total');
@@ -811,7 +811,7 @@ if (typeof NProgress != 'undefined') {
         $.ajax({
           url: '/xfo_chart',
           data: $('form').serialize(),
-          type: 'POST',
+          type: 'GET',
           success: function(response){
 
         var header = document.getElementById('xfo_total');
@@ -887,7 +887,7 @@ if (typeof NProgress != 'undefined') {
         $.ajax({
           url: '/xcto_chart',
           data: $('form').serialize(),
-          type: 'POST',
+          type: 'GET',
           success: function(response){
 
         var header = document.getElementById('xcto_total');
@@ -979,7 +979,7 @@ if (typeof NProgress != 'undefined') {
         $.ajax({
           url: '/sts_chart',
           data: $('form').serialize(),
-          type: 'POST',
+          type: 'GET',
           success: function(response){
 
         var header = document.getElementById('sts_total');
@@ -1078,7 +1078,7 @@ if (typeof NProgress != 'undefined') {
       $.ajax({
         url: '/csp_chart',
         data: $('form').serialize(),
-        type: 'POST',
+        type: 'GET',
         success: function(response){
 
       var header = document.getElementById('csp_total');

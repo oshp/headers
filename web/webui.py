@@ -75,32 +75,32 @@ def search_site():
     site = request.form['site']
     return redirect(url_for('siteinfo', site=site))
 
-@app.route('/xss_chart', methods=['POST'])
+@app.route('/xss_chart', methods=['GET'])
 def xss_chart():
     xss_datacharts = charts.get_xss_datachart()
     return jsonify(xss_datacharts)
 
-@app.route('/pkp_chart', methods=['POST'])
+@app.route('/pkp_chart', methods=['GET'])
 def pkp_chart():
     pkp_datacharts = charts.get_pkp_datachart()
     return jsonify(pkp_datacharts)
 
-@app.route('/xfo_chart', methods=['POST'])
+@app.route('/xfo_chart', methods=['GET'])
 def xfo_chart():
     xfo_datacharts = charts.get_xfo_datachart()
     return jsonify(xfo_datacharts)
 
-@app.route('/xcto_chart', methods=['POST'])
+@app.route('/xcto_chart', methods=['GET'])
 def xcto_chart():
     xcto_datacharts = charts.get_xcto_datachart()
     return jsonify(xcto_datacharts)
 
-@app.route('/sts_chart', methods=['POST'])
+@app.route('/sts_chart', methods=['GET'])
 def sts_chart():
     sts_datacharts = charts.get_sts_datachart()
     return jsonify(sts_datacharts)
 
-@app.route('/csp_chart', methods=['POST'])
+@app.route('/csp_chart', methods=['GET'])
 def csp_chart():
     csp_datacharts = charts.get_csp_datachart()
     return jsonify(csp_datacharts)
