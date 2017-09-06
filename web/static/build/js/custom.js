@@ -891,10 +891,9 @@ if (typeof NProgress != 'undefined') {
           success: function(response){
 
         var header = document.getElementById('sites_scannned');
-        while (header.firstChild) {
-          header.removeChild(header.firstChild);
-        }
-        header.appendChild(document.createTextNode(response['total']).toLocaleString('pt-BR',{ minimumFractionDigits: 0 }));
+
+        document.getElementById("total").innerHTML = response['total'].toLocaleString('pt-BR', {minimumFractionDigits: 0});
+        
          },
         error: function(error){
           console.log(error);
