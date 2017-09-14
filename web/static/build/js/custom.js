@@ -889,17 +889,14 @@ if (typeof NProgress != 'undefined') {
           data: $('form').serialize(),
           type: 'GET',
           success: function(response){
-
-        var header = document.getElementById('sites_scannned');
-        header.appendChild(document.createTextNode(response['total']));
-
-         },
-        error: function(error){
-          console.log(error);
-            }
-          });
-
-    }
+            var header = document.getElementById('sites_scannned');
+            header.innerHTML = response['total'];
+          },
+          error: function(error){
+            console.log(error);
+          }
+        });
+      }
 
 			//echart Donut
 			if ($('#xcto_donut').length ){
