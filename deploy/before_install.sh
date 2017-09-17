@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-docker rmi -f $(docker images | awk '{print $3}')
+docker rmi -f $(docker images | grep -i none | awk '{print $3}')
