@@ -1,5 +1,5 @@
-var dataCacheName = 'oshp-v3.1.0'
-var cacheName = 'oshp-3.1.0';
+var dataCacheName = 'oshp-v3.1.2'
+var cacheName = 'oshp-3.1.2';
 var filesToCache = [
   '/summary',
   '/static/dist/css/bootstrap.min.css',
