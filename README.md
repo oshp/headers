@@ -3,7 +3,6 @@
 [![Dependency Status](https://gemnasium.com/badges/github.com/amenezes/headers.svg)](https://gemnasium.com/github.com/amenezes/headers)
 [![Code Quality](https://codeclimate.com/github/amenezes/headers/badges/gpa.svg)](https://codeclimate.com/github/amenezes/headers)
 [![Code Health](https://landscape.io/github/amenezes/secureheaders/master/landscape.svg?style=flat)](https://landscape.io/github/amenezes/secureheaders/master)
-[![Code Issues](https://www.quantifiedcode.com/api/v1/project/24f73ab5fb144dafbd30d043570c7444/badge.svg)](https://www.quantifiedcode.com/app/project/24f73ab5fb144dafbd30d043570c7444)
 
 OWASP SecureHeaders Project  
 
@@ -18,7 +17,7 @@ help make web applications more secure.
 
 ### Architecture
 
-![SecureHeaders Architecture](https://dl.dropboxusercontent.com/u/6427240/oshp/secureheaders.png)
+![SecureHeaders Architecture](https://www.dropbox.com/s/wkxdksye9oqxwpd/secureheaders.png?raw=1)
 
 ### Web Interface
 

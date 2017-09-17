@@ -58,4 +58,5 @@ class Datacharts(object):
         return self.get_datachart(csp.name, csp.options)
 
     def get_total_sites(self):
-        return self.get_total_sites(sites.sites, sites.total)
+        sites = Sites()
+        return self.get_datachart(sites.sites, sites.options)

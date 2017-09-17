@@ -654,7 +654,7 @@ if (typeof NProgress != 'undefined') {
           $.ajax({
             url: '/pkp_chart',
             data: $('form').serialize(),
-            type: 'POST',
+            type: 'GET',
             success: function(response){
 
           var header = document.getElementById('pkp_total');
@@ -721,7 +721,7 @@ if (typeof NProgress != 'undefined') {
         $.ajax({
           url: '/xss_chart',
           data: $('form').serialize(),
-          type: 'POST',
+          type: 'GET',
           success: function(response){
 
         var header = document.getElementById('xss_total');
@@ -811,7 +811,7 @@ if (typeof NProgress != 'undefined') {
         $.ajax({
           url: '/xfo_chart',
           data: $('form').serialize(),
-          type: 'POST',
+          type: 'GET',
           success: function(response){
 
         var header = document.getElementById('xfo_total');
@@ -881,13 +881,30 @@ if (typeof NProgress != 'undefined') {
 
 			}
 
+      // Total Sites
+    if ($('#sites_scannned').length ){
+
+        $.ajax({
+          url: '/total',
+          data: $('form').serialize(),
+          type: 'GET',
+          success: function(response){
+            var header = document.getElementById('sites_scannned');
+            header.innerHTML = response['total'];
+          },
+          error: function(error){
+            console.log(error);
+          }
+        });
+      }
+
 			//echart Donut
 			if ($('#xcto_donut').length ){
 
         $.ajax({
           url: '/xcto_chart',
           data: $('form').serialize(),
-          type: 'POST',
+          type: 'GET',
           success: function(response){
 
         var header = document.getElementById('xcto_total');
@@ -979,7 +996,7 @@ if (typeof NProgress != 'undefined') {
         $.ajax({
           url: '/sts_chart',
           data: $('form').serialize(),
-          type: 'POST',
+          type: 'GET',
           success: function(response){
 
         var header = document.getElementById('sts_total');
@@ -1078,7 +1095,7 @@ if (typeof NProgress != 'undefined') {
       $.ajax({
         url: '/csp_chart',
         data: $('form').serialize(),
-        type: 'POST',
+        type: 'GET',
         success: function(response){
 
       var header = document.getElementById('csp_total');
