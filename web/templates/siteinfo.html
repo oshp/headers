@@ -54,6 +54,7 @@
               <table class="table table-striped jambo_table bulk_action">
                 <thead>
                   <tr class="headings">
+                    <th class="column-title">Status </th>
                     <th class="column-title">Name </th>
                     <th class="column-title">Value </th>
                     <th class="column-title">Value used by </th>
@@ -67,6 +68,7 @@
                   <tbody>
                     {% for site_data, z in data %}
                     <tr class="even pointer">
+		      <td class=" "><span class="fa fa-toggle-on"></span></td>
                       <td class=" ">{{ site_data[0]|safe }}</td>
                       <td class=" ">{{ site_data[1]|safe }}</td>
                       <td class=" ">{{ '%0.4f' % z[0] }}%</td>
