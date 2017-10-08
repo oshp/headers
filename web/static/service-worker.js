@@ -1,7 +1,9 @@
-var dataCacheName = 'oshp-v3.1.2'
-var cacheName = 'oshp-3.1.2';
+var dataCacheName = 'oshp-v3.1.3'
+var cacheName = 'oshp-3.1.3';
 var filesToCache = [
   '/summary',
+  '/about',
+  '/siteinfo',
   '/static/dist/css/bootstrap.min.css',
   '/static/font-awesome/css/font-awesome.min.css',
   '/static/nprogress/nprogress.css',
