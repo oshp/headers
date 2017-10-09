@@ -2,6 +2,13 @@ var dataCacheName = 'oshp-v3.1.3'
 var cacheName = 'oshp-3.1.3';
 var filesToCache = [
   '/summary',
+  '/total',
+  '/sts_chart',
+  '/pkp_chart',
+  '/xfo_chart',
+  '/xcto_chart',
+  '/csp_chart',
+  '/xss_chart',
   '/about',
   '/siteinfo',
   '/static/dist/css/bootstrap.min.css',
@@ -17,7 +24,9 @@ var filesToCache = [
   '/static/nprogress/nprogress.min.js',
   '/static/build/js/custom.min.js',
   '/static/build/js/datatable.js',
-  '/static/font-awesome/fonts/fontawesome-webfont.woff2?v=4.6.3'
+  '/static/font-awesome/fonts/fontawesome-webfont.woff2?v=4.6.3',
+  '/static/images/owasp_defenders.png',
+  '/static/images/owasp_builders.png'
 ];
 
 self.addEventListener('install', function(e) {

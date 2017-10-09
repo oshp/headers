@@ -11,9 +11,7 @@ services:
     oshp:
         build:
           context: .
-          dockerfile: ./docker/secureheaders/Dockerfile
-          args:
-            BRANCH: develop
+          dockerfile: ./docker/secureheaders/Dockerfile-dev
         container_name: oshp-secureheaders
         depends_on:
           - mysqld
