@@ -32,6 +32,7 @@ sentry = Sentry(
 compress.init_app(app)
 cache.init_app(app)
 
+@cache.cached(timeout=600)
 @app.route('/service-worker.js')
 def service_worker():
     return send_from_directory('static/', 'service-worker.js')
@@ -75,36 +76,43 @@ def search_site():
     site = request.form['site']
     return redirect(url_for('siteinfo', site=site))
 
+@cache.cached(timeout=1800)
 @app.route('/xss_chart', methods=['GET'])
 def xss_chart():
     xss_datacharts = charts.get_xss_datachart()
     return jsonify(xss_datacharts)
 
+@cache.cached(timeout=1800)
 @app.route('/pkp_chart', methods=['GET'])
 def pkp_chart():
     pkp_datacharts = charts.get_pkp_datachart()
     return jsonify(pkp_datacharts)
 
+@cache.cached(timeout=1800)
 @app.route('/xfo_chart', methods=['GET'])
 def xfo_chart():
     xfo_datacharts = charts.get_xfo_datachart()
     return jsonify(xfo_datacharts)
 
+@cache.cached(timeout=1800)
 @app.route('/xcto_chart', methods=['GET'])
 def xcto_chart():
     xcto_datacharts = charts.get_xcto_datachart()
     return jsonify(xcto_datacharts)
 
+@cache.cached(timeout=1800)
 @app.route('/sts_chart', methods=['GET'])
 def sts_chart():
     sts_datacharts = charts.get_sts_datachart()
     return jsonify(sts_datacharts)
 
+@cache.cached(timeout=1800)
 @app.route('/csp_chart', methods=['GET'])
 def csp_chart():
     csp_datacharts = charts.get_csp_datachart()
     return jsonify(csp_datacharts)
 
+@cache.cached(timeout=1800)
 @app.route('/total', methods=['GET'])
 def total_sites():
     num_sites = charts.get_total_sites()
