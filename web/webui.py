@@ -41,6 +41,7 @@ def service_worker():
 def index():
     return redirect(url_for('summary'))
 
+@cache.cached(timeout=86400)
 @app.route('/summary')
 def summary():
     return render_template('summary.html')
