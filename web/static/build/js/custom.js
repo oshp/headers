@@ -1,14 +1,4 @@
-/**
- * Resize function without multiple trigger
- *
- * Usage:
- * $(window).smartresize(function(){
- *     // code here
- * });
- */
 (function($,sr){
-    // debouncing function from John Hann
-    // http://unscriptable.com/index.php/2009/03/20/debouncing-javascript-methods/
     var debounce = function (func, threshold, execAsap) {
       var timeout;
 
@@ -33,11 +23,6 @@
     jQuery.fn[sr] = function(fn){  return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
 
 })(jQuery,'smartresize');
-/**
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 var CURRENT_URL = window.location.href.split('#')[0].split('?')[0],
     $BODY = $('body'),
@@ -307,11 +292,7 @@ if (typeof NProgress != 'undefined') {
 
 		/* DATA TABLES */
 			function init_DataTables(response) {
-
-				//console.log('run_datatables');
-
 				if( typeof ($.fn.DataTable) === 'undefined'){ return; }
-				//console.log('init_DataTables');
 
 				var handleDataTableButtons = function() {
 				  if ($("#datatable-buttons").length) {
@@ -652,7 +633,7 @@ if (typeof NProgress != 'undefined') {
 			if ($('#mainb').length ){
 
           $.ajax({
-            url: '/pkp_chart',
+            url: '/pkp',
             data: $('form').serialize(),
             type: 'GET',
             success: function(response){
@@ -712,14 +693,13 @@ if (typeof NProgress != 'undefined') {
             console.log(error);
               }
             });
-
 			}
 
 			   //echart Radar
 			if ($('#echart_sonar').length ){
 
         $.ajax({
-          url: '/xss_chart',
+          url: '/xxss',
           data: $('form').serialize(),
           type: 'GET',
           success: function(response){
@@ -796,7 +776,6 @@ if (typeof NProgress != 'undefined') {
 				  }]
 				}]
 			  });
-          // end ajax
         },
           error: function(error){
             console.log(error);
@@ -807,9 +786,8 @@ if (typeof NProgress != 'undefined') {
 
 	   //echart Pie Collapse
 			if ($('#xfo').length ){
-
         $.ajax({
-          url: '/xfo_chart',
+          url: '/xfo',
           data: $('form').serialize(),
           type: 'GET',
           success: function(response){
@@ -883,7 +861,6 @@ if (typeof NProgress != 'undefined') {
 
       // Total Sites
     if ($('#sites_scannned').length ){
-
         $.ajax({
           url: '/total',
           data: $('form').serialize(),
@@ -900,9 +877,8 @@ if (typeof NProgress != 'undefined') {
 
 			//echart Donut
 			if ($('#xcto_donut').length ){
-
         $.ajax({
-          url: '/xcto_chart',
+          url: '/xcto',
           data: $('form').serialize(),
           type: 'GET',
           success: function(response){
@@ -992,9 +968,8 @@ if (typeof NProgress != 'undefined') {
 
       //echart Pie
       if ($('#echart_pie').length ){
-
         $.ajax({
-          url: '/sts_chart',
+          url: '/sts',
           data: $('form').serialize(),
           type: 'GET',
           success: function(response){
@@ -1091,9 +1066,8 @@ if (typeof NProgress != 'undefined') {
 
     //echart Line
     if ($('#echart_line').length ){
-
       $.ajax({
-        url: '/csp_chart',
+        url: '/csp',
         data: $('form').serialize(),
         type: 'GET',
         success: function(response){
@@ -1220,13 +1194,9 @@ if (typeof NProgress != 'undefined') {
             }
           });
     }
-
     }
 
 	$(document).ready(function() {
-
 		init_sidebar();
 		init_echarts();
-		//init_DataTables();
-
 	});

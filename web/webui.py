@@ -78,37 +78,37 @@ def search_site():
     return redirect(url_for('siteinfo', site=site))
 
 @cache.cached(timeout=1800)
-@app.route('/xss_chart', methods=['GET'])
+@app.route('/xxss', methods=['GET'])
 def xss_chart():
     xss_datacharts = charts.get_xss_datachart()
     return jsonify(xss_datacharts)
 
 @cache.cached(timeout=1800)
-@app.route('/pkp_chart', methods=['GET'])
+@app.route('/pkp', methods=['GET'])
 def pkp_chart():
     pkp_datacharts = charts.get_pkp_datachart()
     return jsonify(pkp_datacharts)
 
 @cache.cached(timeout=1800)
-@app.route('/xfo_chart', methods=['GET'])
+@app.route('/xfo', methods=['GET'])
 def xfo_chart():
     xfo_datacharts = charts.get_xfo_datachart()
     return jsonify(xfo_datacharts)
 
 @cache.cached(timeout=1800)
-@app.route('/xcto_chart', methods=['GET'])
+@app.route('/xcto', methods=['GET'])
 def xcto_chart():
     xcto_datacharts = charts.get_xcto_datachart()
     return jsonify(xcto_datacharts)
 
 @cache.cached(timeout=1800)
-@app.route('/sts_chart', methods=['GET'])
+@app.route('/sts', methods=['GET'])
 def sts_chart():
     sts_datacharts = charts.get_sts_datachart()
     return jsonify(sts_datacharts)
 
 @cache.cached(timeout=1800)
-@app.route('/csp_chart', methods=['GET'])
+@app.route('/csp', methods=['GET'])
 def csp_chart():
     csp_datacharts = charts.get_csp_datachart()
     return jsonify(csp_datacharts)
@@ -145,8 +145,16 @@ def page_not_found(e):
 @app.after_request
 def apply_caching(response):
     response.headers["X-Frame-Options"] = "DENY"
-    response.headers["Content-Security-Policy"] = "default-src https://oshp.bsecteam.com 'self'; script-src https://oshp.bsecteam.com https://bam.nr-data.net https://js-agent.newrelic.com https://ssl.google-analytics.com https://ajax.cloudflare.com https://sentry.io https://cdn.ravenjs.com 'self'; style-src https://oshp.bsecteam.com https://sentry.io 'self' 'unsafe-inline'; img-src https://oshp.bsecteam.com https://sentry.io 'self'; font-src https://oshp.bsecteam.com 'self'; manifest-src https://oshp.bsecteam.com 'self'; object-src 'none'"
-    response.headers["X-XSS-Protection"] = "1; mode=block; report=https://oshp.bsecteam.com/xssreport"
+    response.headers["Content-Security-Policy"] = "default-src https://oshp.bsecteam.com 'self'; " \
+        "script-src https://oshp.bsecteam.com https://bam.nr-data.net https://js-agent.newrelic.com " \
+        "https://ssl.google-analytics.com https://ajax.cloudflare.com https://sentry.io https://cdn.ravenjs.com 'self'; " \
+        "style-src https://oshp.bsecteam.com https://sentry.io 'self' 'unsafe-inline'; " \
+        "img-src https://oshp.bsecteam.com https://sentry.io 'self'; " \
+        "font-src https://oshp.bsecteam.com 'self'; " \
+        "manifest-src https://oshp.bsecteam.com 'self'; " \
+        "object-src 'none'; " \
+        "report-uri https://sentry.io/api/144923/csp-report/?sentry_key=0b8820db003145838f2ce9b023df9687"
+    response.headers["X-XSS-Protection"] = "1; mode=block"
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["Referrer-Policy"] = "no-referrer"
     return response
