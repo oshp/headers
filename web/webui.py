@@ -151,7 +151,7 @@ def apply_caching(response):
         "style-src https://oshp.bsecteam.com https://sentry.io 'self' 'unsafe-inline'; " \
         "img-src https://oshp.bsecteam.com https://sentry.io 'self'; " \
         "font-src https://oshp.bsecteam.com 'self'; " \
-        "connect-src js-agent.newrelic.com 'self'; " \
+        "connect-src https://js-agent.newrelic.com https://sentry.io 'self'; " \
         "manifest-src https://oshp.bsecteam.com 'self'; " \
         "object-src 'none'; " \
         "report-uri https://sentry.io/api/144923/csp-report/?sentry_key=0b8820db003145838f2ce9b023df9687"
