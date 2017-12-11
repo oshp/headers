@@ -4,10 +4,9 @@ files:
   - source: /
     destination: /opt/headers
 hooks:
-  ApplicationStop:
   BeforeInstall:
     - location: deploy/before_install.sh
-      timeout: 60
+      timeout: 120
       runas: ubuntu
   Install:
     - location: deploy/install_service.sh
