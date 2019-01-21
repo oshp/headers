@@ -1,25 +1,69 @@
-sudo: required
-
+language: python
+python:
+  - 3.5
+  - 3.6
+  - 3.7
 services:
   - docker
+stages:
+  - tests
+  - build
+
+jobs:
+  include:
+    - stage: "tests"
+      name: "Python Tests"
+    - script:
+      - python -m pytest -v
+    - stage: "tests"
+    - script:
+      - docker-compose -f docker-compose.scanner.develop.yml build
+      - docker-compose -f docker-compose.scanner.develop.yml up -d mysql
+      - sleep 30
+      - docker-compose -f docker-compose.scanner.develop.yml ps | grep mysql || exit 1
+      - docker-compose -f docker-compose.scanner.develop.yml up scanner || exit 1
+      name: "OSHP Scanner Image Build Test"
+    - script: 
+      - docker-compose -f docker-compose.develop.yml build
+      - docker-compose -f docker-compose.develop.yml up -d
+      - sleep 30
+      - docker-compose -f docker-compose.develop.yml ps | grep mysql || exit 1
+      - docker-compose -f docker-compose.develop.yml ps | grep redis || exit 1
+      - docker-compose -f docker-compose.develop.yml ps | grep oshp || exit 1
+      name: "OSHP Web Image Build Test"
+    - stage: "build"
+      name: "Docker Image Deploy Images [Scanner/Database/Web] - STABLE"
+    - before_script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - script:
+      - docker image build -t oshp/secureheaders:$IMAGE_TAG -f docker/secureheaders/Dockerfile .
+      - docker image build -t oshp/scanner:$IMAGE_TAG -f docker/secureheaders/Dockerfile .
+      - docker image build -t oshp/database:develop -f docker/database/Dockerfile .
+      - docker image push oshp/secureheaders:$IMAGE_TAG
+      - docker image push oshp/scanner:$IMAGE_TAG
+      - docker image push oshp/database:develop
+      - docker image tag oshp/secureheaders:$IMAGE_TAG oshp/secureheaders:stable
+      - docker image tag oshp/scanner:$IMAGE_TAG oshp/scanner:stable
+      - docker image push oshp/secureheaders:stable
+      - docker image push oshp/scanner:stable
+      branches:
+        only:
+          - master
+    - stage: "build"
+      name: "Docker Image Deploy Images [Scanner/Database/Web] - UNSTABLE"
+    - before_script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - script:
+      - docker image build -t oshp/secureheaders:unstable -f docker/secureheaders/Dockerfile .
+      - docker image build -t oshp/scanner:unstable -f docker/secureheaders/Dockerfile .
+      - docker image build -t oshp/database:develop-unstable -f docker/database/Dockerfile .
+      - docker image push oshp/secureheaders:unstable
+      - docker image push oshp/scanner:unstable
+      - docker image push oshp/database:develop-unstable
+      branches:
+        only:
+          - /^[0-9].*rc[0-9]{2}$/
 
 env:
-  DOCKER_COMPOSE_VERSION: 1.14.0
-
-before_install:
-  - sudo rm /usr/local/bin/docker-compose
-  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-  - chmod +x docker-compose
-  - sudo mv docker-compose /usr/local/bin
-  - docker-compose version
-  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-  - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-  - sudo apt-get update
-  - sudo apt-get -y install docker-ce
-  - docker --version
-
-script:
-  - docker-compose build
-  - docker-compose up -d
-  - sleep 10
-  - docker-compose ps
+  global:
+    - IMAGE_TAG=4.0.0

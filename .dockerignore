@@ -1,7 +1,16 @@
-.git
-.codeclimate.yml
-.gitattributes
-.gitignore
-.travis.yml
-LICENSE
-README.md
+# IDE
+.vscode
+.pytest_cache
+
+# Folders
+deploy
+tests
+venv
+
+# Files
+*.yml
+*.md
+Procfile
+
+
+

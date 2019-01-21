@@ -1,4 +1,4 @@
-var cacheNames = 'oshp-3.1.4';
+var cacheNames = 'oshp-4.0.0';
 var filesToCache = [
   '/summary',
   '/about',

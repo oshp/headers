@@ -1,6 +1,6 @@
-# SecureHeaders  
+# SecureHeaders 
+
 [![Build Status](https://travis-ci.org/oshp/headers.svg?branch=master)](https://travis-ci.org/oshp/headers)
-[![Dependency Status](https://gemnasium.com/badges/github.com/amenezes/headers.svg)](https://gemnasium.com/github.com/amenezes/headers)
 [![Maintainability](https://api.codeclimate.com/v1/badges/9abf0feda40825b531a9/maintainability)](https://codeclimate.com/github/oshp/headers/maintainability)
 [![Code Health](https://landscape.io/github/amenezes/secureheaders/master/landscape.svg?style=flat)](https://landscape.io/github/amenezes/secureheaders/master)
 
@@ -28,31 +28,89 @@ with main HTTP secure headers documented OWASP web page and also provide
 a way to search secure headers set in each page analyzed as your adoption
 by other users.
 
-#### Dependencies  
-- docker engine
-- docker-compose
-
 #### Installation
+##### dependencies
+1. mysql
+2. redis
+##### docker
 ```bash
 docker-compose up -d
 ```
+##### bare metal
+````bash
+# install virtualevn
+#
+pip install virtualenv
+# create virtualenv locally
+#
+virtualenv venv
+# active virtualenv
+#
+source venv/bin/activate
+# install application dependencies
+#
+pip install -r requirements.txt
+# start application (web interface)
+#
+gunicorn -w 2 -b 0.0.0.0:5000 web.webui:app
+````
 
 ### Scanner
+##### dependencies
+
+1. mysql
+##### docker
+````bash
+docker-compose -f docker-compose.scanner.yml up -d
+````
+
+##### bare metal
+
+###### overview:  
 
 [![asciicast](https://asciinema.org/a/ehee1olc3qys1wbdz1zqmiu84.png)](https://asciinema.org/a/ehee1olc3qys1wbdz1zqmiu84)
-The scanner module it's responsible to catch all secure headers data from csv list.
+The scanner module it's responsible to catch all secure headers data from a csv file.
 
-> notice: the module work, however it is under rebuild process to make it more effective,
-robust and much better.
+###### setup, install and run scanner:
+
+````bash
+# install virtualevn
+#
+pip install virtualenv
+# create virtualenv locally
+#
+virtualenv venv
+# active virtualenv
+#
+source venv/bin/activate
+# install application dependencies
+#
+pip install -r requirements.txt
+# start application (web interface)
+#
+python cli.py
+````
+
+````bash
+# sample scanner help output
+# python cli.py --help
+#
+Usage: cli.py [OPTIONS]
+
+  OWASP SecureHeaders Project [OSHP] will analyze and  provides an overview
+  about http secure headers specify from a CSV list.
+
+Options:
+  --version              Show the version and exit.
+  -f, --file TEXT        topsites file path.  [default:
+                         conf/topsites_global.csv]
+  -t, --threads INTEGER  number of threads.  [default: 1000]
+  --help                 Show this message and exit.
+````
 
 ##### Dependencies  
 
-Check [requirements-txt](https://github.com/amenezes/headers/blob/master/requirements.txt).
-
-##### Installation
-```bash
-pip install -r requirements-txt
-```  
+check [requirements.txt](https://github.com/amenezes/headers/blob/master/requirements.txt).
 
 ### More
 

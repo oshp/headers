@@ -37,15 +37,25 @@ services:
         parallelism: 1
         delay: 20s
   traefik:
-    image: traefik:1.3.5-alpine
+    image: traefik:alpine
     networks:
       - traefik-net
-    command: --docker.swarmmode --docker.watch --docker.exposedbydefault=false --docker.domain=bsecteam.com --web --web.statistics --web.metrics
+    command:
+      - --accesslog
+      - --api
+      - --api.dashboard
+      - --api.statistics
+      - --api.statistics.recenterrors=10
+      - --docker.swarmmode
+      - --docker
+      - --docker.domain=bsecteam.com
+      - --docker.watch=true
+      - --docker.exposedbydefault=false
     ports:
       - 80:80
       - 8080:8080
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock:ro
     deploy:
       replicas: 1
       restart_policy:
@@ -57,7 +67,7 @@ services:
           constraints:
             - node.role == manager
   redis:
-    image: redis:4.0.1-alpine
+    image: redis:alpine
     networks:
       - traefik-net
     deploy:

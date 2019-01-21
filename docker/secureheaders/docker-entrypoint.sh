@@ -6,6 +6,6 @@ set -e
 
 # call with APM support
 # > used on production <http://oshp.bsecteam.com>
-# notice: no changes needed for local use  
-NEW_RELIC_CONFIG_FILE=./newrelic.ini newrelic-admin run-program \
+# notice: no changes needed for local use
+NEW_RELIC_CONFIG_FILE=./newrelic.ini exec newrelic-admin run-program \
 gunicorn -w 2 -b 0.0.0.0:5000 web.webui:app

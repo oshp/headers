@@ -1,6 +1,7 @@
 {
   "name": "SecureHeaders",
   "short_name": "OSHP",
+  "description": "OWASP SecureHeaders Project",
   "icons": [{
     "src": "images/owasp_icon/icon-128x128.png",
       "sizes": "128x128",

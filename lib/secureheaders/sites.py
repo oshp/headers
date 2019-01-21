@@ -1,7 +1,7 @@
 from lib.utils.queries import TOTAL_SITES
 
-class Sites(object):
 
+class Sites():
 
     def __init__(self):
        self.sites = 'sites'

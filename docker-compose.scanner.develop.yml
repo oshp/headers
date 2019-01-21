@@ -1,0 +1,26 @@
+version: '3'
+services:
+  mysql:
+    image: oshp/database:blank
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: headers
+      MYSQL_USER: mysql
+      MYSQL_PASSWORD: password
+    ports:
+      - 3306:3306
+  scanner:
+    build:
+      context: .
+      dockerfile: docker/secureheaders/Dockerfile
+    container_name: scanner
+    depends_on:
+      - mysql
+    environment:
+      - MYSQL_HOST=mysql
+    entrypoint:
+      - python
+      - cli.py
+      - -f
+      - conf/develop.csv

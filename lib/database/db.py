@@ -1,24 +1,27 @@
+import os
 import mysql.connector
 
-class DB(object):
+from lib.utils.util import load_env_config
 
 
-    def __init__(self, settings):
-        self.settings = settings
+class DB():
+
+    def __init__(self):
+        load_env_config()
 
     def get_db_connection(self):
         conn = mysql.connector.connect(
-            user=self.settings['db']['username'],
-            password=self.settings['db']['password'],
-            host=self.settings['db']['host'],
-            database=self.settings['db']['database']
+            user=os.getenv("MYSQL_USERNAME"),
+            password=os.getenv("MYSQL_PASSWORD"),
+            host=os.getenv("MYSQL_HOST"),
+            database=os.getenv("MYSQL_DATABASE")
         )
         return conn
 
     def query(self, query):
         conn = self.get_db_connection()
         cursor = conn.cursor()
-        results = ''
+        results = []
         try:
             cursor.execute(query)
             results = cursor.fetchall()
@@ -49,9 +52,9 @@ class DB(object):
         cursor.close()
 
     def save(self, command, table_name, table):
+        print('Table: {}'.format(table_name))
         conn = self.get_db_connection()
         cursor = conn.cursor()
-        print('Table: {}').format(table_name)
         if type(table) is list:
             for x in table:
                 cursor.execute(command, tuple(x))
@@ -62,12 +65,10 @@ class DB(object):
         cursor.close()
         conn.close()
 
-    def populate_mysql(self,
-            site_table,
-            header_name_table,
-            header_value_table,
-            header_table
-        ):
+    def populate_mysql(self, site_table,
+                       header_name_table,
+                       header_value_table,
+                       header_table):
         self.clear_database()
         print('Populating database...')
         tables = [

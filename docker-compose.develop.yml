@@ -8,19 +8,27 @@ services:
       MYSQL_DATABASE: headers
       MYSQL_USER: mysql
       MYSQL_PASSWORD: password
+    ports:
+      - 3306:3306
   oshp:
-    image: oshp/secureheaders:stable
+    build:
+      context: .
+      dockerfile: docker/secureheaders/Dockerfile
     container_name: oshp
     depends_on:
       - mysql
+    environment:
+      - MYSQL_HOST=mysql
     labels:
       - traefik.enable=true
       - traefik.backend=oshp
       - traefik.port=5000
       - traefik.backend.loadbalancer.method=drr
       - traefik.frontend.rule=PathPrefix:/
+    ports:
+      - 5000:5000
   proxy:
-    image: traefik:alpine
+    image: traefik:maroilles-alpine
     container_name: proxy
     command:
       - --accesslog
@@ -40,3 +48,5 @@ services:
   redis:
     image: redis:alpine
     container_name: redis
+    ports:
+      - 6379:6379

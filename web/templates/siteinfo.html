@@ -31,7 +31,7 @@
       </div>
     </div>
 
-    {% if data|length > 0 %}
+    {% if ((none not in data) and (data)) %}
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
@@ -66,14 +66,15 @@
 
                 <tbody>
                   <tbody>
-                    {% for site_data, z in data %}
+                    {% for header_name in data %}
+                    {% for header_value in data[header_name] %}
                     <tr class="even pointer">
-		      <td class=" "><span class="fa fa-toggle-on"></span></td>
-                      <td class=" ">{{ site_data[0]|safe }}</td>
-                      <td class=" ">{{ site_data[1]|safe }}</td>
-                      <td class=" ">{{ '%0.4f' % z[0] }}%</td>
-                      </td>
+                    <td class=" "><span class="fa fa-toggle-on"></span></td>
+                    <td class=" ">{{ header_name|safe }}</td>
+                    <td class=" ">{{ header_value|safe }}</td>
+                    <td class=" ">{{ '%0.4f' % data[header_name][header_value] }}%</td>
                     </tr>
+                    {% endfor %}
                     {% endfor %}
                   </tbody>
                 </tbody>
