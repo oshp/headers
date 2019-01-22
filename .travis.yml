@@ -1,43 +1,30 @@
 language: python
+cache: pip
 python:
   - 3.6
 services:
   - docker
-stages:
-  - build
-
+  - mysql
+  - redis-server
+install:
+  - pip install -r requirements.txt
 script:
+  - echo '=== unit tests ==='
   - python -m pytest -v
-
-jobs:
-  include:
-    - stage: "build"
-      name: "Docker Image Deploy Images [Scanner/Database/Web]"
-    - script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker image build -t oshp/secureheaders:$IMAGE_TAG -f docker/secureheaders/Dockerfile .
-      - docker image build -t oshp/scanner:$IMAGE_TAG -f docker/secureheaders/Dockerfile .
-      - docker image build -t oshp/database:develop -f docker/database/Dockerfile .
-      - docker image push oshp/secureheaders:$IMAGE_TAG
-      - docker image push oshp/scanner:$IMAGE_TAG
-      - docker image push oshp/database:develop
-      - docker image tag oshp/secureheaders:$IMAGE_TAG oshp/secureheaders:stable
-      - docker image tag oshp/scanner:$IMAGE_TAG oshp/scanner:stable
-      - docker image push oshp/secureheaders:stable
-      - docker image push oshp/scanner:stable
-      if: branch = master
-    - stage: "build"
-      name: "Docker Image Deploy Images [Scanner/Database/Web]"
-    - script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker image build -t oshp/secureheaders:unstable -f docker/secureheaders/Dockerfile .
-      - docker image build -t oshp/database:develop-unstable -f docker/database/Dockerfile .
-      - docker image tag oshp/secureheaders:unstable oshp/scanner:unstable
-      - docker image push oshp/secureheaders:unstable
-      - docker image push oshp/scanner:unstable
-      - docker image push oshp/database:develop-unstable
-      if: branch != master
-
+  - echo '=== test oshp scanner ==='
+  - mysql -u root --password="$MYSQL_PASSWORD" headers < conf/sql/headers.sql
+  - python cli.py -f conf/develop.csv
+  - echo '=== test oshp web ==='
+  - echo '=== build docker images ==='
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker image build -t oshp/secureheaders:$IMAGE_TAG -f docker/secureheaders/Dockerfile .
+  - docker image build -t oshp/database:develop -f docker/database/Dockerfile .
+  - docker image tag oshp/secureheaders:$IMAGE_TAG oshp/scanner:$IMAGE_TAG
+  - docker image push oshp/secureheaders:$IMAGE_TAG
+  - docker image push oshp/scanner:$IMAGE_TAG
+  - docker image push oshp/database:develop
 env:
   global:
     - IMAGE_TAG=4.0.0
+    - MYSQL_PASSWORD=''
+    - REDIS_HOST=''
