@@ -1,7 +1,6 @@
 language: python
 python:
   - 3.6
-  - 3.7
 services:
   - docker
 stages:
@@ -14,22 +13,6 @@ jobs:
       name: "Python Tests"
     - script:
       - python -m pytest -v
-    - stage: "tests"
-    - script:
-      - docker-compose -f docker-compose.scanner.develop.yml build
-      - docker-compose -f docker-compose.scanner.develop.yml up -d mysql
-      - sleep 30
-      - docker-compose -f docker-compose.scanner.develop.yml ps | grep mysql || exit 1
-      - docker-compose -f docker-compose.scanner.develop.yml up scanner || exit 1
-      name: "OSHP Scanner Image Build Test"
-    - script: 
-      - docker-compose -f docker-compose.develop.yml build
-      - docker-compose -f docker-compose.develop.yml up -d
-      - sleep 30
-      - docker-compose -f docker-compose.develop.yml ps | grep mysql || exit 1
-      - docker-compose -f docker-compose.develop.yml ps | grep redis || exit 1
-      - docker-compose -f docker-compose.develop.yml ps | grep oshp || exit 1
-      name: "OSHP Web Image Build Test"
     - stage: "build"
       name: "Docker Image Deploy Images [Scanner/Database/Web] - STABLE"
     - before_script:
