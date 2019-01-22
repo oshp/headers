@@ -13,9 +13,8 @@ jobs:
   include:
     - stage: "build"
       name: "Docker Image Deploy Images [Scanner/Database/Web] - STABLE"
-    - before_script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker image build -t oshp/secureheaders:$IMAGE_TAG -f docker/secureheaders/Dockerfile .
       - docker image build -t oshp/scanner:$IMAGE_TAG -f docker/secureheaders/Dockerfile .
       - docker image build -t oshp/database:develop -f docker/database/Dockerfile .
@@ -31,12 +30,11 @@ jobs:
           - master
     - stage: "build"
       name: "Docker Image Deploy Images [Scanner/Database/Web] - UNSTABLE"
-    - before_script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker image build -t oshp/secureheaders:unstable -f docker/secureheaders/Dockerfile .
-      - docker image build -t oshp/scanner:unstable -f docker/secureheaders/Dockerfile .
       - docker image build -t oshp/database:develop-unstable -f docker/database/Dockerfile .
+      - docker image tag oshp/secureheaders:unstable oshp/scanner:unstable
       - docker image push oshp/secureheaders:unstable
       - docker image push oshp/scanner:unstable
       - docker image push oshp/database:develop-unstable
