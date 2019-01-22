@@ -4,15 +4,13 @@ python:
 services:
   - docker
 stages:
-  - tests
   - build
+
+script:
+  - python -m pytest -v
 
 jobs:
   include:
-    - stage: "tests"
-      name: "Python Tests"
-    - script:
-      - python -m pytest -v
     - stage: "build"
       name: "Docker Image Deploy Images [Scanner/Database/Web] - STABLE"
     - before_script:
