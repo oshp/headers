@@ -1,22 +1,14 @@
 import os
 
+from . import api_header, api_headers
+
 from flask import Flask, g, send_from_directory
-from flask import render_template, request, url_for, redirect, flash, jsonify
+from flask import render_template, request, url_for, redirect, flash
 from flask_caching import Cache
 from flask_compress import Compress
 
-from lib.secureheaders.xss import XXssProtection
-from lib.secureheaders.csp import ContentSecurityPolicy
-from lib.secureheaders.pkp import PublicKeyPins
-from lib.secureheaders.sts import StrictTransportSecurity
-from lib.secureheaders.xfo import XFrameOptions
-from lib.secureheaders.xcto import XContentTypeOptions
-from lib.secureheaders.rpolicy import ReferrerPolicy
-from lib.secureheaders.xpcdp import XPermittedCrossDomainPolicies
-
 from lib.utils.util import load_env_config
 from lib.database.db import DB
-from lib.charts.datacharts import Datacharts
 
 from raven.contrib.flask import Sentry
 from lib.utils.queries import SELECT_SITE_HEADERS
@@ -24,13 +16,14 @@ from lib.utils.queries import GET_HTTP_HEADER_PERCENT
 from lib.utils.config import MIME_TYPES
 
 load_env_config()
-charts = Datacharts()
 db = DB()
 compress = Compress()
 
 app = Flask(__name__, static_folder="static")
 app.secret_key = 'some_secret'
 app.config['COMPRESS_MIMETYPES'] = MIME_TYPES
+app.register_blueprint(api_header.bp)
+app.register_blueprint(api_headers.bp)
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 if os.getenv("SENTRY_DSN"):
     sentry = Sentry(
@@ -96,58 +89,6 @@ def search_site():
                             site=site))
 
 
-@cache.cached(timeout=1800)
-@app.route('/api/v1/header/x-xss-protection', methods=['GET'])
-def x_xss_protection():
-    return jsonify(XXssProtection().get_datachart())
-
-
-@cache.cached(timeout=1800)
-@app.route('/api/v1/header/public-key-pins', methods=['GET'])
-def public_key_pins():
-    return jsonify(PublicKeyPins().get_datachart())
-
-@cache.cached(timeout=1800)
-@app.route('/api/v1/header/referrer-policy', methods=['GET'])
-def referer_policy():
-    return jsonify(ReferrerPolicy().get_datachart())
-
-@cache.cached(timeout=1800)
-@app.route('/api/v1/header/x-permitted-cross-domain-policies', methods=['GET'])
-def x_permitted_cross_domain_policies():
-    return jsonify(XPermittedCrossDomainPolicies().get_datachart())
-
-@cache.cached(timeout=1800)
-@app.route('/api/v1/header/x-frame-options', methods=['GET'])
-def x_frame_options():
-    return jsonify(XFrameOptions().get_datachart())
-
-
-@cache.cached(timeout=1800)
-@app.route('/api/v1/header/x-content-type-options', methods=['GET'])
-def x_content_type_options():
-    return jsonify(XContentTypeOptions().get_datachart())
-
-
-@cache.cached(timeout=1800)
-@app.route('/api/v1/header/strict-transport-security', methods=['GET'])
-def strict_transport_security():
-    return jsonify(StrictTransportSecurity().get_datachart())
-
-
-@cache.cached(timeout=1800)
-@app.route('/api/v1/header/content-security-policy', methods=['GET'])
-def content_security_policy():
-    return jsonify(ContentSecurityPolicy().get_datachart())
-
-
-@cache.cached(timeout=1800)
-@app.route('/api/v1/headers/total', methods=['GET'])
-def total_sites():
-    num_sites = charts.get_total_sites()
-    return jsonify(num_sites)
-
-
 # error pages
 @cache.cached(timeout=86400)
 @app.errorhandler(404)
@@ -159,7 +100,7 @@ def page_not_found(e):
 
 @cache.cached(timeout=86400)
 @app.errorhandler(500)
-def page_not_found(e):
+def internal_server_error(e):
     '''Redirect HTTP 500 code to 500.html template and set objects to
     caught user feedback sent to <sentry.io>'''
     return render_template('500.html',
