@@ -12,7 +12,7 @@ script:
 jobs:
   include:
     - stage: "build"
-      name: "Docker Image Deploy Images [Scanner/Database/Web] - STABLE"
+      name: "Docker Image Deploy Images [Scanner/Database/Web]"
     - script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker image build -t oshp/secureheaders:$IMAGE_TAG -f docker/secureheaders/Dockerfile .
@@ -25,11 +25,9 @@ jobs:
       - docker image tag oshp/scanner:$IMAGE_TAG oshp/scanner:stable
       - docker image push oshp/secureheaders:stable
       - docker image push oshp/scanner:stable
-      branches:
-        only:
-          - master
+      if: branch = master
     - stage: "build"
-      name: "Docker Image Deploy Images [Scanner/Database/Web] - UNSTABLE"
+      name: "Docker Image Deploy Images [Scanner/Database/Web]"
     - script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker image build -t oshp/secureheaders:unstable -f docker/secureheaders/Dockerfile .
@@ -38,9 +36,7 @@ jobs:
       - docker image push oshp/secureheaders:unstable
       - docker image push oshp/scanner:unstable
       - docker image push oshp/database:develop-unstable
-      branches:
-        only:
-          - /^[0-9].*rc[0-9]{2}$/
+      if: branch != master
 
 env:
   global:
