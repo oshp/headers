@@ -9,8 +9,6 @@ RUN apt-get update && \
   curl -o headers.sql $HEADERS_FILE && \
   mv headers.sql /docker-entrypoint-initdb.d/
 
-COPY --from=builder /docker-entrypoint-initdb.d/headers.sql /docker-entrypoint-initdb.d/
-
 HEALTHCHECK --timeout=5s --start-period=30s --retries=3 \
   CMD curl localhost:3306 || exit 1
 
