@@ -1,3 +1,4 @@
+# coding: utf-8
 from lib.utils.queries import TOTAL_SITES
 
 

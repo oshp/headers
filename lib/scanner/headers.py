@@ -1,3 +1,4 @@
+# coding: utf-8
 import os
 import gevent
 
@@ -6,7 +7,7 @@ from gevent import monkey; monkey.patch_all()
 from lib.utils.util import get_dictsites
 from lib.utils.util import load_env_config
 
-from lib.database.db import DB
+from lib.database.rdms_db import MySQL
 from lib.scanner.scan import Scan
 
 
@@ -30,21 +31,22 @@ class Headers():
                 'name')
 
     def work_headers(self, topsites_row):
-        site_id = topsites_row[0]
-        site = topsites_row[1]
-        response = self.scanner.connection(site)
-        self.site_table.append([site_id, site, response['url'], response['status_code']])
-        if response['status_code'] == 200:
-            for header_name, header_value in response['headers'].items():
-                if header_name in self.header_name_table:
-                    hvalue = self.test_duplicate_value(
-                        header_value,
-                        self.header_value_table,
-                        'value')
-                    self.header_table.append(
-                        [site_id,
-                        self.header_name_table[header_name],
-                        hvalue])
+        try:
+            site_id = topsites_row[0]
+            site = topsites_row[1]
+            response = self.scanner.connection(site)
+            if response  or (response['status_code' == 200]):
+                self.site_table.append([site_id, site, response['url'], response['status_code']])
+                for header_name, header_value in response['headers'].items():
+                    if header_name in self.header_name_table:
+                        hvalue = self.test_duplicate_value(header_value,
+                                                           self.header_value_table,
+                                                           'value')
+                        self.header_table.append([site_id,
+                                                  self.header_name_table[header_name],
+                                                  hvalue])
+        except TypeError:
+            print("[!] site <{}> will be excluded from the analysis".format(site))
 
     def test_duplicate_value(self, value, table, index_name):
         if value not in table:
@@ -55,7 +57,7 @@ class Headers():
             return table[value]
 
     def save_data(self):
-        database = DB()
+        database = MySQL()
         database.populate_mysql(self.site_table,
                                 self.header_name_table,
                                 self.header_value_table,

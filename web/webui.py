@@ -1,22 +1,28 @@
+# coding: utf-8
 import os
 
-from . import api_header, api_headers
-
-from flask import Flask, g, send_from_directory
-from flask import render_template, request, url_for, redirect, flash
+from . import (
+    api_header, api_headers
+)
+from flask import (
+    Flask, g, send_from_directory,
+    render_template, request, url_for,
+    redirect, flash
+)
 from flask_caching import Cache
 from flask_compress import Compress
 
 from lib.utils.util import load_env_config
-from lib.database.db import DB
+from lib.database.rdms_db import MySQL
 
 from raven.contrib.flask import Sentry
-from lib.utils.queries import SELECT_SITE_HEADERS
-from lib.utils.queries import GET_HTTP_HEADER_PERCENT
+from lib.utils.queries import (
+    SELECT_SITE_HEADERS, GET_HTTP_HEADER_PERCENT
+)
 from lib.utils.config import MIME_TYPES
 
 load_env_config()
-db = DB()
+db = MySQL()
 compress = Compress()
 
 app = Flask(__name__, static_folder="static")
@@ -25,7 +31,7 @@ app.config['COMPRESS_MIMETYPES'] = MIME_TYPES
 app.register_blueprint(api_header.bp)
 app.register_blueprint(api_headers.bp)
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})
-if os.getenv("SENTRY_DSN"):
+if os.getenv("SENTRY_ENABLED"):
     sentry = Sentry(
         app,
         dsn='%s' % os.getenv(
@@ -70,7 +76,7 @@ def siteinfo(site=''):
         configured_headers = db.query(SELECT_SITE_HEADERS.format(site_name=site))
         for header_name, header_value in configured_headers:
             percent_by_header = db.query(GET_HTTP_HEADER_PERCENT.format(header_name=header_name,
-                                                    header_value=header_value))
+                                                                        header_value=header_value))
             result[header_name] = {header_value: percent_by_header[0]}
         if len(configured_headers) == 0:
             flash("This website was not found in our database.", 'notfound')
@@ -105,8 +111,7 @@ def internal_server_error(e):
     caught user feedback sent to <sentry.io>'''
     return render_template('500.html',
                            event_id=g.sentry_event_id,
-                           public_dsn=sentry.client.get_public_dsn('https')),
-    500
+                           public_dsn=sentry.client.get_public_dsn('https')), 500
 
 
 @app.after_request

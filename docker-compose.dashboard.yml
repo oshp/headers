@@ -9,7 +9,7 @@ services:
       MYSQL_USER: mysql
       MYSQL_PASSWORD: password
   oshp:
-    image: oshp/secureheaders:stable
+    image: oshp/secureheaders:4.0.0
     container_name: oshp
     depends_on:
       - mysql
@@ -19,6 +19,9 @@ services:
       - traefik.port=5000
       - traefik.backend.loadbalancer.method=drr
       - traefik.frontend.rule=PathPrefix:/
+    environment:
+      MYSQL_HOST: mysql
+      REDIS_HOST: redis
   proxy:
     image: traefik:alpine
     container_name: proxy

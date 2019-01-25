@@ -1,3 +1,4 @@
+# coding: utf-8
 import redis
 import json
 import os
@@ -5,7 +6,7 @@ import os
 from lib.utils.util import load_env_config
 
 
-class Datacache():
+class Redis():
 
     def __init__(self):
         load_env_config()

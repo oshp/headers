@@ -1,3 +1,4 @@
+# coding: utf-8
 from lib.secureheaders.header import Header
 
 from lib.utils.queries import QTD_XCTO_OTHER

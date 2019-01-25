@@ -11,7 +11,7 @@ services:
     ports:
       - 3306:3306
   scanner:
-    image: oshp/scanner:stable
+    image: oshp/secureheaders:4.0.0
     container_name: scanner
     depends_on:
       - mysql
@@ -20,5 +20,6 @@ services:
     entrypoint:
       - python
       - cli.py
+      - scanner
       - -f
       - conf/develop.csv

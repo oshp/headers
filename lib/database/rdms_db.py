@@ -1,21 +1,30 @@
+# coding: utf-8
 import os
+import sys
 import mysql.connector
+
+from mysql.connector.errors import InterfaceError
 
 from lib.utils.util import load_env_config
 
 
-class DB():
+class MySQL():
 
     def __init__(self):
         load_env_config()
 
     def get_db_connection(self):
-        conn = mysql.connector.connect(
-            user=os.getenv("MYSQL_USERNAME"),
-            password=os.getenv("MYSQL_PASSWORD"),
-            host=os.getenv("MYSQL_HOST"),
-            database=os.getenv("MYSQL_DATABASE")
-        )
+        try:
+            conn = mysql.connector.connect(
+                user=os.getenv("MYSQL_USERNAME"),
+                password=os.getenv("MYSQL_PASSWORD"),
+                host=os.getenv("MYSQL_HOST"),
+                database=os.getenv("MYSQL_DATABASE")
+            )
+        except InterfaceError:
+            print("[*] mysql server unavailable...")
+            print("[>] please check if there's any server listening on: <{}:3306>".format(os.getenv('MYSQL_HOST')))
+            sys.exit(1)
         return conn
 
     def query(self, query):

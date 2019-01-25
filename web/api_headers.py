@@ -1,15 +1,13 @@
-import functools
-
 from lib.charts.datacharts import Datacharts
 
 from flask import (
-    Blueprint, request, jsonify
+    Blueprint, jsonify
 )
 
 
 charts = Datacharts()
-bp = Blueprint('api_headers', 
-               __name__, 
+bp = Blueprint('api_headers',
+               __name__,
                url_prefix='/api/v1/headers')
 
 

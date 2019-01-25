@@ -27,24 +27,6 @@ services:
       - traefik.frontend.rule=PathPrefix:/
     ports:
       - 5000:5000
-  proxy:
-    image: traefik:maroilles-alpine
-    container_name: proxy
-    command:
-      - --accesslog
-      - --api
-      - --api.dashboard
-      - --api.statistics
-      - --api.statistics.recenterrors=10
-      - --docker
-      - --docker.domain=localhost
-      - --docker.watch=true
-      - --docker.exposedbydefault=false
-    ports:
-      - 80:80
-      - 8080:8080
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
   redis:
     image: redis:alpine
     container_name: redis

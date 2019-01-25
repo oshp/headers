@@ -1,5 +1,6 @@
-from lib.database.db import DB
-from lib.cache.datacache import Datacache
+# coding: utf-8
+from lib.database.rdms_db import MySQL
+from lib.database.memory_db import Redis
 
 from lib.secureheaders.sites import Sites
 
@@ -7,8 +8,8 @@ from lib.secureheaders.sites import Sites
 class Datacharts():
 
     def __init__(self):
-        self.db = DB()
-        self.cache = Datacache()
+        self.db = MySQL()
+        self.cache = Redis()
 
     def make_query(self, data):
         return {key: self.db.query(query)[0][0] for key, query in data.items()}

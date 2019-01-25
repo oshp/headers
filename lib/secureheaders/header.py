@@ -1,3 +1,4 @@
+# coding: utf-8
 from lib.charts.datacharts import Datacharts
 
 from lib.utils.queries import COUNT_HEADER_BY_NAME

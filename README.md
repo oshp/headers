@@ -15,90 +15,68 @@ HTTP secure headers are resources known to some and despised by others.
 However it's a fact that the versatility and security provided by feature can
 help make web applications more secure.
 
-### Architecture
+## Architecture
 
 ![SecureHeaders Architecture](https://www.dropbox.com/s/wkxdksye9oqxwpd/secureheaders.png?raw=1)
 
-### Web Interface
+## Dependencies  
 
-![SecureHeaders Main Page](https://dl.dropboxusercontent.com/u/6427240/oshp/oshp_main.png)
-The SecureHeaers webui provide an easyly way to see and search all data
-gathering with scanner module. For now it's possible to see a dashboard
-with main HTTP secure headers documented OWASP web page and also provide
-a way to search secure headers set in each page analyzed as your adoption
-by other users.
+- MySQL
+- Redis
+- Python 3.6
 
-#### Installation
-##### dependencies
-1. mysql
-2. redis
-##### docker
-```bash
-docker-compose up -d
-```
-##### bare metal
-````bash
-# install virtualevn
-#
-pip install virtualenv
-# create virtualenv locally
-#
-virtualenv venv
-# active virtualenv
-#
-source venv/bin/activate
-# install application dependencies
-#
-pip install -r requirements.txt
-# start application (web interface)
-#
-gunicorn -w 2 -b 0.0.0.0:5000 web.webui:app
+## Configuration (Dashboard | Scanner)
+
+Edit `.env` file or set environment variable:
+````txt
+# general settings
+## scanner
+THREAD_NUMBER=1000
+TOPSTIES_FILENAME=conf/topsites_global.csv
+SENTRY_ENABLED=False
+SENTRY_DSN=''
+
+# http settings
+ORIGIN=http://a.com
+TIMEOUT=3
+
+# mysql settings
+MYSQL_USERNAME=root
+MYSQL_PASSWORD=password
+MYSQL_HOST=localhost
+MYSQL_DATABASE=headers
+
+# redis settings
+REDIS_HOST=localhost
+REDIS_PORT=6379
+REDIS_DB=0
+REDIS_TTL=30
+
+# http header filters
+HEADERS=strict-transport-security,public-key-pins,x-xss-protection,x-frame-options,x-content-type-options,content-security-policy,x-permitted-cross-domain-policies,referrer-policy
 ````
 
-### Scanner
-##### dependencies
-
-1. mysql
-##### docker
+## Usage
 ````bash
-docker-compose -f docker-compose.scanner.yml up -d
-````
-
-##### bare metal
-
-###### overview:  
-
-[![asciicast](https://asciinema.org/a/ehee1olc3qys1wbdz1zqmiu84.png)](https://asciinema.org/a/ehee1olc3qys1wbdz1zqmiu84)
-The scanner module it's responsible to catch all secure headers data from a csv file.
-
-###### setup, install and run scanner:
-
-````bash
-# install virtualevn
-#
-pip install virtualenv
-# create virtualenv locally
-#
-virtualenv venv
-# active virtualenv
-#
-source venv/bin/activate
-# install application dependencies
-#
-pip install -r requirements.txt
-# start application (web interface)
-#
-python cli.py
-````
-
-````bash
-# sample scanner help output
 # python cli.py --help
 #
-Usage: cli.py [OPTIONS]
+Usage: cli.py [OPTIONS] COMMAND [ARGS]...
 
-  OWASP SecureHeaders Project [OSHP] will analyze and  provides an overview
-  about http secure headers specify from a CSV list.
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  scanner  Owasp SecureHeader scanner.
+  web      Owasp SecureHeader web dashboard
+````
+
+### scanner
+````bash
+# python cli.py scanner --help
+#
+Usage: cli.py scanner [OPTIONS]
+
+  Owasp SecureHeader scanner.
 
 Options:
   --version              Show the version and exit.
@@ -108,9 +86,104 @@ Options:
   --help                 Show this message and exit.
 ````
 
-##### Dependencies  
+### dashboard
+````bash
+# python cli.py web --help
+#
+Usage: cli.py web [OPTIONS] COMMAND
 
-check [requirements.txt](https://github.com/amenezes/headers/blob/master/requirements.txt).
+  Owasp SecureHeader web dashboard
+
+Options:
+  --help  Show this message and exit.
+````
+
+## Scanner Advanced
+
+### docker
+````bash
+docker-compose -f docker-compose.scanner.yml up -d
+````
+
+### bare metal
+
+#### mysql setup overview:  
+
+[![asciicast](https://asciinema.org/a/ehee1olc3qys1wbdz1zqmiu84.png)](https://asciinema.org/a/ehee1olc3qys1wbdz1zqmiu84)
+The scanner module it's responsible to catch all secure headers data from a csv file.
+
+#### setup, install and run scanner:
+
+````bash
+# install virtualevn
+#
+pip install virtualenv
+# create virtualenv locally
+#
+virtualenv venv
+# active virtualenv
+#
+source venv/bin/activate
+# install application dependencies
+#
+pip install -r requirements.txt
+# start application (web interface)
+#
+python cli.py scanner -f conf/develop.csv
+Thread pool 1 (0 - 1000)
+[*] connection error for <pclady.com.cn>
+[!] site <pclady.com.cn> will be excluded from the analysis
+
+Connections summary
+https: 3
+http: 2
+error: 2
+
+Cleaning database
+Tables: [header, site, header_value, header_name]
+
+Populating database...
+Table: site
+Table: header_value
+Table: header_name
+Table: header
+````
+
+## Dashboard Advanced
+
+![SecureHeaders Main Page](https://s3.amazonaws.com/reports.bsecteam.com/dashboard.png)
+The SecureHeaers webui provide an easyly way to see and search all data
+gathering with scanner module. For now it's possible to see a dashboard
+with main HTTP secure headers documented OWASP web page and also provide
+a way to search secure headers set in each page analyzed as your adoption
+by other users.
+
+### Installation
+#### docker
+```bash
+docker-compose -f docker-compose.dashboard.yml up -d
+```
+#### bare metal
+````bash
+# install virtualevn
+#
+pip install virtualenv
+# create virtualenv locally
+#
+virtualenv venv
+# active virtualenv
+#
+source venv/bin/activate
+# install application dependencies
+#
+pip install -r requirements.txt
+# start application (web interface)
+#
+python cli.py web start
+starting web dashboard...
+[*] application started on: http://localhost:5000/
+[*] press any key to stop...
+````
 
 ### More
 

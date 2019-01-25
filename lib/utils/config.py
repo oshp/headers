@@ -1,6 +1,4 @@
-HTTPS_SCHEME = 'https'
-HTTP_SCHEME = 'http'
-NO_SCHEME = ''
+# coding: utf-8
 HTTP_STATUS_CODE = 3
 SITE = 2
 MIME_TYPES = [

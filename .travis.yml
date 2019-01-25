@@ -20,9 +20,7 @@ script:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker image build -t oshp/secureheaders:$IMAGE_TAG -f docker/secureheaders/Dockerfile .
   - docker image build -t oshp/database:develop -f docker/database/Dockerfile .
-  - docker image tag oshp/secureheaders:$IMAGE_TAG oshp/scanner:$IMAGE_TAG
   - docker image push oshp/secureheaders:$IMAGE_TAG
-  - docker image push oshp/scanner:$IMAGE_TAG
   - docker image push oshp/database:develop
 env:
   global:

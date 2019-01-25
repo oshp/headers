@@ -1,5 +1,3 @@
-import functools
-
 from lib.secureheaders.xss import XXssProtection
 from lib.secureheaders.csp import ContentSecurityPolicy
 from lib.secureheaders.pkp import PublicKeyPins
@@ -10,11 +8,12 @@ from lib.secureheaders.rpolicy import ReferrerPolicy
 from lib.secureheaders.xpcdp import XPermittedCrossDomainPolicies
 
 from flask import (
-    Blueprint, request, jsonify
+    Blueprint, jsonify
 )
 
 
 bp = Blueprint('api', __name__, url_prefix='/api/v1/header')
+
 
 @bp.route('/x-xss-protection', methods=['GET'])
 def x_xss_protection():
@@ -25,13 +24,16 @@ def x_xss_protection():
 def public_key_pins():
     return jsonify(PublicKeyPins().get_datachart())
 
+
 @bp.route('/referrer-policy', methods=['GET'])
 def referer_policy():
     return jsonify(ReferrerPolicy().get_datachart())
 
+
 @bp.route('/x-permitted-cross-domain-policies', methods=['GET'])
 def x_permitted_cross_domain_policies():
     return jsonify(XPermittedCrossDomainPolicies().get_datachart())
+
 
 @bp.route('/x-frame-options', methods=['GET'])
 def x_frame_options():
