@@ -14,7 +14,7 @@ script:
   - echo '=== test oshp scanner ==='
   - mysql -u root -e 'create database headers;'
   - mysql -u root --password="$MYSQL_PASSWORD" headers < conf/sql/headers.sql || exit 1
-  - python cli.py -f conf/develop.csv || exit 1
+  - python cli.py scanner -f conf/develop.csv || exit 1
   - echo '=== test oshp web ==='
   - echo '=== build docker images ==='
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
