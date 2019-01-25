@@ -1,6 +1,6 @@
 version: '3'
 services:
-  mysqld:
+  mysql:
     image: oshp/database:develop
     networks:
       - traefik-net
@@ -20,6 +20,11 @@ services:
     image: oshp/secureheaders:latest
     networks:
       - traefik-net
+    environment:
+      REDIS_HOST: redis
+      REDIS_TTL: 86400
+      MenvironYSQL_HOST: mysql
+      SENTRY_DSN: https://0b8820db003145838f2ce9b023df9687:295a00639ad44cfd9074a2f594702f6c@sentry.io/144923
     deploy:
       labels:
         - traefik.enable=true
@@ -63,9 +68,9 @@ services:
       resources:
         limits:
           memory: 50M
-        placement:
-          constraints:
-            - node.role == manager
+      placement:
+        constraints:
+          - node.role == manager
   redis:
     image: redis:alpine
     networks:
@@ -77,13 +82,6 @@ services:
       resources:
         limits:
           memory: 5M
-  netdata:
-    image: firehol/netdata
-    ports:
-      - 19999:19999
-    volumes:
-      - /proc:/host/proc:ro
-      - /sys:/host/sys:ro
 
 networks:
   traefik-net:
