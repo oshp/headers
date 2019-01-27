@@ -3,6 +3,8 @@ import os
 import sys
 import mysql.connector
 
+import functools
+
 from mysql.connector.errors import InterfaceError
 
 from lib.utils.util import load_env_config
@@ -27,6 +29,7 @@ class MySQL():
             sys.exit(1)
         return conn
 
+    @functools.lru_cache(maxsize=128)
     def query(self, query):
         conn = self.get_db_connection()
         cursor = conn.cursor()
