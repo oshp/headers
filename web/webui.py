@@ -19,7 +19,6 @@ from raven.contrib.flask import Sentry
 from lib.utils.queries import (
     SELECT_SITE_HEADERS, GET_HTTP_HEADER_PERCENT
 )
-from lib.utils.config import MIME_TYPES
 
 load_env_config()
 db = MySQL()
@@ -27,7 +26,7 @@ compress = Compress()
 
 app = Flask(__name__, static_folder="static")
 app.secret_key = 'some_secret'
-app.config['COMPRESS_MIMETYPES'] = MIME_TYPES
+app.config['COMPRESS_MIMETYPES'] = os.getenv('MIME_TYPES').split(',')
 app.register_blueprint(api_header.bp)
 app.register_blueprint(api_headers.bp)
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})

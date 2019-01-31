@@ -19,6 +19,7 @@ def scanner_cli():
               '--file',
               'filename',
               show_default=True,
+              type=click.Path(exists=True, readable=True),
               default=os.getenv('TOPSTIES_FILENAME'),
               help='topsites file path.')
 @click.option('-t', 

@@ -9,59 +9,33 @@ from lib.utils.util import load_env_config
 
 from lib.database.rdms_db import MySQL
 from lib.scanner.scan import Scan
-
+from lib.secureheaders.site import Site
 
 class Headers():
 
     def __init__(self):
         load_env_config()
-        self.site_table = []
-        self.header_name_table = {}
-        self.header_value_table = {}
-        self.header_table = []
-        self.headers_counter = {'name': 0, 'value': 0}
+        self.headers_filter = os.getenv('HEADERS').lower().split(',')
         self.scanner = Scan()
-        self.load_header_name_table()
-
-    def load_header_name_table(self):
-        for header_name in os.getenv('HEADERS').lower().split(','):
-            self.test_duplicate_value(
-                header_name,
-                self.header_name_table,
-                'name')
+        self.data = []
 
     def work_headers(self, topsites_row):
         try:
-            site_id = topsites_row[0]
-            site = topsites_row[1]
-            response = self.scanner.connection(site)
+            site = Site({'id': topsites_row[0], 'domain': topsites_row[1]})
+            response = self.scanner.connect(site['domain'])
             if response  or (response['status_code' == 200]):
-                self.site_table.append([site_id, site, response['url'], response['status_code']])
-                for header_name, header_value in response['headers'].items():
-                    if header_name in self.header_name_table:
-                        hvalue = self.test_duplicate_value(header_value,
-                                                           self.header_value_table,
-                                                           'value')
-                        self.header_table.append([site_id,
-                                                  self.header_name_table[header_name],
-                                                  hvalue])
+                site.update({'url': response['url']})
+                site.update({'status_code': response['status_code']})
+                for header in response['headers'].keys():
+                    if header in self.headers_filter:
+                        site['headers'].update({header: response['headers'][header]})
+            self.data.append(site)
         except TypeError:
-            print("[!] site <{}> will be excluded from the analysis".format(site))
-
-    def test_duplicate_value(self, value, table, index_name):
-        if value not in table:
-            self.headers_counter[index_name] += 1
-            table[value] = self.headers_counter[index_name]
-            return self.headers_counter[index_name]
-        else:
-            return table[value]
+            print("[!] site <{}> will be excluded from the analysis".format(topsites_row[1]))
 
     def save_data(self):
         database = MySQL()
-        database.populate_mysql(self.site_table,
-                                self.header_name_table,
-                                self.header_value_table,
-                                self.header_table)
+        database.populate_mysql(self.data)
 
     def run(self, filename, num_threads):
         dictsites = get_dictsites(filename)
@@ -73,5 +47,5 @@ class Headers():
             threads = [gevent.spawn(self.work_headers, item) for item in dictsites[start:start+num_threads]]
             gevent.joinall(threads)
             start += num_threads
-        self.scanner.get_summary(self.site_table)
+        self.scanner.get_summary(self.data)
         self.save_data()

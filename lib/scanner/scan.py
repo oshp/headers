@@ -3,17 +3,10 @@ import requests
 import os
 
 from urllib.parse import urlparse
-
 from lib.utils.util import load_env_config
-
 from requests.exceptions import (
     HTTPError, ConnectionError, Timeout
 )
-
-from lib.utils.config import (
-    HTTP_STATUS_CODE, SITE
-)
-
 
 class Scan():
 
@@ -25,7 +18,7 @@ class Scan():
         load_env_config()
         requests.packages.urllib3.disable_warnings()
 
-    def connection(self, url, scheme='http'):
+    def connect(self, url, scheme='http'):
         headers = {
             'User-Agent': "OWASP SecureHeaders Project v4.0.0 (https://goo.gl/2SbYhw)",
             'Origin': "{}".format(os.getenv('ORIGIN'))
@@ -55,7 +48,7 @@ class Scan():
         else:
             return response_data
 
-    def gen_stats(self, code, url):
+    def _gen_stats(self, code, url):
         if (400 <= code <= 500):
             self.cerror += 1
         elif code == 200:
@@ -64,9 +57,9 @@ class Scan():
             elif urlparse(url).scheme == 'https':
                 self.chttps += 1
 
-    def get_summary(self, site_table):
-        for site in site_table:
-            self.gen_stats(site[HTTP_STATUS_CODE], site[SITE])
+    def get_summary(self, sites):
+        for site in sites:
+            self._gen_stats(site['status_code'], site['url'])
         print('')
         print('Connections summary')
         print('https: {}'.format(self.chttps))

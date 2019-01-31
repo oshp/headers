@@ -14,6 +14,7 @@ class MySQL():
 
     def __init__(self):
         load_env_config()
+        self.headers_filter = os.getenv('HEADERS').lower().split(',')
 
     def get_db_connection(self):
         try:
@@ -29,7 +30,7 @@ class MySQL():
             sys.exit(1)
         return conn
 
-    @functools.lru_cache(maxsize=128)
+    @functools.lru_cache(maxsize=64)
     def query(self, query):
         conn = self.get_db_connection()
         cursor = conn.cursor()
@@ -63,26 +64,47 @@ class MySQL():
         conn.commit()
         cursor.close()
 
-    def save(self, command, table_name, table):
-        print('Table: {}'.format(table_name))
-        conn = self.get_db_connection()
-        cursor = conn.cursor()
-        if type(table) is list:
-            for x in table:
-                cursor.execute(command, tuple(x))
-        elif type(table) is dict:
-            for x in table.items():
-                cursor.execute(command, x)
-        conn.commit()
-        cursor.close()
-        conn.close()
+    def _site_table(self, data):
+        return [[site['id'], site['domain'], site['url'], site['status_code']] for site in data] 
+    
+    def _header_value_table(self, data):
+        count = 0
+        table = {}
+        for site in data:
+            for header_name in site['headers'].keys():
+                if header_name not in table.keys():
+                    count += 1
+                    table[site['headers'][header_name]] = count
+        return table
+                
+    def _header_name_table(self, data):
+        count = 0
+        table = {}
+        for site in data:
+            for header_name in site['headers'].keys():
+                if header_name not in table.keys():
+                    count += 1
+                    table[header_name] = count
+        return table
 
-    def populate_mysql(self, site_table,
-                       header_name_table,
-                       header_value_table,
-                       header_table):
+    def _h_table(self, data, header_value_table, header_name_table):
+        table = []
+        for site in data:
+            for header in site['headers'].keys():
+                table.append([site['id'],
+                    header_name_table[header],
+                    header_value_table[site['headers'][header]]])
+        return table
+
+    def populate_mysql(self, data):
         self.clear_database()
         print('Populating database...')
+        
+        site_table = self._site_table(data)
+        header_value_table = self._header_value_table(data)
+        header_name_table = self._header_name_table(data)
+        h_table = self._h_table(data, header_value_table, header_name_table)
+
         tables = [
             [
                 'INSERT INTO `site` (`site_id`, `site`, `url`, `code`) VALUES (%s, %s, %s, %s)',
@@ -102,8 +124,22 @@ class MySQL():
             [
                 'INSERT INTO `header` (`site_id`, `header_name_id`, `header_value_id`) VALUES (%s, %s, %s)',
                 'header',
-                header_table
+                h_table
             ]
         ]
         for command, table_name, table in tables:
             self.save(command, table_name, table)
+
+    def save(self, command, table_name, table):
+        print('Table: {}'.format(table_name))
+        conn = self.get_db_connection()
+        cursor = conn.cursor()
+        if type(table) is list:
+            for x in table:
+                cursor.execute(command, tuple(x))
+        elif type(table) is dict:
+            for x in table.items():
+                cursor.execute(command, x)
+        conn.commit()
+        cursor.close()
+        conn.close()

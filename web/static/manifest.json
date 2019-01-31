@@ -28,6 +28,7 @@
       "type": "image/png"
     }
   ],
+  "scope": "/",
   "start_url": "/summary",
   "display": "standalone",
   "background_color": "#F7F7F7",
