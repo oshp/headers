@@ -8,6 +8,7 @@ from requests.exceptions import (
     HTTPError, ConnectionError, Timeout
 )
 
+
 class Scan():
 
     chttp = 0

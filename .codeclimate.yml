@@ -22,6 +22,8 @@ ratings:
     - "lib/**.py"
     - "web/**.py"
 exclude_paths:
+- "lib/utils/queries.py"
+- "web/static/build/*"
 - "web/static/dist/*"
 - "web/static/echarts/**"
 - "web/static/fastclick/*"

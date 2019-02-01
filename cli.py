@@ -15,7 +15,7 @@ def scanner_cli():
 @scanner_cli.command()
 @click.version_option(version='4.0.0', 
                       prog_name='Owasp SecureHeader Scanner')
-@click.option('-f', 
+@click.option('-f',
               '--file',
               'filename',
               show_default=True,
@@ -27,7 +27,7 @@ def scanner_cli():
               'threads_number',
               type=int,
               show_default=True,
-              default=os.getenv('THREAD_NUMBER'), 
+              default=os.getenv('THREAD_NUMBER'),
               help='number of threads.')
 def scanner(filename, threads_number):
     """ Owasp SecureHeader scanner. """
@@ -51,6 +51,7 @@ def web(command):
         process.kill()
     else:
         click.echo('[*] valid commands is: [start]')
+
 
 cli = click.CommandCollection(sources=[scanner_cli, web_cli])
 

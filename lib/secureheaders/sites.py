@@ -6,6 +6,4 @@ class Sites():
 
     def __init__(self):
        self.sites = 'sites'
-       self.options = {
-           'total': TOTAL_SITES
-       }
+       self.options = {'total': TOTAL_SITES}

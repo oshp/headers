@@ -1,4 +1,4 @@
-# SecureHeaders 
+# SecureHeaders
 
 [![Build Status](https://travis-ci.org/oshp/headers.svg?branch=master)](https://travis-ci.org/oshp/headers)
 [![Maintainability](https://api.codeclimate.com/v1/badges/9abf0feda40825b531a9/maintainability)](https://codeclimate.com/github/oshp/headers/maintainability)
@@ -7,6 +7,7 @@
 OWASP SecureHeaders Project  
 
 SecureHeaders project consist in two main modules:
+
 1. an engine to scan a list of sites fastly and with minimal resources;
 2. a web interface with a dashboard to view, search and customize besides
 provide insight and feedback about the use of HTTP secure headers.
@@ -28,6 +29,7 @@ help make web applications more secure.
 ## Configuration (Dashboard | Scanner)
 
 Edit `.env` file or set environment variable:
+
 ````txt
 # general settings
 ## scanner
@@ -60,6 +62,7 @@ MIME_TYPES=text/html,text/html; charset=utf-8,text/css,text/xml,application/json
 ````
 
 ## Usage
+
 ````bash
 # python cli.py --help
 #
@@ -74,6 +77,7 @@ Commands:
 ````
 
 ### scanner
+
 ````bash
 # python cli.py scanner --help
 #
@@ -90,6 +94,7 @@ Options:
 ````
 
 ### dashboard
+
 ````bash
 # python cli.py web --help
 #
@@ -100,18 +105,20 @@ Usage: cli.py web [OPTIONS] COMMAND
 Options:
   --help  Show this message and exit.
 ````
+
 > valid command to start is: `./cli.py web start`
 
 ## Scanner Advanced
 
 ### docker
+
 ````bash
 docker-compose -f docker-compose.scanner.yml up -d
 ````
 
 ### bare metal
 
-#### mysql setup overview:  
+#### mysql setup overview:
 
 [![asciicast](https://asciinema.org/a/ehee1olc3qys1wbdz1zqmiu84.png)](https://asciinema.org/a/ehee1olc3qys1wbdz1zqmiu84)
 The scanner module it's responsible to catch all secure headers data from a csv file.
@@ -163,11 +170,14 @@ a way to search secure headers set in each page analyzed as your adoption
 by other users.
 
 ### Installation
+
 #### docker
+
 ```bash
 docker-compose -f docker-compose.dashboard.yml up -d
 ```
 #### bare metal
+
 ````bash
 # install virtualevn
 #

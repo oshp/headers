@@ -5,6 +5,7 @@ import mysql.connector
 
 import functools
 
+from mysql.connector.errors import Error
 from mysql.connector.errors import InterfaceError
 
 from lib.utils.util import load_env_config
@@ -38,7 +39,7 @@ class MySQL():
         try:
             cursor.execute(query)
             results = cursor.fetchall()
-        except:
+        except Error:
             print("[!] error: unable to fecth data")
         finally:
             conn.commit()
@@ -65,8 +66,8 @@ class MySQL():
         cursor.close()
 
     def _site_table(self, data):
-        return [[site['id'], site['domain'], site['url'], site['status_code']] for site in data] 
-    
+        return [[site['id'], site['domain'], site['url'], site['status_code']] for site in data]
+
     def _header_value_table(self, data):
         count = 0
         table = {}
@@ -76,7 +77,7 @@ class MySQL():
                     count += 1
                     table[site['headers'][header_name]] = count
         return table
-                
+
     def _header_name_table(self, data):
         count = 0
         table = {}
@@ -93,13 +94,14 @@ class MySQL():
             for header in site['headers'].keys():
                 table.append([site['id'],
                     header_name_table[header],
-                    header_value_table[site['headers'][header]]])
+                    header_value_table[site['headers'][header]]
+                ])
         return table
 
     def populate_mysql(self, data):
         self.clear_database()
         print('Populating database...')
-        
+
         site_table = self._site_table(data)
         header_value_table = self._header_value_table(data)
         header_name_table = self._header_name_table(data)
