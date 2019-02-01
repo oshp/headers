@@ -16,6 +16,6 @@ EXPOSE 5000
 HEALTHCHECK --interval=10s --timeout=5s --start-period=30s --retries=4 \
   CMD curl http://localhost:5000/ || exit 1
 
-ENTRYPOINT ["/app/docker/secureheaders/docker-entrypoint.sh"]
-
 ENV NEW_RELIC_LICENSE_KEY ''
+
+ENTRYPOINT ["/app/docker/secureheaders/docker-entrypoint.sh"]

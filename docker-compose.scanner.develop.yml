@@ -22,5 +22,6 @@ services:
     entrypoint:
       - python
       - cli.py
+      - scanner
       - -f
       - conf/develop.csv

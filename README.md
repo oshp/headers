@@ -50,10 +50,13 @@ MYSQL_DATABASE=headers
 REDIS_HOST=localhost
 REDIS_PORT=6379
 REDIS_DB=0
-REDIS_TTL=30
+REDIS_TTL=60
 
 # http header filters
 HEADERS=strict-transport-security,public-key-pins,x-xss-protection,x-frame-options,x-content-type-options,content-security-policy,x-permitted-cross-domain-policies,referrer-policy
+
+# plugins settings
+MIME_TYPES=text/html,text/html; charset=utf-8,text/css,text/xml,application/json,image/png,application/javascript,image/jpeg
 ````
 
 ## Usage
@@ -80,7 +83,7 @@ Usage: cli.py scanner [OPTIONS]
 
 Options:
   --version              Show the version and exit.
-  -f, --file TEXT        topsites file path.  [default:
+  -f, --file PATH        topsites file path.  [default:
                          conf/topsites_global.csv]
   -t, --threads INTEGER  number of threads.  [default: 1000]
   --help                 Show this message and exit.
@@ -97,6 +100,7 @@ Usage: cli.py web [OPTIONS] COMMAND
 Options:
   --help  Show this message and exit.
 ````
+> valid command to start is: `./cli.py web start`
 
 ## Scanner Advanced
 
