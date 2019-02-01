@@ -10,22 +10,8 @@ COUNT_HEADER_BY_NAME = "SELECT " \
     "ON " \
         "h.header_name_id = hn.header_name_id " \
     "WHERE " \
-        "name = \"%s\""
+        "name = \"{header_name}\""
 TOTAL_SITES = "SELECT COUNT(site) FROM site"
-COUNT_HEADER_OPTION_SIMPLE = "SELECT " \
-    "COUNT(h.header_value_id) " \
-    "FROM " \
-        "header AS h " \
-    "JOIN " \
-        "header_name as hn " \
-    "ON " \
-        "h.header_name_id = hn.header_name_id " \
-    "JOIN " \
-        "header_value AS hv " \
-    "ON " \
-        "h.header_value_id = hv.header_value_id " \
-    "WHERE " \
-        "name = \"{}\" and value like \"{}\""
 COUNT_HEADER_OPTION = "SELECT " \
     "COUNT(h.header_value_id) " \
     "FROM " \
@@ -39,7 +25,7 @@ COUNT_HEADER_OPTION = "SELECT " \
     "ON " \
         "h.header_value_id = hv.header_value_id " \
     "WHERE " \
-        "name = \"{}\" and value like \"%{}%\""
+        "name = \"{}\" and value like \"{}\""
 # x-content-type-options
 QTD_XCTO_OTHER = "SELECT " \
     "COUNT(h.header_value_id) " \
@@ -107,7 +93,7 @@ SELECT_SITE_HEADERS = "SELECT " \
     "ON " \
         "h.header_value_id = hv.header_value_id " \
     "WHERE " \
-        "site = \"%s\""
+        "site = \"{site_name}\""
 GET_HTTP_HEADER_PERCENT = "SELECT " \
         "(COUNT(h.header_value_id)*100 / " \
     "(SELECT COUNT(header_value_id) " \
@@ -118,7 +104,7 @@ GET_HTTP_HEADER_PERCENT = "SELECT " \
     "ON " \
         "header.header_name_id = header_name.header_name_id " \
     "WHERE " \
-        "name = \"%s\")) as percent " \
+        "name = \"{header_name}\")) as percent " \
     "FROM header AS h " \
     "JOIN " \
         "header_name AS hn " \
@@ -129,6 +115,6 @@ GET_HTTP_HEADER_PERCENT = "SELECT " \
     "ON " \
         "h.header_value_id = hv.header_value_id " \
     "WHERE " \
-        "name = \"%s\" " \
+        "name = \"{header_name}\" " \
     "AND " \
-        "value = \"%s\""
+        "value = \"{header_value}\""

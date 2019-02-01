@@ -1,6 +1,6 @@
 {
-  "name": "headers",
-  "description": "",
+  "name": "secureheaders",
+  "description": "OWASP SecureHeader Project",
   "scripts": {
   },
   "env": {

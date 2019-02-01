@@ -1,76 +1,67 @@
-import urllib2
-from urlparse import urlparse
-import socket
-import httplib
+# coding: utf-8
+import requests
+import os
 
-#test
-import os.path
+from urllib.parse import urlparse
+from lib.utils.util import load_env_config
+from requests.exceptions import (
+    HTTPError, ConnectionError, Timeout
+)
 
-from lib.utils.config import HTTP_SCHEME
-from lib.utils.config import HTTPS_SCHEME
-from lib.utils.config import NO_SCHEME
-from lib.utils.config import HTTP_STATUS_CODE
-from lib.utils.config import SITE
+class Scan():
 
-class Scan(object):
+    chttp = 0
+    chttps = 0
+    cerror = 0
 
+    def __init__(self):
+        load_env_config()
+        requests.packages.urllib3.disable_warnings()
 
-    def __init__(self, settings):
-        self.settings = settings
-
-    def connection(self, url, scheme=HTTPS_SCHEME):
-        site = scheme + '://' + url
-        req = urllib2.Request(site)
-        req.add_header('User-Agent', self.settings['http']['user_agent'])
-        req.add_header('Origin', self.settings['http']['origin'])
+    def connect(self, url, scheme='http'):
+        headers = {
+            'User-Agent': "OWASP SecureHeaders Project v4.0.0 (https://goo.gl/2SbYhw)",
+            'Origin': "{}".format(os.getenv('ORIGIN'))
+        }
+        response_data = {
+            "url": "",
+            "status_code": "",
+            "headers": {}
+        }
+        uri = "{}://{}".format(scheme, url)
         try:
-            response = urllib2.urlopen(req, timeout=3)
-        except socket.error as error:
-            return str(error), -1, ''
-        except urllib2.URLError as error:
-            return str(error.reason), -2, ''
-        except httplib.HTTPException as error:
-            return str(error), -3, ''
+            response = requests.get(uri,
+                                    headers=headers,
+                                    timeout=3,
+                                    allow_redirects=True,
+                                    verify=False)
+            response_data['url'] = response.url
+            response_data['status_code'] = response.status_code
+            response_data['headers'] = {hname.lower(): hvalue.lower()
+                for hname, hvalue in dict(response.headers).items()}
+        except ConnectionError:
+            print("[*] connection error for <{}>".format(url))
+        except HTTPError:
+            print("[*] error requesting <{}>...".format(url))
+        except Timeout:
+            print("[*] timeout expired for <{}>".format(url))
         else:
-            return response.geturl(), response.getcode(), response.info().items()
+            return response_data
 
-    def get_data(self, site):
-        newurl, code, headers = self.connection(site)
-        if code < 0:
-            newurl, code, headers = self.connection(site, HTTP_SCHEME)
-        return newurl, code, headers
+    def _gen_stats(self, code, url):
+        if (400 <= code <= 500):
+            self.cerror += 1
+        elif code == 200:
+            if urlparse(url).scheme == 'http':
+                self.chttp += 1
+            elif urlparse(url).scheme == 'https':
+                self.chttps += 1
 
-    #test
-    def download_file(self, url):
-        try:
-            response = urllib2.urlopen(url)
-            html = response.read()
-            with open('conf/topsites_global.csv', "wb") as local_file:
-                local_file.write(html)
-        except urllib2.HTTPError as error:
-            return str(error.code)
-        except urllib2.URLError as error:
-            return str(error.reason)
-
-    def test_scheme(self, code, url, scheme):
-        if (code == 200 or code < 0) and urlparse(url).scheme == scheme:
-            yield 1
-        else:
-            yield 0
-
-    def gen_stats(self, code, url, scheme):
-        return self.test_scheme(code, url, scheme)
-
-    def get_summary(self, site_table):
-        chttp = 0
-        chttps = 0
-        cerror = 0
-        for site in site_table:
-            chttps += self.gen_stats(site[HTTP_STATUS_CODE], site[SITE], HTTPS_SCHEME).next()
-            chttp += self.gen_stats(site[HTTP_STATUS_CODE], site[SITE], HTTP_SCHEME).next()
-            cerror += self.gen_stats(site[HTTP_STATUS_CODE], site[SITE], NO_SCHEME).next()
+    def get_summary(self, sites):
+        for site in sites:
+            self._gen_stats(site['status_code'], site['url'])
         print('')
         print('Connections summary')
-        print('https: {}').format(chttps)
-        print('http: {}').format(chttp)
-        print('error: {}').format(cerror)
+        print('https: {}'.format(self.chttps))
+        print('http: {}'.format(self.chttp))
+        print('error: {}'.format(self.cerror))

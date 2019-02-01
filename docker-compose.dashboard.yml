@@ -1,0 +1,45 @@
+version: '3'
+services:
+  mysql:
+    image: oshp/database:develop
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: headers
+      MYSQL_USER: mysql
+      MYSQL_PASSWORD: password
+  oshp:
+    image: oshp/secureheaders:4.0.0
+    container_name: oshp
+    depends_on:
+      - mysql
+    labels:
+      - traefik.enable=true
+      - traefik.backend=oshp
+      - traefik.port=5000
+      - traefik.backend.loadbalancer.method=drr
+      - traefik.frontend.rule=PathPrefix:/
+    environment:
+      MYSQL_HOST: mysql
+      REDIS_HOST: redis
+  proxy:
+    image: traefik:alpine
+    container_name: proxy
+    command:
+      - --accesslog
+      - --api
+      - --api.dashboard
+      - --api.statistics
+      - --api.statistics.recenterrors=10
+      - --docker
+      - --docker.domain=localhost
+      - --docker.watch=true
+      - --docker.exposedbydefault=false
+    ports:
+      - 80:80
+      - 8080:8080
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  redis:
+    image: redis:alpine
+    container_name: redis

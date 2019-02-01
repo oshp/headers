@@ -11,7 +11,6 @@
 
 {% block body %}
 <div class="right_col" role="main">
-  <!--<div class="">-->
     <div class="page-title">
 
     </div>
@@ -141,7 +140,7 @@
                     <div class="block_content">
                       <h2 class="title">
                           <a><b>X-Permitted-Cross-Domain-Policies</b></a>
-                          <span class="badge">-</span>
+                          <span class="badge" id="x_permitted_cross_domain_policies_total">-</span>
                       </h2>
                         <p class="excerpt">A cross-domain policy file is an XML document that grants a web client permission to handle data across domains. <a href="https://www.owasp.org/index.php/OWASP_Secure_Headers_Project#xpcdp">more</a>.
                       </p>
@@ -150,7 +149,7 @@
                     <div class="block_content">
                       <h2 class="title">
                           <a><b>Referrer-Policy</b></a>
-                          <span class="badge">-</span>
+                          <span class="badge" id="referrer_policy_total">-</span>
                       </h2>
                       <div class="byline">
                       </div>
@@ -322,9 +321,7 @@
       <!-- end of bar chart -->
 
     </div>
-
   </div>
-<!--</div>-->
 
 <script type=text/javascript src="{{ url_for('static', filename='echarts/dist/echarts.min.js') }}"></script>
 {% endblock %}

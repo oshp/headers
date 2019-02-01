@@ -631,9 +631,8 @@ if (typeof NProgress != 'undefined') {
 
 			  //echart Bar
 			if ($('#mainb').length ){
-
           $.ajax({
-            url: '/pkp',
+            url: '/api/v1/header/public-key-pins',
             data: $('form').serialize(),
             type: 'GET',
             success: function(response){
@@ -699,7 +698,7 @@ if (typeof NProgress != 'undefined') {
 			if ($('#echart_sonar').length ){
 
         $.ajax({
-          url: '/xxss',
+          url: '/api/v1/header/x-xss-protection',
           data: $('form').serialize(),
           type: 'GET',
           success: function(response){
@@ -787,7 +786,7 @@ if (typeof NProgress != 'undefined') {
 	   //echart Pie Collapse
 			if ($('#xfo').length ){
         $.ajax({
-          url: '/xfo',
+          url: '/api/v1/header/x-frame-options',
           data: $('form').serialize(),
           type: 'GET',
           success: function(response){
@@ -862,7 +861,7 @@ if (typeof NProgress != 'undefined') {
       // Total Sites
     if ($('#sites_scannned').length ){
         $.ajax({
-          url: '/total',
+          url: '/api/v1/headers/total',
           data: $('form').serialize(),
           type: 'GET',
           success: function(response){
@@ -878,7 +877,7 @@ if (typeof NProgress != 'undefined') {
 			//echart Donut
 			if ($('#xcto_donut').length ){
         $.ajax({
-          url: '/xcto',
+          url: '/api/v1/header/x-content-type-options',
           data: $('form').serialize(),
           type: 'GET',
           success: function(response){
@@ -964,12 +963,42 @@ if (typeof NProgress != 'undefined') {
           console.log(error);
             }
           });
-      }
+			}
+
+			//Referrer-Policy
+      if ($('#referrer_policy_total').length ){
+        $.ajax({
+          url: '/api/v1/header/referrer-policy',
+          data: $('form').serialize(),
+          type: 'GET',
+          success: function(response){
+						var header = document.getElementById('referrer_policy_total');
+						while (header.firstChild) {
+							header.removeChild(header.firstChild);
+						}
+						header.appendChild(document.createTextNode(response['total']));
+					}});
+			}
+			
+			//X-Permitted-Cross-Domain-Policies
+      if ($('#x_permitted_cross_domain_policies_total').length ){
+        $.ajax({
+          url: '/api/v1/header/x-permitted-cross-domain-policies',
+          data: $('form').serialize(),
+          type: 'GET',
+          success: function(response){
+						var header = document.getElementById('x_permitted_cross_domain_policies_total');
+						while (header.firstChild) {
+							header.removeChild(header.firstChild);
+						}
+						header.appendChild(document.createTextNode(response['total']));
+					}});
+			}
 
       //echart Pie
       if ($('#echart_pie').length ){
         $.ajax({
-          url: '/sts',
+          url: '/api/v1/header/strict-transport-security',
           data: $('form').serialize(),
           type: 'GET',
           success: function(response){
@@ -1067,7 +1096,7 @@ if (typeof NProgress != 'undefined') {
     //echart Line
     if ($('#echart_line').length ){
       $.ajax({
-        url: '/csp',
+        url: '/api/v1/header/content-security-policy',
         data: $('form').serialize(),
         type: 'GET',
         success: function(response){
@@ -1092,7 +1121,7 @@ if (typeof NProgress != 'undefined') {
       legend: {
         x: 220,
         y: 40,
-        data: ['Q1']
+        data: ['analysis']
       },
       toolbox: {
         show: true,
@@ -1100,12 +1129,9 @@ if (typeof NProgress != 'undefined') {
         magicType: {
           show: true,
           title: {
-          line: 'Line',
           bar: 'Bar',
-          stack: 'Stack',
-          tiled: 'Tiled'
           },
-          type: ['line', 'bar', 'stack', 'tiled']
+          type: ['bar']
         },
         restore: {
           show: true,
@@ -1119,7 +1145,7 @@ if (typeof NProgress != 'undefined') {
       },
       calculable: true,
       xAxis: [{
-        type: 'category',
+				type: 'category',
         boundaryGap: false,
         data: [
           'script-src',
@@ -1151,8 +1177,8 @@ if (typeof NProgress != 'undefined') {
         type: 'value'
       }],
       series: [{
-        name: 'Q1',
-        type: 'line',
+        name: 'analysis',
+        type: 'bar',
         smooth: true,
         itemStyle: {
         normal: {

@@ -1,25 +1,29 @@
-sudo: required
-
+language: python
+cache: pip
+python:
+  - 3.6
 services:
   - docker
-
-env:
-  DOCKER_COMPOSE_VERSION: 1.14.0
-
-before_install:
-  - sudo rm /usr/local/bin/docker-compose
-  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-  - chmod +x docker-compose
-  - sudo mv docker-compose /usr/local/bin
-  - docker-compose version
-  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-  - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-  - sudo apt-get update
-  - sudo apt-get -y install docker-ce
-  - docker --version
-
+  - mysql
+  - redis-server
+install:
+  - pip install -r requirements.txt
 script:
-  - docker-compose build
-  - docker-compose up -d
-  - sleep 10
-  - docker-compose ps
+  - echo '=== unit tests ==='
+  - python -m pytest -v
+  - echo '=== test oshp scanner ==='
+  - mysql -u root -e 'create database headers;'
+  - mysql -u root --password="$MYSQL_PASSWORD" headers < conf/sql/headers.sql || exit 1
+  - python cli.py scanner -f conf/develop.csv || exit 1
+  - echo '=== test oshp web ==='
+  - echo '=== build docker images ==='
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker image build -t oshp/secureheaders:$IMAGE_TAG -f docker/secureheaders/Dockerfile .
+  - docker image build -t oshp/database:develop -f docker/database/Dockerfile .
+  - docker image push oshp/secureheaders:$IMAGE_TAG
+  - docker image push oshp/database:develop
+env:
+  global:
+    - IMAGE_TAG=4.0.0
+    - MYSQL_PASSWORD=''
+    - REDIS_HOST=''

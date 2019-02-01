@@ -1,17 +1,16 @@
+# coding: utf-8
+from lib.secureheaders.header import Header
+
 from lib.utils.queries import QTD_XCTO_OTHER
-from lib.utils.queries import COUNT_HEADER_BY_NAME
-from lib.utils.queries import COUNT_HEADER_OPTION
-
-class XCTO(object):
 
 
-    def __init__(self):
-        self.name = 'x-content-type-options'
-        self.options = {
-            'nosniff': COUNT_HEADER_OPTION.format(self.name, 'nosniff'),
-            'other': QTD_XCTO_OTHER,
-            'total': (COUNT_HEADER_BY_NAME % self.name)
-        }
+class XContentTypeOptions(Header):
+    """ X-Content-Type-Options HTTP header  """
 
-    def total(self):
-        return COUNT_HEADER_BY_NAME % self.name
+    name = 'x-content-type-options'
+    header_options = [
+        '%nosniff%'
+    ]
+    extra_options = {
+        'other': QTD_XCTO_OTHER
+    }

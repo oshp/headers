@@ -108,7 +108,7 @@
         {% block footer %}
         <footer>
           <div class="pull-right">
-            The OWASP Secure Headers Project | v3.1.1 (cn:Scotch)
+            The OWASP Secure Headers Project | v4.0.0 (cn:jagerm)
           </div>
           <div class="clearfix"></div>
         </footer>
@@ -122,7 +122,7 @@
     <script type=text/javascript src="{{ url_for('static', filename='fastclick/lib/fastclick.min.js') }}"></script>
     <script type=text/javascript src="{{ url_for('static', filename='nprogress/nprogress.min.js') }}"></script>
 
-    <script type=text/javascript src="{{ url_for('static', filename='build/js/custom.min.js') }}"></script>
+    <script type=text/javascript src="{{ url_for('static', filename='build/js/custom.js') }}"></script>
     {% block pnotify %}
 
     {% endblock %}
@@ -133,10 +133,14 @@
 
     <script type=text/javascript src="{{ url_for('static', filename='build/js/datatable.js') }}" async></script>
 
-    {% with flashes = get_flashed_messages() %}
+    {% with flashes = get_flashed_messages(with_categories=true) %}
       {% if flashes %}
-        {% for message in flashes %}
-          <script type="text/javascript" src="{{ url_for('static', filename='build/js/notify.js') }}" async></script>
+        {% for category, message in flashes %}
+          {% if category == 'notfound' %}
+          <script type="text/javascript" src="{{ url_for('static', filename='build/js/notify-notfound.js') }}" async></script>
+          {% else %}
+          <script type="text/javascript" src="{{ url_for('static', filename='build/js/notify-notset.js') }}" async></script>
+          {% endif %}
         {% endfor %}
       {% endif %}
     {% endwith %}

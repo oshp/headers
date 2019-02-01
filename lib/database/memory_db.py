@@ -1,21 +1,27 @@
+# coding: utf-8
 import redis
 import json
+import os
 
-class Datacache(object):
+from lib.utils.util import load_env_config
 
 
-    def __init__(self, settings):
+class Redis():
+
+    def __init__(self):
+        load_env_config()
+
         self.r = redis.StrictRedis(
-            host=settings['redis']['host'],
-            port=settings['redis']['port'],
-            db=settings['redis']['db'])
+            host=os.getenv("REDIS_HOST"),
+            port=os.getenv("REDIS_PORT"),
+            db=os.getenv("REDIS_DB"))
 
     def check_cache(self, hkey):
         return self.r.exists(hkey)
 
     def add_in_cache(self, hkey, data):
         self.r.set(hkey, json.dumps(data))
-        self.r.expire(hkey, 86400)
+        self.r.expire(hkey, os.getenv("REDIS_TTL"))
 
     def get_data_cache(self, hkey):
         data = self.r.get(hkey)
