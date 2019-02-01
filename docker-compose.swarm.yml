@@ -17,14 +17,15 @@ services:
         limits:
           memory: 200M
   oshp:
-    image: oshp/secureheaders:latest
+    image: oshp/secureheaders:4.0.0
     networks:
       - traefik-net
     environment:
       REDIS_HOST: redis
       REDIS_TTL: 86400
-      MenvironYSQL_HOST: mysql
-      SENTRY_DSN: https://0b8820db003145838f2ce9b023df9687:295a00639ad44cfd9074a2f594702f6c@sentry.io/144923
+      MYSQL_HOST: mysql
+      SENTRY_ENABLED: 'True'
+      NEW_RELIC_LICENSE_KEY: ''
     deploy:
       labels:
         - traefik.enable=true
