@@ -34,7 +34,7 @@ Edit `.env` file or set environment variable:
 # general settings
 ## scanner
 THREAD_NUMBER=1000
-TOPSTIES_FILENAME=conf/topsites_global.csv
+TOPSITES_FILENAME=conf/topsites_global.csv
 SENTRY_ENABLED=False
 SENTRY_DSN=''
 
