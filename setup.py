@@ -35,7 +35,7 @@ setup(
     'gunicorn==19.9.0',
     'idna==2.8',
     'itsdangerous==1.1.0',
-    'Jinja2==2.10',
+    'Jinja2==2.11.3',
     'MarkupSafe==1.1.0',
     'more-itertools==5.0.0',
     'mysql-connector==2.1.6',
